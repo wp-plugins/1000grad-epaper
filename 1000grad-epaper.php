@@ -3,7 +3,7 @@
 Plugin Name: 1000°ePaper
 Plugin URI: http://www.1000grad-epaper.de/loesungen/wp-plugin
 Description: Konvertieren Sie Ihre PDF in ein blätterbares Web-Dokument und binden Sie es mit einem Widget ein. Auch auf Android, iPad & Co. macht Ihr ePaper in der automatischen HTML5-Darstellung einen sehr guten Eindruck.
-Version: 0.9.5
+Version: 0.9.6
 Author: 1000°DIGITAL Leipzig GmbH
 Author URI: http://www.1000grad-epaper.de/
 */
@@ -173,7 +173,7 @@ function epaperIntegrationMenu() {
     if ($url=="") 
       $url=$epaper_options['channelurl'.$nr];
     
-    $html="<a class='iframe cboxElement' href='";
+    $html="<a class='iframe' href='";
     $html.=$url."'";
     $html.='> <img class="alignright" src="';
     $html.=$url.'/epaper/epaper-ani.gif" alt="epaper preview gif" border="0" /> </a>';
@@ -1375,7 +1375,7 @@ function epaperChannelShowBox($channelinfo,$channelnr) {
     $html="<a class='iframe cboxElement' href='";
     $html.=$url."'";
     $html.='> <img src="';
-    $html.=$url.'epaper/epaper-ani.gif" alt="epaper preview gif" border="0" /> </a>';
+    $html.=$url.'epaper/epaper-ani.gif?rnd='.rand(1000, 9999).'" alt="epaper preview gif" border="0" /> </a>';
     $html.='<script>    jQuery(".iframe").colorbox({iframe:true, width:"90%", height:"95%"}); </script>';
     
     
