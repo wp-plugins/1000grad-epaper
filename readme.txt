@@ -1,15 +1,27 @@
 === Plugin Name ===
 Contributors: 1000grad
 Donate link: 
-Tags: epaper pdf 
+Tags: epaper pdf epaper emag emagazin e-magazin pageflip emagazine e-magazine 3d-zeitschrift 3dzeitschrift blätterkatalog flashflip flashflipp flipmagazine
 Requires at least: 3.4
 Tested up to: 3.4.2
-Stable tag: 0.9.7
+Stable tag: 0.9.8
 License: GPLv2 or later
 
 Konvertieren Sie Ihre PDF in ein blätterbares Web-Dokument und binden Sie es mit einem Widget ein. 
 
 == Description ==
+
+Convert your PDF document to an online document, by using our 1000° web service and embed it via wordpress widget or shortcode in your page.
+
+Regular web browsers make use of our enhanced flash viewer, whereas mobile devices running on Android and iOS will use out up-to-date HTML5 viewer.
+
+Your converted PDF document can be updated, or replaced anytime. In order to do that, simply upload the new PDF document to your existing ePaper channel.
+
+Take our a closer look at our free beta-service and take your ePaper channel for a test-drive.
+
+Additional publishing channels, for instance for more widgets can be added on demand.
+
+= Beschreibung =
 
 Konvertieren Sie Ihre PDF mit dem Webservice von 1000° in ein blätterbares Web-Dokument. Binden Sie es einfach per Widget oder Shortcode ein. Desktop-Browser stellen das ePaper mittels Flash dar. Auf mobilen Endgeräten (iOS,Android) macht Ihr ePaper in der automatischen HTML5-Darstellung einen sehr guten Eindruck.
 
@@ -19,56 +31,48 @@ Testen Sie diese kostenlose Beta-Version und nutzen Sie unseren Service mit eine
 
 Weitere Kanäle z.B. für zusätzliche Widget-Plätze können bei Bedarf hinzugefügt werden.
 
-Convert your PDF document to an online document, by using our 1000° web service and embed it via wordpress widget or shortcode in your page.
-Regular web browsers make use of our enhanced flash viewer, whereas mobile devices running on Android and iOS will use out up-to-date HTML5 viewer.
-Your converted PDF document can be updated, or replaced anytime. In order to do that, simply upload the new PDF document to your existing ePaper channel.
-Take our a closer look at our free beta-service and take your ePaper channel for a test-drive.
-Additional publishing channels, for instance for more widgets can be added on demand.
 
-= Tested versions: =
-
-* CURL has to be installed / CURL muss auf dem Wordpress System installiert sein!
-
-
-= Contact =
-
-  1000°DIGITAL GmbH
-  Lampestr. 2
-  D-04107 Leipzig
-  support@1000grad-epaper.de
-  www.1000grad-epaper.de
 
 == Installation ==
 
-Und so geht´s:
+= Installation Instructions =
 
-1. Installieren
-    Laden Sie das Wordpress Plugin aus dem Wordpress Marketplace herunter.
-2.    Registrieren
-    Registrieren Sie sich für die Nutzung des Dienstes. Als Dankeschön erhalten Sie einen Kanal kostenlos für die Dauer von 12 Monaten.
-3.    Hochladen
-    Laden Sie Ihre PDF-Datei hoch. Ihre ePaper-Ausgabe für Web und Mobile wird direkt erstellt.
-4.    Verlinken
-    Verlinken Sie Ihre ePaper-Ausgabe in Ihrem Blog. Dazu haben Sie folgende Möglichkeiten:
-    » Verlinkung via Widget
-    » Verlinkung als Wordpress Kürzel (Shortcode)
-    » Verlinkung per Textlink
-    » Verlinkung per HTML-Code
-5.    Verwaltung Ihrer Ausgaben
-6.    Aktualisieren Sie Ihren ePaper-Kanal oder buchen Sie neue Kanäle hinzu wenn Sie mehrere ePaper-Ausgaben gleichzeitig darstellen möchten.
+* Upload the plugin folder to the '/wp-content/plugins/' directory
+* Activate the new plugin through the 'Plugins' menu in WordPress
+* Confirm email registration after activation in the settings
+* Upload PDF at the 1000°grad plugin page
+* Set Title and language during upload progress
+* add post or page with that ePaper Channel or use shortcode in existing posts or pages
+* explore the posibility to use the ePaper widgets
+* Enjoy!
 
-Installation Instructions
+= Instruktionen =
 
-1. Upload the plugin folder to the '/wp-content/plugins/' directory
-2. Activate the new plugin through the 'Plugins' menu in WordPress
-3. Confirm email registration after activation in the settings
-4. Upload PDF at the 1000°grad plugin page
-5. Set Title and language during upload progress
-6. add post or page with that ePaper Channel or use shortcode in existing posts or pages
-7. explore the posibility to use the ePaper widgets
-7. Enjoy!
+*  Laden Sie das Wordpress Plugin aus dem Wordpress Marketplace herunter und aktivieren es.
+*  Registrieren Sie sich für die Nutzung des Dienstes. Als Dankeschön erhalten Sie einen Kanal kostenlos für die Dauer von 12 Monaten.
+*  Laden Sie Ihre PDF-Datei hoch. Ihre ePaper-Ausgabe für Web und Mobile wird direkt erstellt.
+*    Verlinken Sie Ihre ePaper-Ausgabe in Ihrem Blog. Dazu haben Sie folgende Möglichkeiten:
+    ** Verlinkung via Widget
+    ** Verlinkung als Wordpress Kürzel (Shortcode)
+    ** Verlinkung per Textlink
+    * Verlinkung per HTML-Code
+*    Aktualisieren Sie Ihren ePaper-Kanal oder buchen Sie neue Kanäle hinzu wenn Sie mehrere ePaper-Ausgaben gleichzeitig darstellen möchten.
+
 
 == Frequently Asked Questions ==
+
+= How to get started? =
+ 
+Download the 1000° ePaper plugin from wordpress marketplace to your wordpress installation. The installation process is fully automated. The first time you access the newly created 1000° ePaper page in your control panel, you will be asked for registration. Registering with our service is free of charge and without obligation, but yet necessary to provide every user with their respective ePaper-publication. After successful registration you can immediately start creating your ePaper-publications and embedding them into your blog.
+ 
+= Are there any costs for the use of this plugin? =
+ 
+Using this plugin is free of charge and without obligation. For the duration of the beta phase, every user is provided with a free ePaper channel to publish documents and evaluate our service. As a thank-you gift for our dedicated beta testers, they receive a free channel for 12 months even after the completion of the beta. Further channel may be purchased in the final release by clicking the upgrade button.
+ 
+= How long is the beta phase intended to last? =
+  
+The beta phase will run for approximately 3 months, followed by the 1.0 release version. For the duration of the beta phase every registered (=beta tester) user will be provided with a free channel to evaluate our service. The free channel may be used for a period of 12 months after the completion of the beta phase. Afterwards the channel will either be deactivated, or remain active if you wish continue. The beta trial DOES NOT result in an automatic service charge or any other obligation. Please rest assured, you don’t have to pay anything unless explicitly want to.
+
 
 = Wie kann ich starten? =
 
@@ -81,9 +85,7 @@ Die Nutzung des Plugins ist kostenlos und unverbindlich. Während der Dauer der 
 = Wie läuft die Beta-Phase ab? =
 
 Die Beta-Phase läuft 3 Monate und geht dann in die Version 1.0 über. Für die Dauer der Beta-Phase erhält jeder registrierte Nutzer (=Beta-Tester) einen Kanal zum Ausprobieren. Außerdem kann jeder Beta-Tester den Kanal weiterhin kostenlos für 12 Monate nutzen. Danach wird der Kanal abgeschaltet oder kann auf Wunsch weiter betrieben werden. Der Beta-Test geht NICHT automatisch in einen kostenpflichtigen Dienst über. Also keine Angst - Sie zahlen nichts, solange Sie den Kaufbutton geklickt haben.
-== Upgrade Notice ==
 
-We're going to release periodical updates.
 
 == Changelog ==
 
@@ -134,6 +136,10 @@ We're going to release periodical updates.
 2. Upload your PDF
 3. Check your Details and publish to a Slot (kanalisieren)
 4. Overview of published ePapers including Wizard to Post
+5. Post you new ePaper to a post.
+6. Use it as a wordpress-widget.
+7. Enjoy your nice blog.
+8. Have a look at your new ePaper.
 
 == License ==
 
@@ -142,3 +148,25 @@ Our plugin is compatible with the GNU General Public License v2, or any later ve
 == Translations ==
 
 The plugin comes  in english and german language. translations, please refer to the [WordPress Codex](http://codex.wordpress.org/Installing_WordPress_in_Your_Language "Installing WordPress in Your Language") for more information about activating the translation. If you want to help to translate the plugin to your language, feel free to contact us
+
+== curl ==
+
+* CURL has to be installed / CURL muss auf dem Wordpress System installiert sein!
+
+== Upgrade Notice ==
+
+We're going to release periodical updates.
+
+== Contact ==
+
+    1000°DIGITAL GmbH
+
+    Lampestr. 2
+
+    D-04107 Leipzig
+
+    support@1000grad-epaper.de
+
+    www.1000grad-epaper.de
+
+    
