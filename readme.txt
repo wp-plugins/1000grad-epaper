@@ -4,31 +4,31 @@ Donate link:
 Tags: epaper pdf epaper emag emagazin e-magazin pageflip emagazine e-magazine 3d-zeitschrift 3dzeitschrift blätterkatalog flashflip flashflipp flipmagazine
 Requires at least: 3.4
 Tested up to: 3.4.2
-Stable tag: 0.9.8
+Stable tag: 0.9.9
 License: GPLv2 or later
+
+Create browsable ePapers easily from within Wordpress.
 
 Konvertieren Sie Ihre PDF in ein blätterbares Web-Dokument und binden Sie es mit einem Widget ein. 
 
 == Description ==
 
+In only a few simple steps you can create a browsable ePaper from scratch, simply by providing a PDF document. Thanks to our up to date HTML5 viewer your ePaper will look brilliant and sharp, even on Android, iPad and other devices.
+In nur wenigen Schritten erstellen Sie sich aus Ihrer PDF-Datei ein blätterbares Dokument für Ihre Webseite.  Auch auf Android, iPad & Co. macht Ihr ePaper in der automatischen HTML5-Darstellung einen sehr guten Eindruck.
+
+= Information =
+
 Convert your PDF document to an online document, by using our 1000° web service and embed it via wordpress widget or shortcode in your page.
-
 Regular web browsers make use of our enhanced flash viewer, whereas mobile devices running on Android and iOS will use out up-to-date HTML5 viewer.
-
 Your converted PDF document can be updated, or replaced anytime. In order to do that, simply upload the new PDF document to your existing ePaper channel.
-
 Take our a closer look at our free beta-service and take your ePaper channel for a test-drive.
-
 Additional publishing channels, for instance for more widgets can be added on demand.
 
 = Beschreibung =
 
 Konvertieren Sie Ihre PDF mit dem Webservice von 1000° in ein blätterbares Web-Dokument. Binden Sie es einfach per Widget oder Shortcode ein. Desktop-Browser stellen das ePaper mittels Flash dar. Auf mobilen Endgeräten (iOS,Android) macht Ihr ePaper in der automatischen HTML5-Darstellung einen sehr guten Eindruck.
-
 Das Dokument in Ihrem Widget können Sie beliebig oft aktualisieren oder austauschen. Dafür laden Sie Ihre neue PDF einfach in den bestehenden ePaper-Kanal. 
-
 Testen Sie diese kostenlose Beta-Version und nutzen Sie unseren Service mit einen kostenlosen ePaper Kanal.
-
 Weitere Kanäle z.B. für zusätzliche Widget-Plätze können bei Bedarf hinzugefügt werden.
 
 
@@ -37,13 +37,12 @@ Weitere Kanäle z.B. für zusätzliche Widget-Plätze können bei Bedarf hinzuge
 
 = Installation Instructions =
 
-* Upload the plugin folder to the '/wp-content/plugins/' directory
-* Activate the new plugin through the 'Plugins' menu in WordPress
-* Confirm email registration after activation in the settings
-* Upload PDF at the 1000°grad plugin page
-* Set Title and language during upload progress
-* add post or page with that ePaper Channel or use shortcode in existing posts or pages
-* explore the posibility to use the ePaper widgets
+* Install and activate this plugin through the 'Plugins' menu in WordPress
+* Confirm email registration after activation in the settings, you will get one channel for free for the next 12 months.
+* Upload PDF at the 1000°grad plugin page.
+* Set Title and language during upload progress.
+* add post or page with that ePaper Channel or use shortcode in existing posts or pages.
+* explore the posibility to use the ePaper widgets.
 * Enjoy!
 
 = Instruktionen =
@@ -51,10 +50,10 @@ Weitere Kanäle z.B. für zusätzliche Widget-Plätze können bei Bedarf hinzuge
 *  Laden Sie das Wordpress Plugin aus dem Wordpress Marketplace herunter und aktivieren es.
 *  Registrieren Sie sich für die Nutzung des Dienstes. Als Dankeschön erhalten Sie einen Kanal kostenlos für die Dauer von 12 Monaten.
 *  Laden Sie Ihre PDF-Datei hoch. Ihre ePaper-Ausgabe für Web und Mobile wird direkt erstellt.
-*    Verlinken Sie Ihre ePaper-Ausgabe in Ihrem Blog. Dazu haben Sie folgende Möglichkeiten:
-    ** Verlinkung via Widget
-    ** Verlinkung als Wordpress Kürzel (Shortcode)
-    ** Verlinkung per Textlink
+*  Verlinken Sie Ihre ePaper-Ausgabe in Ihrem Blog. Dazu haben Sie folgende Möglichkeiten:
+    * Verlinkung via Widget
+    * Verlinkung als Wordpress Kürzel (Shortcode)
+    * Verlinkung per Textlink
     * Verlinkung per HTML-Code
 *    Aktualisieren Sie Ihren ePaper-Kanal oder buchen Sie neue Kanäle hinzu wenn Sie mehrere ePaper-Ausgaben gleichzeitig darstellen möchten.
 
@@ -159,14 +158,14 @@ We're going to release periodical updates.
 
 == Contact ==
 
-    1000°DIGITAL GmbH
+1000°DIGITAL GmbH
 
-    Lampestr. 2
+Lampestr. 2
 
-    D-04107 Leipzig
+D-04107 Leipzig
 
-    support@1000grad-epaper.de
+support@1000grad-epaper.de
 
-    www.1000grad-epaper.de
+www.1000grad-epaper.de
 
     
