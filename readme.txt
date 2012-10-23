@@ -1,10 +1,10 @@
 === Plugin Name ===
 Contributors: 1000grad
 Donate link: 
-Tags: epaper
+Tags: epaper pdf 
 Requires at least: 3.4
 Tested up to: 3.4.2
-Stable tag: 0.9.6
+Stable tag: 0.9.7
 License: GPLv2 or later
 
 Konvertieren Sie Ihre PDF in ein blätterbares Web-Dokument und binden Sie es mit einem Widget ein. 
@@ -26,36 +26,36 @@ Take our a closer look at our free beta-service and take your ePaper channel for
 Additional publishing channels, for instance for more widgets can be added on demand.
 
 = Tested versions: =
-* via API 2.0
+
+* CURL has to be installed / CURL muss auf dem Wordpress System installiert sein!
 
 
 = Contact =
 
-1000°DIGITAL GmbH
-Lampestr. 2
-D-04107 Leipzig
-support@1000grad-epaper.de
-
-www.1000grad-epaper.de
+  1000°DIGITAL GmbH
+  Lampestr. 2
+  D-04107 Leipzig
+  support@1000grad-epaper.de
+  www.1000grad-epaper.de
 
 == Installation ==
 
 Und so geht´s:
 
-    Installieren
+1. Installieren
     Laden Sie das Wordpress Plugin aus dem Wordpress Marketplace herunter.
-    Registrieren
+2.    Registrieren
     Registrieren Sie sich für die Nutzung des Dienstes. Als Dankeschön erhalten Sie einen Kanal kostenlos für die Dauer von 12 Monaten.
-    Hochalden
+3.    Hochladen
     Laden Sie Ihre PDF-Datei hoch. Ihre ePaper-Ausgabe für Web und Mobile wird direkt erstellt.
-    Verlinken
+4.    Verlinken
     Verlinken Sie Ihre ePaper-Ausgabe in Ihrem Blog. Dazu haben Sie folgende Möglichkeiten:
     » Verlinkung via Widget
     » Verlinkung als Wordpress Kürzel (Shortcode)
     » Verlinkung per Textlink
     » Verlinkung per HTML-Code
-    Verwaltung Ihrer Ausgaben
-    Aktualisieren Sie Ihren ePaper-Kanal oder buchen Sie neue Kanäle hinzu wenn Sie mehrere ePaper-Ausgaben gleichzeitig darstellen möchten.
+5.    Verwaltung Ihrer Ausgaben
+6.    Aktualisieren Sie Ihren ePaper-Kanal oder buchen Sie neue Kanäle hinzu wenn Sie mehrere ePaper-Ausgaben gleichzeitig darstellen möchten.
 
 Installation Instructions
 

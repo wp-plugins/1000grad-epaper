@@ -3,7 +3,7 @@
 Plugin Name: 1000°ePaper
 Plugin URI: http://www.1000grad-epaper.de/loesungen/wp-plugin
 Description: Konvertieren Sie Ihre PDF in ein blätterbares Web-Dokument und binden Sie es mit einem Widget ein. Auch auf Android, iPad & Co. macht Ihr ePaper in der automatischen HTML5-Darstellung einen sehr guten Eindruck.
-Version: 0.9.6
+Version: 0.9.7
 Author: 1000°DIGITAL Leipzig GmbH
 Author URI: http://www.1000grad-epaper.de/
 */
