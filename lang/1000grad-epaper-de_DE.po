@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: 1000°ePaper v0.9.6\n"
+"Project-Id-Version: 1000°ePaper v0.9.8\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2012-10-23 08:11:30+0000\n"
+"PO-Revision-Date: 2012-10-23 12:56:31+0000\n"
 "Last-Translator: 1000 Grad <info@1000grad.de>\n"
 "Language-Team: 1000grad-epaper <wordpress@1000grad.de>\n"
 "MIME-Version: 1.0\n"
@@ -289,7 +289,7 @@ msgstr "Diese Installation wurde noch nicht registriert.<br />Weiter <a href=adm
 #: 1000grad-epaper.php:407
 #@ 1000grad-epaper
 msgid "This Installation is not registered yet.<br />Please <a href=admin.php?page=epaper_apikey>register your installation</a>"
-msgstr "Diese Installation wurde noch nicht registriert.<br />Weiter <a href=admin.php?page=epaper_channels>zur Registrierung</a>"
+msgstr "Diese Installation wurde noch nicht registriert.<br />Weiter <a href=admin.php?page=epaper_apikey>zur Registrierung</a>"
 
 #: 1000grad-epaper.php:423
 #: 1000grad-epaper.php:475
