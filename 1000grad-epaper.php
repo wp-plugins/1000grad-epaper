@@ -3,7 +3,7 @@
 Plugin Name: 1000°ePaper
 Plugin URI: http://www.1000grad-epaper.de/loesungen/wp-plugin
 Description: Konvertieren Sie Ihre PDF in ein blätterbares Web-Dokument und binden Sie es mit einem Widget ein. Auch auf Android, iPad & Co. macht Ihr ePaper in der automatischen HTML5-Darstellung einen sehr guten Eindruck.
-Version: 0.9.9
+Version: 1.0.0
 Author: 1000°DIGITAL Leipzig GmbH
 Author URI: http://www.1000grad-epaper.de/
 */
@@ -11,7 +11,7 @@ Author URI: http://www.1000grad-epaper.de/
 //echo "<pre>";
  ini_set("soap.wsdl_cache_enabled", 1);
 //error_reporting(E_ALL);
-//ini_set('display_errors','On'); 
+ini_set('display_errors','On'); 
 //echo "</pre>";
  
  // License 
@@ -28,8 +28,27 @@ wp_register_widget_control('1000grad-ePaper','1000grad-ePaper', array($myEpaperC
 add_action( 'add_meta_boxes', array( $myEpaperClass, 'addEpaperMetaBox' ) );
 add_filter('the_posts', array($myEpaperClass,'conditionally_add_scripts_and_styles')); 
 
+// doesnt work for the moment :-(
+//add_action('wp_head', array($myEpaperClass,'colorboxinline')); 
+
 class epaper {
 
+  function colorboxinline() {
+  //  echo '<script>jQuery(".iframe").colorbox({iframe:true, width:"80%", height:"95%"}); </script>';
+    $code= '
+      <script type="text/javascript">
+      $(document).ready(function(){
+      $(".iframe").colorbox({iframe:true, width:"80%", height:"95%"});
+
+$("#click").click(function(){
+  $("#click").css({"background-color":"#f00", "color":"#fff", "cursor":"inherit"}).text("Open this window again and this message will still be here.");
+  return false;
+});      
+  });
+  </script>
+  ';
+ echo $code;
+  }
 
   function addEpaperMetaBox() {
        $epaper_options = get_option("plugin_epaper_options");
@@ -60,6 +79,8 @@ class epaper {
       wp_enqueue_script('js_colorbox_min', plugins_url('1000grad-epaper/colorbox/jquery.colorbox-min.js'));
       wp_enqueue_script('js_colorbox', plugins_url('1000grad-epaper/colorbox/jquery.colorbox.js'));
       wp_enqueue_style('style_colorbox', plugins_url('1000grad-epaper/colorbox/colorbox.css'));         
+#      wp_enqueue_script('yo', 'yo');
+#      wp_head('yo',  'yo');
          }
 
     return $posts;
@@ -75,11 +96,12 @@ function epaperWidget($args) {
     echo $before_widget;
     echo $before_title .$name;
     echo $after_title;
-    $html="<a class='iframe cboxElement' href='";
-    $html.=$url."'";
-    $html.='> <img src="';
-    $html.=$url.'epaper/epaper-ani.gif" alt="epaper preview gif" border="0" width=100% /> </a>';
+    $html="<a class='iframe' href='";
+    $html.=$url."'>";
+    $html.='<img src="';
+    $html.=$url.'epaper/epaper-ani.gif" alt="epaper preview gif" border="0" width=100% /></a>';
     $html.='<script>    jQuery(".iframe").colorbox({iframe:true, width:"80%", height:"95%"}); </script>';
+//    $html.="</p>";
     echo $html;
     echo $after_widget;
            }
@@ -102,7 +124,6 @@ function epaperWidget2($args) {
     $html.='> <img src="';
     $html.=$url.'epaper/epaper-ani.gif" alt="epaper preview gif" border="0" width=100% /> </a>';
     $html.='<script>    jQuery(".iframe").colorbox({iframe:true, width:"90%", height:"95%"}); </script>';
-    
   echo $html;
        echo $after_widget;
         }
@@ -929,10 +950,10 @@ function epaperChannelUpload() {
          $bar->setForegroundColor('#333333');
          $elements = 10; //total number of elements to process
          $bar->setBarLength(400);
-
          for($j=5;$j>2;$j++){
              $infoj=$test->epaperGetInfos($apiKey,$uploadid);
              $info = json_decode($infoj, true);
+//             echo "".preg_replace("/(render)/", "", $info['status'])."";
              echo "".$info['status']." ";
              $status=$info['status'];
              if ($status=="ready") $j=0;
@@ -1029,7 +1050,7 @@ function epaperChannelDetails() {
         
 ?>
 	<form action="?page=epaper_channels" method="post" />
-        <input type="submit" name="weiter" id="weiter" value="weiter" class="button" />
+        <input type="submit" name="weiter" id="weiter" value="<?php _e('next','1000grad-epaper'); ?>" class="button" />
 <?php
         
         
@@ -1055,7 +1076,7 @@ function epaperChannelDetailsForm($id,$id_epaper,$name) {
         <input type="hidden" name="id_epaper" value="<?php echo $id_epaper; ?>" />
         <input type="hidden" name="modus" value="channeldetails" />
         <br />
-        <input type="submit" name="modusss" id="modus" value="save" class="button" />
+        <input type="submit" name="modusss" id="modus" value="<?php _e('save','1000grad-epaper'); ?>" class="button" />
       </form>
     </div>
   </div>
@@ -1148,7 +1169,7 @@ function epaperChannels() {
 ?>       
 <div class="wrap"> 
   <h1>1000°ePaper</h1>
-  <div class="postbox-container" style="width:80%;">
+  <div class="postbox-container" style="width:95%;">
   <div class="metabox-holder">
 
       <div class="ui-sortable meta-box-sortables">
@@ -1270,7 +1291,7 @@ function epaperChannelShow($channelinfo,$channelnr) {
 //            echo "<img border=2 height=300 src=".$channelinfo->url."/epaper/epaper-ani.gif?rnd=".rand(1000, 9999)." hspace=20>";
     $html="<a class='iframe cboxElement' href='";
     $html.=$channelinfo->url."'";
-    $html.='> <img border=2 height=300 src="';
+    $html.='> <img border=2 width=200 src="';
     $html.=$channelinfo->url.'/epaper/epaper-ani.gif?rnd='.rand(1000, 9999).'" alt="epaper preview gif" border="0" hspace=20 /> </a>';
     $html.='<script>    jQuery(".iframe").colorbox({iframe:true, width:"80%", height:"95%"}); </script>';
     echo $html;
@@ -1294,7 +1315,7 @@ function epaperChannelShow($channelinfo,$channelnr) {
     }
     else {
         
-            _e("<br />Embed this ePaper:",'1000grad-epaper');
+            _e("Embed this ePaper:",'1000grad-epaper');
             echo "<ul>";          
                 if ($channelnr=="1")   echo "<li><b><a href=widgets.php>via Widget</a></b>";
             

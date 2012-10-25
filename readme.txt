@@ -1,10 +1,10 @@
 === Plugin Name ===
 Contributors: 1000grad
 Donate link: 
-Tags: epaper pdf epaper emag emagazin e-magazin pageflip emagazine e-magazine 3d-zeitschrift 3dzeitschrift blätterkatalog flashflip flashflipp flipmagazine
+Tags: epaper pdf pageflip blätterkatalog flashflip emagazine
 Requires at least: 3.4
 Tested up to: 3.4.2
-Stable tag: 0.9.9
+Stable tag: 1.0.0
 License: GPLv2 or later
 
 Create browsable ePapers easily from within Wordpress.
@@ -14,6 +14,7 @@ Konvertieren Sie Ihre PDF in ein blätterbares Web-Dokument und binden Sie es mi
 == Description ==
 
 In only a few simple steps you can create a browsable ePaper from scratch, simply by providing a PDF document. Thanks to our up to date HTML5 viewer your ePaper will look brilliant and sharp, even on Android, iPad and other devices.
+
 In nur wenigen Schritten erstellen Sie sich aus Ihrer PDF-Datei ein blätterbares Dokument für Ihre Webseite.  Auch auf Android, iPad & Co. macht Ihr ePaper in der automatischen HTML5-Darstellung einen sehr guten Eindruck.
 
 = Information =
@@ -72,6 +73,16 @@ Using this plugin is free of charge and without obligation. For the duration of 
   
 The beta phase will run for approximately 3 months, followed by the 1.0 release version. For the duration of the beta phase every registered (=beta tester) user will be provided with a free channel to evaluate our service. The free channel may be used for a period of 12 months after the completion of the beta phase. Afterwards the channel will either be deactivated, or remain active if you wish continue. The beta trial DOES NOT result in an automatic service charge or any other obligation. Please rest assured, you don’t have to pay anything unless explicitly want to.
 
+= Can I upload bigger sized PDFs too? =
+
+The upload size is mostly limited by your wordpress installation or installed PHP. Your can increase that value by editing wp-admin/.htaccess with these values:
+
+        php_value upload_max_filesize 50M
+        php_value post_max_size 50M
+        php_value max_execution_time 200
+        php_value max_input_time 200
+
+or have a look at http://php.net/manual/en/features.file-upload.php
 
 = Wie kann ich starten? =
 
@@ -85,6 +96,7 @@ Die Nutzung des Plugins ist kostenlos und unverbindlich. Während der Dauer der 
 
 Die Beta-Phase läuft 3 Monate und geht dann in die Version 1.0 über. Für die Dauer der Beta-Phase erhält jeder registrierte Nutzer (=Beta-Tester) einen Kanal zum Ausprobieren. Außerdem kann jeder Beta-Tester den Kanal weiterhin kostenlos für 12 Monate nutzen. Danach wird der Kanal abgeschaltet oder kann auf Wunsch weiter betrieben werden. Der Beta-Test geht NICHT automatisch in einen kostenpflichtigen Dienst über. Also keine Angst - Sie zahlen nichts, solange Sie den Kaufbutton geklickt haben.
 
+= Kann man auf größere PDF Dateien 
 
 == Changelog ==
 
@@ -151,6 +163,10 @@ The plugin comes  in english and german language. translations, please refer to 
 == curl ==
 
 * CURL has to be installed / CURL muss auf dem Wordpress System installiert sein!
+
+== curl ==
+
+This plugin may not work with a few plugins and themes. Feel free to contact us about these add-ons.
 
 == Upgrade Notice ==
 
