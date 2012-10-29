@@ -3,7 +3,7 @@
 Plugin Name: 1000°ePaper
 Plugin URI: http://www.1000grad-epaper.de/loesungen/wp-plugin
 Description: Konvertieren Sie Ihre PDF in ein blätterbares Web-Dokument und binden Sie es mit einem Widget ein. Auch auf Android, iPad & Co. macht Ihr ePaper in der automatischen HTML5-Darstellung einen sehr guten Eindruck.
-Version: 1.0.0
+Version: 1.0.1
 Author: 1000°DIGITAL Leipzig GmbH
 Author URI: http://www.1000grad-epaper.de/
 */
@@ -483,6 +483,7 @@ function epaperTestWordpress() {
 
 function epaperTestApi() {
   global $test;  global $apiKey;  epaper::epaperConnect();
+  if ($apiKey>'') {
 		try {
       $version=$test->getVersion();
     } catch (SoapFault $e) {_e('<br />Error with API Handling, please register your plugin!','1000grad-epaper').$e->getMessage(); return false;}
@@ -500,27 +501,29 @@ function epaperTestApi() {
     } catch (SoapFault $e) {_e('<br /><b>Error with API Key Authentification','1000grad-epaper').$e->getMessage().'</b>'; return false;}
     echo "<br />Api Key ist valide";
     return true;
+} 
 }
 
 function epaperTestChannelApi() {
   global $channel;  global $apiKey;  epaper::epaperChannelConnect();
-
+if ($apiKey>'') {
 	echo 'API Version: '. $channel->getVersion();
 
           $clientinfo=($channel->__getFunctions());
 	echo __('<br />Number of API Commands:','1000grad-epaper').' '.count($clientinfo);
         return true;
 	
-
+}
 }
 function epaperTestApikeyApi() {
   global $testapikey;  global $apiKey;  epaper::epaperApikeyConnect();
+  if ($apiKey>'') {
 	echo 'API Version: '. $testapikey->getVersion();
       $clientinfo=($testapikey->__getFunctions());
 	echo __('<br />Number of API Commands:','1000grad-epaper').' '.count($clientinfo);
 	
     return true;
-
+  }
 }
 
 function epaperContact() {
@@ -542,7 +545,8 @@ function epaperContact() {
 function epaperLicense() {
   global $test;  global $apiKey;  epaper::epaperConnect();
   global $channel;  epaper::epaperChannelConnect();
-
+if ($apiKey>'') {
+	
 	try {
       $clientinfos=$test->clientGetInfos($apiKey);
     } catch (SoapFault $e) {echo '<br /><b>Fehler bei API Key Athentifizierung'.$e->getMessage().'</b>'; return false;}
@@ -575,7 +579,7 @@ function epaperLicense() {
 
       }
   return true;
-	
+}
 }
 
 
@@ -1180,6 +1184,9 @@ function epaperChannels() {
        
   echo "<img align=right hspace=20 vspace=10 src=".plugin_dir_url("1000grad-epaper/1000grad_logo.png")."1000grad_logo.png>";
     _e("The new ePaper PlugIn aims to support Wordpress users in creating and adding ePaper publications to the WordPress blog.  Creating interactive FLASH and HTML5 based ePapers has never been easier. Upload your pdf file and create your interactive multimedia publication in a few steps. Each publication is optimized for web and mobile (iOS and Android) display and is equipped with an automatic device recognition. Test this new beta service and get one publication channel for free!",'1000grad-epaper');
+  echo "<br />";  
+  
+  if ($apiKey>"") {
   
   $channels=json_decode($channel->channelsGetList($apiKey));
 //        print_r($channels);
@@ -1230,7 +1237,7 @@ function epaperChannels() {
         echo "</div></div></div>";
 
 
-
+      }
    }
 }
 
