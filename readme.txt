@@ -4,7 +4,7 @@ Donate link:
 Tags: epaper pdf pageflip blätterkatalog flashflip emagazine
 Requires at least: 3.4
 Tested up to: 3.4.2
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 
 Create browsable ePapers easily from within Wordpress.
@@ -76,7 +76,6 @@ The beta phase will run for approximately 3 months, followed by the 1.0 release 
 = Can I upload bigger sized PDFs too? =
 
 The upload size is mostly limited by your wordpress installation or installed PHP. Your can increase that value by editing wp-admin/.htaccess with these values:
-
         php_value upload_max_filesize 50M
         php_value post_max_size 50M
         php_value max_execution_time 200
@@ -96,9 +95,23 @@ Die Nutzung des Plugins ist kostenlos und unverbindlich. Während der Dauer der 
 
 Die Beta-Phase läuft 3 Monate und geht dann in die Version 1.0 über. Für die Dauer der Beta-Phase erhält jeder registrierte Nutzer (=Beta-Tester) einen Kanal zum Ausprobieren. Außerdem kann jeder Beta-Tester den Kanal weiterhin kostenlos für 12 Monate nutzen. Danach wird der Kanal abgeschaltet oder kann auf Wunsch weiter betrieben werden. Der Beta-Test geht NICHT automatisch in einen kostenpflichtigen Dienst über. Also keine Angst - Sie zahlen nichts, solange Sie den Kaufbutton geklickt haben.
 
-= Kann man auf größere PDF Dateien 
+= Kann man auch größere PDF Dateien hochladen =
+
+Die Upload Begrenzung erfolgt durch die Voreinstellungen des jeweiligen Wordpress/PHP-Systems. Bei Bedarf können folgende Werte in die Datei wp-admin/.htaccess eingetragen werden:
+        php_value upload_max_filesize 50M
+        php_value post_max_size 50M
+        php_value max_execution_time 200
+        php_value max_input_time 200
 
 == Changelog ==
+
+= 1.0.1 =
+
+warning about curl, that has to be installed on your wordpress-server
+
+= 1.0 =
+
+* plugin release
 
 = 0.9 =
 
@@ -162,15 +175,16 @@ The plugin comes  in english and german language. translations, please refer to 
 
 == curl ==
 
-* CURL has to be installed / CURL muss auf dem Wordpress System installiert sein!
+* CURL has to be installed for uploading PDFs to server.
+* CURL muss auf dem Wordpress System installiert sein, um PDF-Dateien laden zu können.
 
-== curl ==
+== bugs ==
 
-This plugin may not work with a few plugins and themes. Feel free to contact us about these add-ons.
+This plugin may not work with a few plugins and themes. Its a beta-version! Feel free to help us and send us information about your settings and add-ons.
 
 == Upgrade Notice ==
 
-We're going to release periodical updates.
+We're going to release periodical updates. 
 
 == Contact ==
 
