@@ -2,14 +2,14 @@
 /*
 Plugin Name: 1000°ePaper
 Plugin URI: http://www.1000grad-epaper.de/loesungen/wp-plugin
-Description: Konvertieren Sie Ihre PDF in ein blätterbares Web-Dokument und binden Sie es mit einem Widget ein. Auch auf Android, iPad & Co. macht Ihr ePaper in der automatischen HTML5-Darstellung einen sehr guten Eindruck.
-Version: 1.0.0
+Description: Create browsable ePapers easily from within Wordpress! Konvertieren Sie Ihre PDF in ein blätterbares Web-Dokument und binden Sie es mit einem Widget ein! Auch auf Android, iPad & Co. macht Ihr ePaper in der automatischen HTML5-Darstellung einen sehr guten Eindruck.
+Version: 1.0.4
 Author: 1000°DIGITAL Leipzig GmbH
 Author URI: http://www.1000grad-epaper.de/
 */
 
 //echo "<pre>";
- ini_set("soap.wsdl_cache_enabled", 1);
+ini_set("soap.wsdl_cache_enabled", 0);
 //error_reporting(E_ALL);
 ini_set('display_errors','On'); 
 //echo "</pre>";
@@ -428,6 +428,12 @@ function epaperChannelConnect() {
             echo "<br />"; _e('This Installation is not registered yet.<br />Please <a href=admin.php?page=epaper_apikey>register your installation</a>','1000grad-epaper'); 
             echo '</div></div></div>';
             return false;}
+        if ($epaper_options['url']==""){
+            echo '<div class="ui-sortable meta-box-sortables"><div class="update-nag"><div class="inside">';
+            echo "<br />"; _e('This Installation is not correctly registered.<br />Please <a href=options-general.php?page=epaper_settings>check your installation</a>','1000grad-epaper'); 
+            echo '</div></div></div>';    
+            return false;
+        }            
         $Wsdl = $epaper_options['url']."channels-wsdl/";
 	$apiKey=$epaper_options['apikey'];
         try {
@@ -483,6 +489,7 @@ function epaperTestWordpress() {
 
 function epaperTestApi() {
   global $test;  global $apiKey;  epaper::epaperConnect();
+  if ($apiKey>'') {
 		try {
       $version=$test->getVersion();
     } catch (SoapFault $e) {_e('<br />Error with API Handling, please register your plugin!','1000grad-epaper').$e->getMessage(); return false;}
@@ -500,27 +507,29 @@ function epaperTestApi() {
     } catch (SoapFault $e) {_e('<br /><b>Error with API Key Authentification','1000grad-epaper').$e->getMessage().'</b>'; return false;}
     echo "<br />Api Key ist valide";
     return true;
+} 
 }
 
 function epaperTestChannelApi() {
   global $channel;  global $apiKey;  epaper::epaperChannelConnect();
-
+if ($apiKey>'') {
 	echo 'API Version: '. $channel->getVersion();
 
           $clientinfo=($channel->__getFunctions());
 	echo __('<br />Number of API Commands:','1000grad-epaper').' '.count($clientinfo);
         return true;
 	
-
+}
 }
 function epaperTestApikeyApi() {
   global $testapikey;  global $apiKey;  epaper::epaperApikeyConnect();
+  if ($apiKey>'') {
 	echo 'API Version: '. $testapikey->getVersion();
       $clientinfo=($testapikey->__getFunctions());
 	echo __('<br />Number of API Commands:','1000grad-epaper').' '.count($clientinfo);
 	
     return true;
-
+  }
 }
 
 function epaperContact() {
@@ -542,7 +551,8 @@ function epaperContact() {
 function epaperLicense() {
   global $test;  global $apiKey;  epaper::epaperConnect();
   global $channel;  epaper::epaperChannelConnect();
-
+if ($apiKey>'') {
+	
 	try {
       $clientinfos=$test->clientGetInfos($apiKey);
     } catch (SoapFault $e) {echo '<br /><b>Fehler bei API Key Athentifizierung'.$e->getMessage().'</b>'; return false;}
@@ -575,7 +585,7 @@ function epaperLicense() {
 
       }
   return true;
-	
+}
 }
 
 
@@ -605,16 +615,27 @@ function epaperSettings() {
 //    echo "<img align=right src=".plugin_dir_url("1000grad-epaper/1000grad_logo.png")."1000grad_logo.png><br />";
 
 ?>
+      
 <div class="wrap"> 
   <h1>1000°ePaper</h1>
   <div class="postbox-container" style="width:70%;">
-  <div class="metabox-holder">
+    <div class="metabox-holder">
+
 
       <div class="ui-sortable meta-box-sortables">
     <div class="postbox">
     <h3>Settings</h3>
     <div class="inside">
-            
+
+          <?php
+        if (extension_loaded('curl')) echo "";
+          else {
+            _e("<br /><b>Error, there is NO CURL installed at your wordpress system!</b>",'1000grad-epaper');
+            _e("<br />Please install it first!<br><code>apt-get install php5-curl</code>",'1000grad-epaper');
+            exit();
+          }
+?>
+      
             
       <form action="" method="get">
         <label for="epaper_url">ePaper Wordpress API: </label>
@@ -740,6 +761,7 @@ function epaperApikey() {
         if (extension_loaded('curl')) echo "";
           else {
             _e("<br /><b>Error, there is NO CURL installed at your wordpress system!</b>",'1000grad-epaper');
+            _e("<br />Please install it first!<br><code>apt-get install php5-curl</code>",'1000grad-epaper');
             exit();
           }
 ?>
@@ -762,7 +784,7 @@ function epaperApikey() {
 		<i>e.g. Firmenname, Aktions-Code usw.</i>
   -->
                 <br /><input type="checkbox" name="agb" value="yes"> 
-          <?php _e("I've read the <a href=http://www.1000grad.de/upload/Dokumente/agb/Nutzungsbedingungen_1000grad_ePaper_API_WP_Plugin.pdf>terms of use</a> and I agree.",'1000grad-epaper'); ?>
+          <?php _e("I've read the <a href=http://www.1000grad.de/upload/Dokumente/agb/terms_of_use_1000grad_ePaper_API_WP_Plugin.pdf>terms of use</a> and I agree.",'1000grad-epaper'); ?>
                 <br /><input type="checkbox" name="newsletter" value="yes" checked>
     <?php _e("I want to receive newsletters from 1000°DIGITAL GmbH.",'1000grad-epaper'); ?>
         
@@ -915,6 +937,8 @@ function epaperChannelUpload() {
     'apikey' =>  $apiKey
 );
 // upload
+    
+   if (extension_loaded('curl')) {
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, 1);
@@ -938,6 +962,48 @@ function epaperChannelUpload() {
     $uploadit=$result['pdfId'];
 //        print_r($result);
     _e('<br />Upload was sucessful','1000grad-epaper');
+
+                }
+          else {
+            _e("<br /><b>Error, there is NO CURL installed at your wordpress system!</b>",'1000grad-epaper');
+//           return false; 
+  echo "<pre>";
+      $data = "";
+      $boundary = "---------------------".substr(md5(rand(0,32000)), 0, 10); 
+      $fileContents = file_get_contents($upload['tmp_name']); 
+       $data .= "--$boundary\n";
+       $data .= "Content-Disposition: form-data; name=\"apikey\"\n\n".$apiKey."\n"; 
+       $data .= "--$boundary\n";
+        $data .= "Content-Disposition: form-data; name=\"file\"; filename=\"".urlencode($upload['name'])."\"\n";
+        $data .= "Content-Type: application/octet-stream\n";
+//        $data .= "Content-Transfer-Encoding: binary\n\n";
+        $data .= $fileContents."\n";
+        $data .= "--$boundary\n"; 
+
+   $opts = array(
+    'http'=>array(
+      'method'=>"POST ".parse_url($uploadUrl, PHP_URL_PATH),
+      'user_agent'=>"Wordpress ePaper upload",
+      'header'=>"Accept-language: en\r\n" .
+                "Cookie: foo=bar\r\n" .
+             "Content-Type: multipart/form-data; boundary=".$boundary,
+      'content'=>$data
+
+        )
+      );
+   print_r($opts);
+$context = stream_context_create($opts);
+$socket = stream_socket_client("tcp://".parse_url($uploadUrl, PHP_URL_HOST).":80", $errno, $errstr, 30, STREAM_CLIENT_CONNECT, $context);
+while (!feof($socket)) {
+  sleep(1);
+        echo fgets($socket, 1024);
+    }
+    fclose($socket);
+echo "xx- upload ende des tests";
+return false;
+          }
+
+    
     $uploadid = $test->epaperCreateFromPdf($apiKey,$uploadit);
 //    _e('<br />ePaper generation started','1000grad-epaper');
     if ($test->epaperStartRenderprocess($apiKey,$uploadid))     _e('<br />ePaper Rendering was started.','1000grad-epaper');
@@ -1135,8 +1201,13 @@ function epaperChannelPostPost() {
       echo 'Kanal URL '.$info->url;
       $url=$info->url;
     $html="[ePaper url=".$url."]";
-    $text='Hier mein neues ePaper <b>'.$info->title.'</b> zum durchbl&auml;ttern: ';
-    $text.=$html;
+      $text='Hier mein neues ePaper <b>'.$info->title.'</b> zum durchbl&auml;ttern: ';
+
+// need only ONE ePaper Link for the beta-test!    
+        $text=__("This is my new ePaper, brought to you by the 1000°ePaper service. Even you can <a href=http://www.1000grad-epaper.de/de/loesungen/wp-plugin>share your ePapers</a> with this wordpress plugin! Get your first ePaper Channel  FOR FREE during beta stage.",'1000grad-epaper');
+        $html="[ePaper]";
+
+    $text=$html.$text;
 //    <a title="ePaper" href="'.($info->url).'" target="_blank"><img class="alignright" src='.($info->url).'epaper/preview.jpg alt="ePaper preview" /></a>';
       
       $my_post = array(
@@ -1145,7 +1216,10 @@ function epaperChannelPostPost() {
      'post_status' => 'publish',
   );
   $postid=wp_insert_post( $my_post );
-      echo '<br />wurde gepostet (ohne Kategorie)<br /><b><a href=post.php?post='.$postid.'&action=edit>Post weiterbearbeiten</a></b>';
+      _e('<br />was posted (without category)<br />');
+      echo '<b><a href=post.php?post='.$postid.'&action=edit>';
+      _e('Further edit this post');
+      echo '</a></b>';
 
 	}
 
@@ -1180,6 +1254,15 @@ function epaperChannels() {
        
   echo "<img align=right hspace=20 vspace=10 src=".plugin_dir_url("1000grad-epaper/1000grad_logo.png")."1000grad_logo.png>";
     _e("The new ePaper PlugIn aims to support Wordpress users in creating and adding ePaper publications to the WordPress blog.  Creating interactive FLASH and HTML5 based ePapers has never been easier. Upload your pdf file and create your interactive multimedia publication in a few steps. Each publication is optimized for web and mobile (iOS and Android) display and is equipped with an automatic device recognition. Test this new beta service and get one publication channel for free!",'1000grad-epaper');
+  echo "<br />";  
+
+  
+          if (extension_loaded('curl')) echo "";
+          else _e("<br /><b>Error, there is NO CURL installed at your wordpress system!</b>",'1000grad-epaper');
+
+  
+  
+  if ($apiKey>"") {
   
   $channels=json_decode($channel->channelsGetList($apiKey));
 //        print_r($channels);
@@ -1230,7 +1313,7 @@ function epaperChannels() {
         echo "</div></div></div>";
 
 
-
+      }
    }
 }
 
@@ -1258,7 +1341,9 @@ function epaperChannelUpgrade() {
 
     	try {	$succ=json_decode($testapikey->sendCodeGetMoreChannels($email,$code));
     } catch (SoapFault $e) {
-      echo '<br /><b>Es ist ein Fehler aufgetreten '.$e->getMessage().'</b>';
+      echo '<br /><b>';
+      _e('Es ist ein Fehler aufgetreten');
+      echo ' '.$e->getMessage().'</b>';
 	  if ($e->getMessage()=="(610) code failed") echo "<br />Code ungueltig oder schon verbraucht!<br />";
 	  if ($e->getMessage()=="(605) no valid email adress") echo "<br />Bitte die Email-Adresse korrekt angeben!";
 	  if ($e->getMessage()=="(604) no name") echo "<br />Bitte geben Sie den Name korrekt an!";

@@ -4,7 +4,7 @@ Donate link:
 Tags: epaper pdf pageflip blätterkatalog flashflip emagazine
 Requires at least: 3.4
 Tested up to: 3.4.2
-Stable tag: 1.0.0
+Stable tag: 1.0.4
 License: GPLv2 or later
 
 Create browsable ePapers easily from within Wordpress.
@@ -13,9 +13,9 @@ Konvertieren Sie Ihre PDF in ein blätterbares Web-Dokument und binden Sie es mi
 
 == Description ==
 
-In only a few simple steps you can create a browsable ePaper from scratch, simply by providing a PDF document. Thanks to our up to date HTML5 viewer your ePaper will look brilliant and sharp, even on Android, iPad and other devices.
+In only a few simple steps you can create <b>a browsable ePaper</b> from scratch, simply by providing a PDF document. Thanks to our up to date <b>HTML5 viewer</b> your ePaper will look brilliant and sharp, even on Android, iPad and other devices.
 
-In nur wenigen Schritten erstellen Sie sich aus Ihrer PDF-Datei ein blätterbares Dokument für Ihre Webseite.  Auch auf Android, iPad & Co. macht Ihr ePaper in der automatischen HTML5-Darstellung einen sehr guten Eindruck.
+In nur wenigen Schritten erstellen Sie sich aus Ihrer PDF-Datei <b>ein blätterbares Dokument für Ihre Webseite</b>.  Auch auf Android, iPad & Co. macht Ihr ePaper in der automatischen HTML5-Darstellung einen sehr guten Eindruck.
 
 = Information =
 
@@ -76,11 +76,10 @@ The beta phase will run for approximately 3 months, followed by the 1.0 release 
 = Can I upload bigger sized PDFs too? =
 
 The upload size is mostly limited by your wordpress installation or installed PHP. Your can increase that value by editing wp-admin/.htaccess with these values:
-
-        php_value upload_max_filesize 50M
-        php_value post_max_size 50M
-        php_value max_execution_time 200
-        php_value max_input_time 200
+* php_value upload_max_filesize 50M
+* php_value post_max_size 50M
+* php_value max_execution_time 200
+* php_value max_input_time 200
 
 or have a look at http://php.net/manual/en/features.file-upload.php
 
@@ -96,50 +95,29 @@ Die Nutzung des Plugins ist kostenlos und unverbindlich. Während der Dauer der 
 
 Die Beta-Phase läuft 3 Monate und geht dann in die Version 1.0 über. Für die Dauer der Beta-Phase erhält jeder registrierte Nutzer (=Beta-Tester) einen Kanal zum Ausprobieren. Außerdem kann jeder Beta-Tester den Kanal weiterhin kostenlos für 12 Monate nutzen. Danach wird der Kanal abgeschaltet oder kann auf Wunsch weiter betrieben werden. Der Beta-Test geht NICHT automatisch in einen kostenpflichtigen Dienst über. Also keine Angst - Sie zahlen nichts, solange Sie den Kaufbutton geklickt haben.
 
-= Kann man auf größere PDF Dateien 
+= Kann man auch größere PDF Dateien hochladen =
+
+Die Upload Begrenzung erfolgt durch die Voreinstellungen des jeweiligen Wordpress/PHP-Systems. Bei Bedarf können folgende Werte in die Datei wp-admin/.htaccess eingetragen werden:
+* php_value upload_max_filesize 50M
+* php_value post_max_size 50M
+* php_value max_execution_time 200
+* php_value max_input_time 200
+
+oder siehe http://php.net/manual/de/features.file-upload.php
 
 == Changelog ==
 
-= 0.9 =
+= 1.0.2 =
 
-* new svn scheme
-* even more translations
-* more fixes
+checks and warnings about the need of php5-curl and some more english translations
 
+= 1.0.1 =
 
-= 0.8 =
+warning about curl, that has to be installed on your wordpress-server
 
-* new layout
-* more translations
+= 1.0.0 =
 
-= 0.7 =
-* svn dev enviroment
-* config-local settings created, no more constants in the code
-
-= 0.6 =
-* less menu, less functions
-* ePaper publication, download and unzip disabled
-* only one admin page
-* widgets
-* meta box in page and post edit mode
-
-
-= 0.5 =
-* finetuning
-
-= 0.4 =
-* Channelizing of epapers
-* Shortcode for Visual Editor and Posts
-
-= 0.3 =
-* functions in a epaper class
-
-= 0.2 =
-* Improved plugin 
-
-= 0.1 =
-* Initial release!
-
+* plugin release
 
 == Screenshots ==
 
@@ -158,30 +136,29 @@ Our plugin is compatible with the GNU General Public License v2, or any later ve
 
 == Translations ==
 
-The plugin comes  in english and german language. translations, please refer to the [WordPress Codex](http://codex.wordpress.org/Installing_WordPress_in_Your_Language "Installing WordPress in Your Language") for more information about activating the translation. If you want to help to translate the plugin to your language, feel free to contact us
+The plugin comes  in english and german language. 
+Translations, please refer to the [WordPress Codex](http://codex.wordpress.org/Installing_WordPress_in_Your_Language "Installing WordPress in Your Language") for more information about activating the translation. If you want to help to translate the plugin to your language, feel free to contact us.
 
-== curl ==
+== curl dependency ==
 
-* CURL has to be installed / CURL muss auf dem Wordpress System installiert sein!
+* CURL has to be installed for uploading PDFs to server.
+* CURL muss auf dem Wordpress System installiert sein, um PDF-Dateien laden zu können.
+* <code>apt-get install php5-curl</code>
 
-== curl ==
+== bugs ==
 
-This plugin may not work with a few plugins and themes. Feel free to contact us about these add-ons.
+This plugin may not work with a few plugins and themes. Its a beta-version! Feel free to help us and send us information about your settings and add-ons.
 
 == Upgrade Notice ==
 
-We're going to release periodical updates.
+We're going to release periodical updates. 
 
 == Contact ==
 
-1000°DIGITAL GmbH
-
-Lampestr. 2
-
-D-04107 Leipzig
-
-support@1000grad-epaper.de
-
-www.1000grad-epaper.de
+* 1000°DIGITAL GmbH
+* Lampestr. 2
+* D-04107 Leipzig
+* support@1000grad-epaper.de
+* www.1000grad-epaper.de
 
     
