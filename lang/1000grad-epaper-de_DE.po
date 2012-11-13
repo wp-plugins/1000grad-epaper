@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: 1000°ePaper v1.0.4\n"
+"Project-Id-Version: 1000°ePaper v1.0.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2012-11-06 13:52:12+0000\n"
+"PO-Revision-Date: 2012-11-13 12:28:34+0000\n"
 "Last-Translator: 1000 Grad <info@1000grad.de>\n"
 "Language-Team: 1000grad-epaper <wordpress@1000grad.de>\n"
 "MIME-Version: 1.0\n"
@@ -19,196 +19,197 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Textdomain-Support: yes"
 
-#: 1000grad-epaper.php:222
+#: 1000grad-epaper.php:235
 #@ 1000grad-epaper
 msgid "Edit this Post"
 msgstr "Post weiterbearbeiten"
 
-#: 1000grad-epaper.php:271
+#: 1000grad-epaper.php:284
 #@ 1000grad-epaper
 msgid "edit"
 msgstr "editieren"
 
-#: 1000grad-epaper.php:277
+#: 1000grad-epaper.php:290
 #@ 1000grad-epaper
 msgid "delete"
 msgstr "löschen"
 
-#: 1000grad-epaper.php:252
-#: 1000grad-epaper.php:309
-#: 1000grad-epaper.php:1134
+#: 1000grad-epaper.php:265
+#: 1000grad-epaper.php:322
+#: 1000grad-epaper.php:1189
 #@ 1000grad-epaper
 msgid "Title:"
 msgstr "Titel:"
 
-#: 1000grad-epaper.php:304
+#: 1000grad-epaper.php:317
 #@ 1000grad-epaper
 msgid "<h1>ePaper Settings</h1>"
 msgstr "<h1>ePaper Einstellungen</h1>"
 
-#: 1000grad-epaper.php:311
-#: 1000grad-epaper.php:1135
+#: 1000grad-epaper.php:324
+#: 1000grad-epaper.php:1190
 #@ 1000grad-epaper
 msgid "Language:"
 msgstr "Sprache:"
 
-#: 1000grad-epaper.php:315
+#: 1000grad-epaper.php:328
 #@ 1000grad-epaper
 msgid "(existing)"
 msgstr "(vorhanden)"
 
-#: 1000grad-epaper.php:316
+#: 1000grad-epaper.php:329
 #@ 1000grad-epaper
 msgid "(choose file)"
 msgstr "(Datei auswählen)"
 
-#: 1000grad-epaper.php:467
+#: 1000grad-epaper.php:480
 #@ 1000grad-epaper
 msgid "max. PHP-Upload of this Wordpress:"
 msgstr "max. PHP-Upload vom Wordpress:"
 
-#: 1000grad-epaper.php:473
+#: 1000grad-epaper.php:486
 #@ 1000grad-epaper
 msgid "max. PHP-Time for this Wordpress:"
 msgstr "max. PHP-Time vom Wordpress:"
 
-#: 1000grad-epaper.php:584
+#: 1000grad-epaper.php:597
 #@ 1000grad-epaper
 msgid "not used"
 msgstr "nicht verwendet"
 
-#: 1000grad-epaper.php:1449
+#: 1000grad-epaper.php:1505
 #@ 1000grad-epaper
 msgid "<h2>no ePaper Channel existing!</h2>"
 msgstr "<h2>Es existiert kein ePaper Kanal!</h2>"
 
-#: 1000grad-epaper.php:1372
+#: 1000grad-epaper.php:1428
 #@ 1000grad-epaper
 msgid "no ePaper given"
 msgstr "kein ePaper vorhanden"
 
-#: 1000grad-epaper.php:838
+#: 1000grad-epaper.php:892
 #@ 1000grad-epaper
 msgid "<p>Now you can use this ePaper Plugin!."
 msgstr "<p>Jetzt ist das ePaper Plugin einsatzbereit."
 
-#: 1000grad-epaper.php:217
+#: 1000grad-epaper.php:230
 #@ 1000grad-epaper
 msgid "This is my new ePaper"
 msgstr "Das ist das neue ePaper"
 
-#: 1000grad-epaper.php:229
+#: 1000grad-epaper.php:242
 #@ 1000grad-epaper
 msgid "<h2>List of uploaded ePapers</h2>"
 msgstr "<h2>Liste der hochgeladenen ePaper</h2>"
 
-#: 1000grad-epaper.php:916
+#: 1000grad-epaper.php:970
 #@ default
 msgid "<b>Error!</b> "
 msgstr ""
 
-#: 1000grad-epaper.php:1169
+#: 1000grad-epaper.php:1224
 #@ 1000grad-epaper
 msgid "Upload a new PDF"
 msgstr "neues PDF hochladen"
 
-#: 1000grad-epaper.php:1352
+#: 1000grad-epaper.php:1408
 #@ 1000grad-epaper
 msgid "Channel upgrade was successful!"
 msgstr "Kanal Upgrade war erfolgreich!"
 
-#: 1000grad-epaper.php:1114
+#: 1000grad-epaper.php:1169
 #@ 1000grad-epaper
 msgid "Your ePaper is now ready to use."
 msgstr "Ihr ePaper ist nun einsatzbereit."
 
-#: 1000grad-epaper.php:1362
+#: 1000grad-epaper.php:1418
 #@ 1000grad-epaper
 msgid "ePaper Channel"
 msgstr "ePaper Kanal"
 
-#: 1000grad-epaper.php:470
+#: 1000grad-epaper.php:483
 #@ 1000grad-epaper
 msgid "Wordpress & PHP-Version:"
 msgstr "Wordpress & PHP-Version:"
 
-#: 1000grad-epaper.php:1299
+#: 1000grad-epaper.php:1354
 #@ 1000grad-epaper
 msgid "add another ePaper Channel"
 msgstr "weiteren ePaper Kanal buchen"
 
-#: 1000grad-epaper.php:179
+#: 1000grad-epaper.php:192
 #@ 1000grad-epaper
 msgid "Registration"
 msgstr "Registrierung"
 
-#: 1000grad-epaper.php:232
+#: 1000grad-epaper.php:245
 #@ 1000grad-epaper
 msgid "No ePaper existent"
 msgstr "kein ePaper vorhanden"
 
-#: 1000grad-epaper.php:265
+#: 1000grad-epaper.php:278
 #@ 1000grad-epaper
 msgid "<font color=red>no title set</font>"
 msgstr "<font color=red>kein Titel gesetzt</font>"
 
-#: 1000grad-epaper.php:276
+#: 1000grad-epaper.php:289
 #@ 1000grad-epaper
 msgid "canalize"
 msgstr "auf Kanal veröffentlichen"
 
-#: 1000grad-epaper.php:721
+#: 1000grad-epaper.php:650
+#: 1000grad-epaper.php:775
 #@ 1000grad-epaper
 msgid "en"
 msgstr "de"
 
-#: 1000grad-epaper.php:725
+#: 1000grad-epaper.php:779
 #@ 1000grad-epaper
 msgid "Acquiring data."
 msgstr "Daten übertragen."
 
-#: 1000grad-epaper.php:771
+#: 1000grad-epaper.php:825
 #@ 1000grad-epaper
 msgid "Request 1000°ePaper Key"
 msgstr "1000°ePaper WP-Key anfordern"
 
-#: 1000grad-epaper.php:789
+#: 1000grad-epaper.php:843
 #@ 1000grad-epaper
 msgid "I want to receive newsletters from 1000°DIGITAL GmbH."
 msgstr "Ich möchte über 1000°DIGITAL GmbH via Newsletter informiert werden."
 
-#: 1000grad-epaper.php:795
+#: 1000grad-epaper.php:849
 #@ 1000grad-epaper
 msgid "send request"
 msgstr "Bestätigen"
 
-#: 1000grad-epaper.php:814
+#: 1000grad-epaper.php:868
 #@ 1000grad-epaper
 msgid "Registration Code"
 msgstr "Registrierungs-Code"
 
-#: 1000grad-epaper.php:855
-#: 1000grad-epaper.php:859
+#: 1000grad-epaper.php:909
+#: 1000grad-epaper.php:913
 #@ 1000grad-epaper
 msgid "1000° ePaper WP-Key"
 msgstr "1000° ePaper WP-Key"
 
-#: 1000grad-epaper.php:872
+#: 1000grad-epaper.php:926
 #@ 1000grad-epaper
 msgid "Info: Your Information will be transmitted to the 1000Grad Company. You will receive an email for confirmation."
 msgstr "Info: Ihre Infomationen werden an 1000°DIGITAL GmbH übermittelt. Sie erhalten eine Bestätigungs-Email."
 
-#: 1000grad-epaper.php:1174
+#: 1000grad-epaper.php:1229
 #@ 1000grad-epaper
 msgid "upload"
 msgstr "Hochladen"
 
-#: 1000grad-epaper.php:1181
+#: 1000grad-epaper.php:1236
 #@ 1000grad-epaper
 msgid "clear channel"
 msgstr "Kanal leeren"
 
-#: 1000grad-epaper.php:1256
+#: 1000grad-epaper.php:1311
 #@ 1000grad-epaper
 msgid "The new ePaper PlugIn aims to support Wordpress users in creating and adding ePaper publications to the WordPress blog.  Creating interactive FLASH and HTML5 based ePapers has never been easier. Upload your pdf file and create your interactive multimedia publication in a few steps. Each publication is optimized for web and mobile (iOS and Android) display and is equipped with an automatic device recognition. Test this new beta service and get one publication channel for free!"
 msgstr ""
@@ -216,227 +217,262 @@ msgstr ""
 "Desktop-Browser stellen das ePaper mittels Flash dar.<br>Auf mobilen Endgeräten mit iOS oder Android macht Ihr ePaper in der automatischen HTML5-Darstellung einen sehr guten Eindruck.\n"
 "Das Dokument im Wordpress-Widget können Sie beliebig oft aktualisieren oder austauschen. Dafür laden Sie Ihre neue PDF einfach in den bestehenden ePaper-Kanal. <br>Testen Sie diese kostenlose Beta-Version und nutzen Sie unseren Service mit einen kostenlosen ePaper Kanal.<br>Weitere Kanäle z.B. für zusätzliche Widget-Plätze können bei Bedarf hinzugefügt werden."
 
-#: 1000grad-epaper.php:1309
+#: 1000grad-epaper.php:1364
 #@ 1000grad-epaper
 msgid "You can get more 1000°ePaper channels for your account for instance via PayPal. Coming soon."
 msgstr "Zusätzliche 1000°ePaper Kanäle können Sie z.b. via PayPal zubuchen. Feature derzeit in Vorbereitung."
 
-#: 1000grad-epaper.php:1324
+#: 1000grad-epaper.php:1380
 #@ 1000grad-epaper
 msgid "Unlock more channels via activation code:"
 msgstr "Mehr Kanäle mit Aktivierungscode freischalten:"
 
-#: 1000grad-epaper.php:1425
+#: 1000grad-epaper.php:1481
 #@ 1000grad-epaper
 msgid "Create a new post with this ePaper"
 msgstr "Neuen Post mit diesem ePaper anlegen"
 
-#: 1000grad-epaper.php:1450
+#: 1000grad-epaper.php:1506
 #@ 1000grad-epaper
 msgid "insert this shortcode into editor:"
 msgstr "Im Editor folgendes Kürzel verwenden:"
 
-#: 1000grad-epaper.php:824
+#: 1000grad-epaper.php:878
 #@ 1000grad-epaper
 msgid "<p>Confirmation code was entered:"
 msgstr "<p>Bestätigungscode wurde eingegeben:"
 
-#: 1000grad-epaper.php:926
+#: 1000grad-epaper.php:981
 #@ 1000grad-epaper
 msgid "or look for hints at"
 msgstr "mehr Hinweise siehe"
 
-#: 1000grad-epaper.php:1408
+#: 1000grad-epaper.php:1464
 #@ 1000grad-epaper
 msgid "wordpress shortcode:"
 msgstr "Wordpress Kürzel:"
 
-#: 1000grad-epaper.php:1412
+#: 1000grad-epaper.php:1468
 #@ 1000grad-epaper
 msgid "or"
 msgstr "oder"
 
-#: 1000grad-epaper.php:1429
+#: 1000grad-epaper.php:1485
 #@ 1000grad-epaper
 msgid "<li>HTML code for advanced users:"
 msgstr "<li>HTML Code für Profis:"
 
-#: 1000grad-epaper.php:222
+#: 1000grad-epaper.php:235
 #@ 1000grad-epaper
 msgid "<br />was posted (without Category)"
 msgstr "<br /> wurde gepostet (ohne Kategorie)"
 
-#: 1000grad-epaper.php:233
+#: 1000grad-epaper.php:246
 #@ 1000grad-epaper
 msgid "<br />Please <a href=?page=epaper_upload>upload a PDF File.</a>"
 msgstr "<br />Bitte <a href=?page=epaper_upload>laden Sie eine PDF Datei hoch.</a>"
 
-#: 1000grad-epaper.php:268
+#: 1000grad-epaper.php:281
 #@ 1000grad-epaper
 msgid "<br />Number of Pages:"
 msgstr "<br />Seitenanzahl:"
 
-#: 1000grad-epaper.php:410
+#: 1000grad-epaper.php:423
 #@ 1000grad-epaper
 msgid "This Installation is not registered yet.<br />Please <a href=admin.php?page=epaper_channels>register your installation</a>"
 msgstr "Diese Installation wurde noch nicht registriert.<br />Weiter <a href=admin.php?page=epaper_channels>zur Registrierung</a>"
 
-#: 1000grad-epaper.php:428
+#: 1000grad-epaper.php:441
 #@ 1000grad-epaper
 msgid "This Installation is not registered yet.<br />Please <a href=admin.php?page=epaper_apikey>register your installation</a>"
 msgstr "Diese Installation wurde noch nicht registriert.<br />Weiter <a href=admin.php?page=epaper_apikey>zur Registrierung</a>"
 
-#: 1000grad-epaper.php:450
-#: 1000grad-epaper.php:503
-#: 1000grad-epaper.php:519
-#: 1000grad-epaper.php:529
+#: 1000grad-epaper.php:463
+#: 1000grad-epaper.php:516
+#: 1000grad-epaper.php:532
+#: 1000grad-epaper.php:542
 #@ 1000grad-epaper
 msgid "<br />Number of API Commands:"
 msgstr "<br />Anzahl der API Befehle:"
 
-#: 1000grad-epaper.php:476
+#: 1000grad-epaper.php:489
 #@ 1000grad-epaper
 msgid "curl for this Wordpress:"
 msgstr "curl für dieses Wordpress:"
 
-#: 1000grad-epaper.php:478
-#: 1000grad-epaper.php:633
-#: 1000grad-epaper.php:763
-#: 1000grad-epaper.php:968
-#: 1000grad-epaper.php:1261
+#: 1000grad-epaper.php:491
+#: 1000grad-epaper.php:700
+#: 1000grad-epaper.php:817
+#: 1000grad-epaper.php:1023
+#: 1000grad-epaper.php:1316
 #@ 1000grad-epaper
 msgid "<br /><b>Error, there is NO CURL installed at your wordpress system!</b>"
 msgstr "<br /><b>Fehler, es existiert KEIN CURL auf ihrem Wordpress System!</b>"
 
-#: 1000grad-epaper.php:482
+#: 1000grad-epaper.php:495
 #@ 1000grad-epaper
 msgid "local plugin settings:"
 msgstr "lokale Plugin-Einstellungen:"
 
-#: 1000grad-epaper.php:495
-#: 1000grad-epaper.php:500
+#: 1000grad-epaper.php:508
+#: 1000grad-epaper.php:513
 #@ 1000grad-epaper
 msgid "<br />Error with API Handling, please register your plugin!"
 msgstr "<br />Fehler in der API Kommunikation, bitte registrieren Sie Ihr Plugin!"
 
-#: 1000grad-epaper.php:507
+#: 1000grad-epaper.php:520
 #@ 1000grad-epaper
 msgid "<br /><b>Error with API Key Authentification"
 msgstr "<br /><b>Fehler bei API Key Authentifizierung"
 
-#: 1000grad-epaper.php:726
+#: 1000grad-epaper.php:780
 #@ 1000grad-epaper
 msgid "<br />Please have a look into your email inbox for confirmation code."
 msgstr "<br />Bitte schauen Sie in Ihrem eMail Posteingang nach dem Bestätigungscode."
 
-#: 1000grad-epaper.php:736
+#: 1000grad-epaper.php:790
 #@ 1000grad-epaper
 msgid "<br />Email adress is not valid."
 msgstr "<br />Email Adresse ist nicht gültig."
 
-#: 1000grad-epaper.php:831
+#: 1000grad-epaper.php:885
 #@ 1000grad-epaper
 msgid "<p>Your new settings are: <br /><b><pre>"
 msgstr "<p>Ihre neuen Einstellungen sind: <br /><b><pre>"
 
-#: 1000grad-epaper.php:918
+#: 1000grad-epaper.php:973
 #@ 1000grad-epaper
 msgid "<br />Maybe file is larger than your wordpress php settings."
 msgstr "<br />Wahrscheinlich ist die Datei größer als ihre Wordpress PHP Einstellungen erlauben."
 
-#: 1000grad-epaper.php:919
+#: 1000grad-epaper.php:974
 #@ 1000grad-epaper
 msgid "<br />You can rise up these limits by creating file <b>wp-admin/.htaccess</b>"
 msgstr "<br />Das Limit kann erhöht werden, indem folgende Datei angelegt wird: <b>wp-admin/.htaccess</b>"
 
-#: 1000grad-epaper.php:964
+#: 1000grad-epaper.php:1019
 #@ 1000grad-epaper
 msgid "<br />Upload was sucessful"
 msgstr "<br />Upload war erfolgreich"
 
-#: 1000grad-epaper.php:1009
+#: 1000grad-epaper.php:1064
 #@ 1000grad-epaper
 msgid "<br />ePaper Rendering was started."
 msgstr "<br />ePaper Rendering gestartet."
 
-#: 1000grad-epaper.php:1010
+#: 1000grad-epaper.php:1065
 #@ 1000grad-epaper
 msgid "<br />ePaper rendering couldnt start <b>error</b>."
 msgstr "<br />ePaper Rendering konnte nicht gestartet werden <b>Fehler</b>."
 
-#: 1000grad-epaper.php:1063
+#: 1000grad-epaper.php:1118
 #@ 1000grad-epaper
 msgid "<br />Name:"
 msgstr "<br />Name:"
 
-#: 1000grad-epaper.php:1084
+#: 1000grad-epaper.php:1139
 #@ 1000grad-epaper
 msgid "<br />Publishing started."
 msgstr "<br />Publikation gestartet."
 
-#: 1000grad-epaper.php:1085
+#: 1000grad-epaper.php:1140
 #@ 1000grad-epaper
 msgid "<br />Unable to start publishing."
 msgstr "<br />Publikation konnte nicht gestartet werden."
 
-#: 1000grad-epaper.php:1393
+#: 1000grad-epaper.php:1449
 #@ 1000grad-epaper
 msgid "According to your wordpress settings the maximum upload size is limited to"
 msgstr "Entsprechend Ihren Wordpress Einstellungen ist die maximale Upload Größe beschränkt auf "
 
-#: 1000grad-epaper.php:1473
+#: 1000grad-epaper.php:1529
 #@ 1000grad-epaper
 msgid "<br />Channel empty<br />please upload a file"
 msgstr "<br>Kanal leer<br>bitte eine Datei hochladen"
 
-#: 1000grad-epaper.php:1403
+#: 1000grad-epaper.php:1459
 #@ 1000grad-epaper
 msgid "Embed this ePaper:"
 msgstr "Dieses ePaper einbinden:"
 
-#: 1000grad-epaper.php:1119
+#: 1000grad-epaper.php:1174
 #@ 1000grad-epaper
 msgid "next"
 msgstr "weiter"
 
-#: 1000grad-epaper.php:1145
+#: 1000grad-epaper.php:1200
 #@ 1000grad-epaper
 msgid "save"
 msgstr "speichern"
 
-#: 1000grad-epaper.php:634
-#: 1000grad-epaper.php:764
+#: 1000grad-epaper.php:701
+#: 1000grad-epaper.php:818
 #@ 1000grad-epaper
 msgid "<br />Please install it first!<br><code>apt-get install php5-curl</code>"
 msgstr "<br />Bitte zuerst installieren!<br><code>apt-get install php5-curl</code>"
 
-#: 1000grad-epaper.php:1207
+#: 1000grad-epaper.php:1262
 #@ 1000grad-epaper
 msgid "This is my new ePaper, brought to you by the 1000°ePaper service. Even you can <a href=http://www.1000grad-epaper.de/de/loesungen/wp-plugin>share your ePapers</a> with this wordpress plugin! Get your first ePaper Channel  FOR FREE during beta stage."
 msgstr "Dies ist mein neues ePaper dank des 1000°ePaper Services. Auch Sie können <a href=http://www.1000grad-epaper.de/de/loesungen/wp-plugin>Ihre ePapers teilen</a> mit diesem Wordpress Plugin! Besorgen Sie sich während der Beta-Phase einen KOSTENLOSEN ersten Kanal."
 
-#: 1000grad-epaper.php:1219
+#: 1000grad-epaper.php:1274
 #@ default
 msgid "<br />was posted (without category)<br />"
 msgstr ""
 
-#: 1000grad-epaper.php:1221
+#: 1000grad-epaper.php:1276
 #@ default
 msgid "Further edit this post"
 msgstr ""
 
-#: 1000grad-epaper.php:1345
+#: 1000grad-epaper.php:1401
 #@ default
 msgid "Es ist ein Fehler aufgetreten"
 msgstr ""
 
-#: 1000grad-epaper.php:433
+#: 1000grad-epaper.php:446
 #@ 1000grad-epaper
 msgid "This Installation is not correctly registered.<br />Please <a href=options-general.php?page=epaper_settings>check your installation</a>"
 msgstr "Diese Installation ist NICHT korrekt installiert worden. <br />Bitte <a href=options-general.php?page=epaper_settings>überprüfen Sie Ihre Installation</a>"
 
-#: 1000grad-epaper.php:787
+#: 1000grad-epaper.php:841
 #@ 1000grad-epaper
 msgid "I've read the <a href=http://www.1000grad.de/upload/Dokumente/agb/terms_of_use_1000grad_ePaper_API_WP_Plugin.pdf>terms of use</a> and I agree."
 msgstr "Ich habe die <a href=http://www.1000grad.de/upload/Dokumente/agb/Nutzungsbedingungen_1000grad_ePaper_API_WP_Plugin.pdf>Nutzungsbedingungen</a> gelesen und akzeptiere sie."
+
+#: 1000grad-epaper.php:638
+#@ 1000grad-epaper
+msgid "Feedback"
+msgstr "Feedback"
+
+#: 1000grad-epaper.php:663
+#@ default
+msgid "<br>Your feedback comment was sent to the 1000°ePaper Support Team. Thank you for contacting us."
+msgstr ""
+
+#: 1000grad-epaper.php:673
+#@ 1000grad-epaper
+msgid "send feedback"
+msgstr "Feedback abschicken"
+
+#: 1000grad-epaper.php:681
+#@ 1000grad-epaper
+msgid "Contact"
+msgstr "Kontakt"
+
+#: 1000grad-epaper.php:695
+#@ 1000grad-epaper
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: 1000grad-epaper.php:669
+#@ 1000grad-epaper
+msgid "Your opinion is important! We develop our software continuously and the focus of our efforts, you as a user of our software. Please send us your comments, questions and suggestions. We will contact you immediately."
+msgstr "Ihre Meinung ist uns wichtig! Wir entwickeln unsere Software ständig weiter und im Mittelpunkt unserer Bemühungen stehen Sie als Nutzer unserer Software. Bitte senden Sie uns Ihre Hinweise, Fragen und Verbesserungsvorschläge. Wir werden uns umgehend bei Ihnen melden."
+
+#: 1000grad-epaper.php:1365
+#@ 1000grad-epaper
+msgid "<br>Please <a href=options-general.php?page=epaper_settings>give us feedback about this plugin</a>"
+msgstr "<br>Bitte <a href=options-general.php?page=epaper_settings>geben sie uns Feedback über dieses Plugin</a>."
 

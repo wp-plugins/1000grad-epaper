@@ -3,13 +3,14 @@
 Plugin Name: 1000°ePaper
 Plugin URI: http://www.1000grad-epaper.de/loesungen/wp-plugin
 Description: Create browsable ePapers easily from within Wordpress! Konvertieren Sie Ihre PDF in ein blätterbares Web-Dokument und binden Sie es mit einem Widget ein! Auch auf Android, iPad & Co. macht Ihr ePaper in der automatischen HTML5-Darstellung einen sehr guten Eindruck.
-Version: 1.0.4
+Version: 1.0.5
 Author: 1000°DIGITAL Leipzig GmbH
 Author URI: http://www.1000grad-epaper.de/
 */
 
 //echo "<pre>";
-ini_set("soap.wsdl_cache_enabled", 0);
+ini_set("soap.wsdl_cache_enabled", 1);
+ini_set("soap.wsdl_cache_ttl", 86400);
 //error_reporting(E_ALL);
 ini_set('display_errors','On'); 
 //echo "</pre>";
@@ -29,16 +30,28 @@ add_action( 'add_meta_boxes', array( $myEpaperClass, 'addEpaperMetaBox' ) );
 add_filter('the_posts', array($myEpaperClass,'conditionally_add_scripts_and_styles')); 
 
 // doesnt work for the moment :-(
-//add_action('wp_head', array($myEpaperClass,'colorboxinline')); 
+//add_action('wp_head', array($myEpaperClass,'colorboxinlineheader')); 
+add_action('wp_footer', array($myEpaperClass,'colorboxinline')); 
 
 class epaper {
 
+  function colorboxinlineheader() {
+      echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>';
+  }
+    
   function colorboxinline() {
-  //  echo '<script>jQuery(".iframe").colorbox({iframe:true, width:"80%", height:"95%"}); </script>';
-    $code= '
-      <script type="text/javascript">
+    echo '<script>jQuery(".iframe").colorbox({iframe:true, width:"80%", height:"95%"}); </script>';
+    $code= '<script type="text/javascript">
       $(document).ready(function(){
       $(".iframe").colorbox({iframe:true, width:"80%", height:"95%"});
+      $(".ajax").colorbox();
+      $(".callbacks").colorbox({
+        onOpen:function(){ alert("onOpen: colorbox is about to open"); },
+        onLoad:function(){ alert("onLoad: colorbox has started to load the targeted content"); },
+        onComplete:function(){ alert("onComplete: colorbox has displayed the loaded content); },
+        onCleanup:function(){ alert("onCleanup: colorbox has begun the close process"); },
+        onClosed:function(){ alert("onClosed: colorbox has completely closed"); }
+    });
 
 $("#click").click(function(){
   $("#click").css({"background-color":"#f00", "color":"#fff", "cursor":"inherit"}).text("Open this window again and this message will still be here.");
@@ -47,7 +60,7 @@ $("#click").click(function(){
   });
   </script>
   ';
- echo $code;
+// echo $code;
   }
 
   function addEpaperMetaBox() {
@@ -76,7 +89,7 @@ $("#click").click(function(){
 
  //   if ($shortcode_found)
         {
-      wp_enqueue_script('js_colorbox_min', plugins_url('1000grad-epaper/colorbox/jquery.colorbox-min.js'));
+  //    wp_enqueue_script('js_colorbox_min', plugins_url('1000grad-epaper/colorbox/jquery.colorbox-min.js'));
       wp_enqueue_script('js_colorbox', plugins_url('1000grad-epaper/colorbox/jquery.colorbox.js'));
       wp_enqueue_style('style_colorbox', plugins_url('1000grad-epaper/colorbox/colorbox.css'));         
 #      wp_enqueue_script('yo', 'yo');
@@ -100,7 +113,7 @@ function epaperWidget($args) {
     $html.=$url."'>";
     $html.='<img src="';
     $html.=$url.'epaper/epaper-ani.gif" alt="epaper preview gif" border="0" width=100% /></a>';
-    $html.='<script>    jQuery(".iframe").colorbox({iframe:true, width:"80%", height:"95%"}); </script>';
+   // $html.='<script>    jQuery(".iframe").colorbox({iframe:true, width:"80%", height:"95%"}); </script>';
 //    $html.="</p>";
     echo $html;
     echo $after_widget;
@@ -123,7 +136,7 @@ function epaperWidget2($args) {
     $html.=$url."'";
     $html.='> <img src="';
     $html.=$url.'epaper/epaper-ani.gif" alt="epaper preview gif" border="0" width=100% /> </a>';
-    $html.='<script>    jQuery(".iframe").colorbox({iframe:true, width:"90%", height:"95%"}); </script>';
+ //   $html.='<script>    jQuery(".iframe").colorbox({iframe:true, width:"90%", height:"95%"}); </script>';
   echo $html;
        echo $after_widget;
         }
@@ -198,7 +211,7 @@ function epaperIntegrationMenu() {
     $html.=$url."'";
     $html.='> <img class="alignright" src="';
     $html.=$url.'/epaper/epaper-ani.gif" alt="epaper preview gif" border="0" /> </a>';
-    $html.='<script>    jQuery(".iframe").colorbox({iframe:true, width:"80%", height:"95%"}); </script>';
+    //$html.='<script>    jQuery(".iframe").colorbox({iframe:true, width:"80%", height:"95%"}); </script>';
     
        return $html;
   }
@@ -614,6 +627,7 @@ function epaperSettings() {
 
 //    echo "<img align=right src=".plugin_dir_url("1000grad-epaper/1000grad_logo.png")."1000grad_logo.png><br />";
 
+  
 ?>
       
 <div class="wrap"> 
@@ -621,11 +635,64 @@ function epaperSettings() {
   <div class="postbox-container" style="width:70%;">
     <div class="metabox-holder">
 
+    <div class="ui-sortable meta-box-sortables">    <div class="postbox">    <h3><?php _e("Feedback",'1000grad-epaper'); ?></h3>    <div class="inside">
 
-      <div class="ui-sortable meta-box-sortables">
-    <div class="postbox">
-    <h3>Settings</h3>
-    <div class="inside">
+<?                if (isset($_POST['feedback'])) { 
+        $text = $_POST['text'];        
+        global $wp_version;
+	$max_upload = (int)(ini_get('upload_max_filesize'));
+	$max_post = (int)(ini_get('post_max_size'));
+	$memory_limit = (int)(ini_get('memory_limit'));
+	$max_execution_time= (int)(ini_get('max_execution_time'));
+	$max_input_time= (int)(ini_get('max_input_time'));
+	$phpupload = min($max_upload, $max_post, $memory_limit);
+	$phptime = min($max_execution_time,$max_input_time);
+        $language = __("en",'1000grad-epaper');
+        $version_wordpress = $wp_version;
+        $version_php = phpversion();
+        $more="kein curl installiert";
+        if (extension_loaded('curl')) $more="curl ist installiert";
+
+      try {
+            global $testapikey;  global $apiKey;  epaper::epaperApikeyConnect();
+            $email=json_decode($testapikey->sendFeedback($epaper_options['email'],$text,$more,admin_url(),$phpupload,$phptime,$version_wordpress,$version_php,$language));
+    } catch (SoapFault $e) {
+      echo '<br /><b>Error '.$e->getMessage().'</b>'; 
+//	  if ($e->getMessage()=="(605) no valid email adress") _e("<br />Email adress is not valid.",'1000grad-epaper');
+	   }
+                  _e("<br>Your feedback comment was sent to the 1000°ePaper Support Team. Thank you for contacting us.");
+                  echo "<br><i>".$text."</i>";
+
+  } else {
+      ?>
+      <form action="" method="post">
+        <label for="text"><?php _e("Your opinion is important! We develop our software continuously and the focus of our efforts, you as a user of our software. Please send us your comments, questions and suggestions. We will contact you immediately.",'1000grad-epaper'); ?></label>
+        <textarea name="text" id="epaper_wordpressapi" value="" rows="5" cols="75"></textarea>
+        <br />
+        <!--<input type="submit" name="epaper-feedback-send" id="epaper-feedback-send" value="Send" class="button" />-->
+        <input type="submit" name="feedback" id="feedback" value="<?php _e("send feedback",'1000grad-epaper'); ?>" class="button" />
+        <input type="hidden" name="page" value="feedback_send" />
+      </form>
+  <?
+                }
+                
+   ?>            
+                
+    </div></div></div><div class="ui-sortable meta-box-sortables">    <div class="postbox">    <h3><?php _e("Contact",'1000grad-epaper'); ?></h3>    <div class="inside">
+<?php
+      echo "<p><a href=http://www.1000grad.de><img align=right src=".plugin_dir_url("1000grad-epaper/1000grad_logo.png")."1000grad_logo.png></a>";
+ ?>
+    <b>1000°DIGITAL GmbH</b>
+    <p>Lampestr. 2
+    <br />D-04107 Leipzig
+    <br />Support: +49 341 96382-63
+    <br />Fon: +49 341 96382-82
+    <br />Fax: +49 341 96382-22
+    <p>info@1000grad.de
+    <br />http://www.1000grad.de
+    <br />http://www.1000grad-epaper.de/loesungen/wp-plugin
+                
+    </div></div></div><div class="ui-sortable meta-box-sortables">    <div class="postbox">    <h3><?php _e("Settings",'1000grad-epaper'); ?></h3>    <div class="inside">
 
           <?php
         if (extension_loaded('curl')) echo "";
@@ -652,21 +719,8 @@ function epaperSettings() {
         <input type="submit" name="epaper-settings-save" id="epaper-settings-save" value="Save" class="button" />
         <input type="hidden" name="page" value="epaper_settings" />
       </form>
-    </div>    </div>   </div>
-        
-    <div class="ui-sortable meta-box-sortables">    <div class="postbox">    <h3>Kontakt</h3>    <div class="inside">
-<?php
-      echo "<p><a href=http://www.1000grad.de><img align=right src=".plugin_dir_url("1000grad-epaper/1000grad_logo.png")."1000grad_logo.png></a>";
- ?>
-    <b>1000°DIGITAL GmbH</b>
-    <p>Lampestr. 2
-    <br />D-04107 Leipzig
-    <br />Support: +49 341 96382-63
-    <br />Fon: +49 341 96382-82
-    <br />Fax: +49 341 96382-22
-    <p>info@1000grad.de
-    <br />http://www.1000grad.de
-    <br />http://www.1000grad-epaper.de/loesungen/wp-plugin
+
+            
 
     </div></div></div><div class="ui-sortable meta-box-sortables">    <div class="postbox">    <h3>Infos</h3>    <div class="inside">
             <?php  epaper::epaperTestWordpress();  ?>
@@ -915,6 +969,7 @@ function epaperChannelUpload() {
     else {
         _e("<b>Error!</b> ");
         echo $upload['error'];
+        echo "<hr>";
         _e("<br />Maybe file is larger than your wordpress php settings.",'1000grad-epaper');
         _e("<br />You can rise up these limits by creating file <b>wp-admin/.htaccess</b>",'1000grad-epaper');
         echo "<pre>
@@ -924,7 +979,7 @@ function epaperChannelUpload() {
         php_value max_input_time 200
 </pre><br />";
         _e("or look for hints at",'1000grad-epaper');
-        echo " <a href=http://php.net/manual/en/features.file-upload.php>php.net</a>";
+        echo " <a href=http://php.net/manual/en/features.file-upload.php>php.net</a><hr>";
         epaper::epaperTestWordpress();
         return false;
     }
@@ -1282,6 +1337,7 @@ function epaperChannels() {
         epaper::epaperChannelShow($channelinfo,$channelnr);
 
     }
+//echo '<script>jQuery(".iframe").colorbox({iframe:true, width:"80%", height:"95%"}); </script>';
 
 //    echo "<br clear=all><hr>";
 //    echo "<img src=".plugins_url( '1000grad_logo.png', __FILE__ )."><br />";
@@ -1307,6 +1363,7 @@ function epaperChannels() {
         epaper::epaperChannelUpgradeForm();
     echo "</td><td width=30%>";
     _e("You can get more 1000°ePaper channels for your account for instance via PayPal. Coming soon.",'1000grad-epaper');
+    _e("<br>Please <a href=options-general.php?page=epaper_settings>give us feedback about this plugin</a>",'1000grad-epaper');
     echo "</td></tr></table>";
      echo "</div></div></div>";
 //            echo "</table>";
@@ -1378,7 +1435,7 @@ function epaperChannelShow($channelinfo,$channelnr) {
     $html.=$channelinfo->url."'";
     $html.='> <img border=2 width=200 src="';
     $html.=$channelinfo->url.'/epaper/epaper-ani.gif?rnd='.rand(1000, 9999).'" alt="epaper preview gif" border="0" hspace=20 /> </a>';
-    $html.='<script>    jQuery(".iframe").colorbox({iframe:true, width:"80%", height:"95%"}); </script>';
+//    $html.='<script>    jQuery(".iframe").colorbox({iframe:true, width:"80%", height:"95%"}); </script>';
     echo $html;
             
             
@@ -1482,9 +1539,7 @@ function epaperChannelShowBox($channelinfo,$channelnr) {
     $html.=$url."'";
     $html.='> <img src="';
     $html.=$url.'epaper/epaper-ani.gif?rnd='.rand(1000, 9999).'" alt="epaper preview gif" border="0" /> </a>';
-    $html.='<script>    jQuery(".iframe").colorbox({iframe:true, width:"90%", height:"95%"}); </script>';
-    
-    
+//    $html.='<script>    jQuery(".iframe").colorbox({iframe:true, width:"90%", height:"95%"}); </script>';
     
     
     echo $html;
