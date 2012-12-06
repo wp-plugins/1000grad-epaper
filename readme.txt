@@ -4,10 +4,10 @@ Donate link:
 Tags: epaper pdf pageflip blätterkatalog flashflip emagazine
 Requires at least: 3.4
 Tested up to: 3.4.2
-Stable tag: 1.0.5
+Stable tag: 1.1.0
 License: GPLv2 or later
 
-Create browsable ePapers easily from within Wordpress.
+Easily create browsable ePapers within Wordpress.
 
 Konvertieren Sie Ihre PDF in ein blätterbares Web-Dokument und binden Sie es mit einem Widget ein. 
 
@@ -114,6 +114,10 @@ oder siehe http://php.net/manual/de/features.file-upload.php
 Bei der Benutzung der Kürzel (Shortcodes) können auch bereits existierende ePapers verlinkt werden. Verwenden Sie [ePaper url=http://....] mit der URL zum ePaper auf ihrem Server.
 
 == Changelog ==
+
+= 1.1.0 =
+
+bugfix call_user_func_array, some texts and translations changed
 
 = 1.0.5 =
 

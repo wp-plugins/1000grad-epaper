@@ -2,8 +2,8 @@
 /*
 Plugin Name: 1000°ePaper
 Plugin URI: http://www.1000grad-epaper.de/loesungen/wp-plugin
-Description: Create browsable ePapers easily from within Wordpress! Konvertieren Sie Ihre PDF in ein blätterbares Web-Dokument und binden Sie es mit einem Widget ein! Auch auf Android, iPad & Co. macht Ihr ePaper in der automatischen HTML5-Darstellung einen sehr guten Eindruck.
-Version: 1.0.5
+Description: Easily create browsable ePapers within Wordpress! Konvertieren Sie Ihre PDF in ein blätterbares Web-Dokument und binden Sie es mit einem Widget ein! Auch auf Android, iPad & Co. macht Ihr ePaper in der automatischen HTML5-Darstellung einen sehr guten Eindruck.
+Version: 1.1.0
 Author: 1000°DIGITAL Leipzig GmbH
 Author URI: http://www.1000grad-epaper.de/
 */
@@ -182,17 +182,17 @@ function epaperTextDomain() {
 
 function epaperIntegrationMenu() {
     $epaper_options = get_option("plugin_epaper_options");
-    add_menu_page('ePaper', '1000°ePaper', 10, 'epaper_channels', 'epaper::epaperChannels',plugin_dir_url("1000grad-epaper/1000grad_icon.png")."1000grad_icon.png");
+    add_menu_page('ePaper', '1000°ePaper', 10, 'epaper_channels', array(&$this,'epaperChannels'),plugin_dir_url("1000grad-epaper/1000grad_icon.png")."1000grad_icon.png");
 //    add_menu_page('ePaper', '1000°ePaper', 10, 'epaper_channels', 'epaper::epaperChannels',plugins_url('1000grad_icon.png', __FILE__));
 //    add_submenu_page('epaper_channels', 'ePaper '.__('Channels','1000grad-epaper'), __('Channels','1000grad-epaper'), 10, 'epaper_channels', 'epaper::epaperChannels');
 //    add_submenu_page('epaper_channels', 'ePaper '.__('List','1000grad-epaper'), __('List','1000grad-epaper'), 10, 'epaper_list', 'epaper::epaperList');
 ////  add_submenu_page('epaper_channels', 'ePaper'.__('Channels','1000grad-epaper'), __('Channels old','1000grad-epaper'), 10, 'epaper_channels', 'epaper::epaperchannels');
 //   if (!($epaper_options['apikey'])=="") add_submenu_page('epaper_channels', 'ePaper '.__('Edit','1000grad-epaper'), __('List/Edit','1000grad-epaper'), 10, 'epaper_edit', 'epaper::epaperEdit');
 ////   if (!($epaper_options['apikey'])=="") add_submenu_page('epaper_channels', 'ePaper '.__('Upload','1000grad-epaper'), __('Upload','1000grad-epaper'), 10, 'epaper_upload', 'epaper::epaperUpload');
-   if (($epaper_options['apikey'])=="") add_submenu_page('epaper_channels', 'ePaper '.__('Registration','1000grad-epaper'), __('Registration','1000grad-epaper'), 10, 'epaper_apikey', 'epaper::epaperApikey');
+   if (($epaper_options['apikey'])=="") add_submenu_page('epaper_channels', 'ePaper '.__('Registration','1000grad-epaper'), __('Registration','1000grad-epaper'), 10, 'epaper_apikey', array(&$this,'epaperApikey'));
 //                                        add_submenu_page('epaper_channels', 'ePaper Settings', __('Settings','1000grad-epaper'), 10, 'epaper_settings', 'epaper::epaperSettings');
  //  	add_management_page( 'ePaper Settings', 'ePaper Settings', 'epaper_settings','epaper_settings', 'epaperSettings');
-   	add_options_page( '1000°ePaper', '1000°ePaper', 10,'epaper_settings', 'epaper::epaperSettings');
+   	add_options_page( '1000°ePaper', '1000°ePaper', 10,'epaper_settings', array(&$this,'epaperSettings'));
 }
 
   function epaperShortcode($atts) {
@@ -557,7 +557,6 @@ function epaperContact() {
     <p>info@1000grad.de
     <br />http://www.1000grad.de
     <br />http://www.1000grad-epaper.de/loesungen/wp-plugin
-        
         <?php
 }
 
@@ -660,13 +659,14 @@ function epaperSettings() {
       echo '<br /><b>Error '.$e->getMessage().'</b>'; 
 //	  if ($e->getMessage()=="(605) no valid email adress") _e("<br />Email adress is not valid.",'1000grad-epaper');
 	   }
-                  _e("<br>Your feedback comment was sent to the 1000°ePaper Support Team. Thank you for contacting us.");
-                  echo "<br><i>".$text."</i>";
+                  _e("<br>Your feedback comment was sent to the 1000°ePaper Support Team. Thank you for contacting us.",'1000grad-epaper');
+                  echo "<br /><i>".$text."</i>";
 
   } else {
       ?>
       <form action="" method="post">
         <label for="text"><?php _e("Your opinion is important! We develop our software continuously and the focus of our efforts, you as a user of our software. Please send us your comments, questions and suggestions. We will contact you immediately.",'1000grad-epaper'); ?></label>
+        <br />
         <textarea name="text" id="epaper_wordpressapi" value="" rows="5" cols="75"></textarea>
         <br />
         <!--<input type="submit" name="epaper-feedback-send" id="epaper-feedback-send" value="Send" class="button" />-->
@@ -691,6 +691,10 @@ function epaperSettings() {
     <p>info@1000grad.de
     <br />http://www.1000grad.de
     <br />http://www.1000grad-epaper.de/loesungen/wp-plugin
+    <br />
+<?php    
+    _e("<a href=http://www.1000grad.de/upload/Dokumente/agb/terms_of_use_1000grad_ePaper_API_WP_Plugin.pdf>terms of use</a>",'1000grad-epaper');    
+?>    
                 
     </div></div></div><div class="ui-sortable meta-box-sortables">    <div class="postbox">    <h3><?php _e("Settings",'1000grad-epaper'); ?></h3>    <div class="inside">
 
@@ -957,17 +961,18 @@ function epaperChannelUpload() {
 //        echo '<br />ID des alten ePapers '.$id_epaper;
 // Vorbereitung
             if ($id_epaper>"") {
-            if ($channel->channelsRemoveEpaperFromChannel($apiKey,$id)) echo '<br />Kanal freigestellt<b>OK</b>' ;    else echo "<b>Fehler beim Kanal-freistellen!</b>";
-            if ($test->epaperDelete($apiKey,$id_epaper)) echo '<br />voriges ePaper gelöscht<b>OK</b>' ;    else echo "<b>Fehler beim löschen des vorigen epapers!</b>";
+            if ($channel->channelsRemoveEpaperFromChannel($apiKey,$id)) echo '<br />Kanal freigestellt. <b>OK</b>' ;    else echo "<b>Fehler beim Kanal-freistellen!</b>";
+            if ($test->epaperDelete($apiKey,$id_epaper)) echo '<br />voriges ePaper gelöscht. <b>OK</b>' ;    else echo "<b>Fehler beim löschen des vorigen epapers!</b>";
             }
 // sooo
         {
-	echo '<h1>ePaper Upload</h1>Datei <b>'.$upload['name'].'</b> ('.$upload['size'].' byte / '.round($upload['size']/1024/1024).'MByte) ';
+	_e("<h1>ePaper Upload</h1>File uploaded to your wordpress:",'1000grad-epaper');
+        echo ' <b>'.$upload['name'].'</b> ('.round($upload['size']/1024).'kByte) ';
 //print_r($upload);
 
    if ($upload['error']=='0') echo "<b>OK</b>";
     else {
-        _e("<b>Error!</b> ");
+        _e("<b>Error!</b> ",'1000grad-epaper');
         echo $upload['error'];
         echo "<hr>";
         _e("<br />Maybe file is larger than your wordpress php settings.",'1000grad-epaper');
@@ -984,11 +989,17 @@ function epaperChannelUpload() {
         return false;
     }
     $file = $upload['tmp_name'];
+    if (!file_exists($file)) _e("uploaded File doesnt exists. Maybe a problem in the php config.",'1000grad-epaper');
+        _e("<br />File uploaded to 1000°ePaper server.",'1000grad-epaper');
+        echo ' <b>'.$file.'</b> ('.round(filesize($file)/1024).'kByte) ';
+    
     $epaper_options = get_option("plugin_epaper_options");
     $apiKey=$epaper_options['apikey'];
     $uploadUrl = $epaper_options['url']."pdf-upload/";
+     $uploadName = urlencode($upload['name']);
+     if ($uploadName=="") $uploadName="upload.pdf";
     $postParams =array(
-    'file' => "@" . $file.';filename='.urlencode($upload['name']),
+    'file' => "@" . $file.';filename='.$uploadName,
     'apikey' =>  $apiKey
 );
 // upload
@@ -1003,25 +1014,28 @@ function epaperChannelUpload() {
     curl_close($ch);
     $result = json_decode($response, true);
     if (!$result) {
-        print_r($response);
+//        print_r($response);
         echo '<br />Error: Could not decode response!';
         return false;
     } elseif (!$result['success']) {
-        echo '<p><b>Error: '.$result['errors']['errorDesc'].'</b>';
+        echo '<p><b>';
+        _e('Error message from 1000°ePaper server:','1000grad-epaper');
+        echo ' '.$result['errors']['errorDesc'].'</b>';
     //    echo '<br />Error-Code: '.$result['errors']['errorCode'].' ';
     //    print_r($result);
         return false;
     } else {
 //        echo '<br />PDF-ID: '.$result['pdfId'];
+        echo " <b>OK</b>";
     }
     $uploadit=$result['pdfId'];
-//        print_r($result);
+    //    print_r($result);
     _e('<br />Upload was sucessful','1000grad-epaper');
 
                 }
           else {
             _e("<br /><b>Error, there is NO CURL installed at your wordpress system!</b>",'1000grad-epaper');
-//           return false; 
+           return false; 
   echo "<pre>";
       $data = "";
       $boundary = "---------------------".substr(md5(rand(0,32000)), 0, 10); 
@@ -1048,7 +1062,11 @@ function epaperChannelUpload() {
       );
    print_r($opts);
 $context = stream_context_create($opts);
-$socket = stream_socket_client("tcp://".parse_url($uploadUrl, PHP_URL_HOST).":80", $errno, $errstr, 30, STREAM_CLIENT_CONNECT, $context);
+$socket = stream_socket_client("tcp://".parse_url($uploadUrl, PHP_URL_HOST).":80", $errno, $errstr, 230, STREAM_CLIENT_CONNECT, $context);
+ if (!$socket) {
+    trigger_error('httpPost error: '.$errstr);
+    return NULL;
+  }
 while (!feof($socket)) {
   sleep(1);
         echo fgets($socket, 1024);
