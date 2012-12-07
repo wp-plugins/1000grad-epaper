@@ -4,7 +4,7 @@ Donate link:
 Tags: epaper pdf pageflip blätterkatalog flashflip emagazine
 Requires at least: 3.4
 Tested up to: 3.4.2
-Stable tag: 1.1.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 
 Easily create browsable ePapers within Wordpress.
@@ -114,6 +114,15 @@ oder siehe http://php.net/manual/de/features.file-upload.php
 Bei der Benutzung der Kürzel (Shortcodes) können auch bereits existierende ePapers verlinkt werden. Verwenden Sie [ePaper url=http://....] mit der URL zum ePaper auf ihrem Server.
 
 == Changelog ==
+
+= 1.2.1 =
+
+now possible to upload file without pdf extension
+fixed bug with older curl versions (filename)
+
+= 1.1.2 =
+
+more messages in case of local php problems on pdf-upload/curl-problems
 
 = 1.1.0 =
 

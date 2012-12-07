@@ -3,7 +3,7 @@
 Plugin Name: 1000°ePaper
 Plugin URI: http://www.1000grad-epaper.de/loesungen/wp-plugin
 Description: Easily create browsable ePapers within Wordpress! Konvertieren Sie Ihre PDF in ein blätterbares Web-Dokument und binden Sie es mit einem Widget ein! Auch auf Android, iPad & Co. macht Ihr ePaper in der automatischen HTML5-Darstellung einen sehr guten Eindruck.
-Version: 1.1.0
+Version: 1.2.1
 Author: 1000°DIGITAL Leipzig GmbH
 Author URI: http://www.1000grad-epaper.de/
 */
@@ -12,7 +12,7 @@ Author URI: http://www.1000grad-epaper.de/
 ini_set("soap.wsdl_cache_enabled", 1);
 ini_set("soap.wsdl_cache_ttl", 86400);
 //error_reporting(E_ALL);
-ini_set('display_errors','On'); 
+//ini_set('display_errors','On'); 
 //echo "</pre>";
  
  // License 
@@ -991,7 +991,7 @@ function epaperChannelUpload() {
     $file = $upload['tmp_name'];
     if (!file_exists($file)) _e("uploaded File doesnt exists. Maybe a problem in the php config.",'1000grad-epaper');
         _e("<br />File uploaded to 1000°ePaper server.",'1000grad-epaper');
-        echo ' <b>'.$file.'</b> ('.round(filesize($file)/1024).'kByte) ';
+        echo ' <b>'.$file.'</b> ('.round(filesize($file)/1024).' kByte) ';
     
     $epaper_options = get_option("plugin_epaper_options");
     $apiKey=$epaper_options['apikey'];
@@ -999,23 +999,40 @@ function epaperChannelUpload() {
      $uploadName = urlencode($upload['name']);
      if ($uploadName=="") $uploadName="upload.pdf";
     $postParams =array(
-    'file' => "@" . $file.';filename='.$uploadName,
-    'apikey' =>  $apiKey
+    'file' => "@".$file.'; filename='.$uploadName,
+    'apikey' =>  $apiKey,
 );
+move_uploaded_file($file,dirname($file)."/".$uploadName.'.pdf');
+    $postParams =array(
+    'file' => "@".dirname($file).'/'.$uploadName.'.pdf',
+    'apikey' =>  $apiKey,
+);
+//    echo "<pre>";
+//print_r($postParams);
+//    echo "</pre>";
 // upload
     
    if (extension_loaded('curl')) {
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_FAILONERROR, 1);
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_URL, $uploadUrl);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $postParams);
-    $response = curl_exec($ch);
+    if (!$response = curl_exec($ch)) {
+        _e('<br />Error message from you wordpress server:','1000grad-epaper');
+        echo '<br />curl error: '.curl_error($ch);
+    }
+    unlink(dirname($file).'/'.$uploadName.'.pdf');   
     curl_close($ch);
     $result = json_decode($response, true);
     if (!$result) {
 //        print_r($response);
         echo '<br />Error: Could not decode response!';
+        echo "<pre>";
+        print_r($response);
+        echo "</pre>";
         return false;
     } elseif (!$result['success']) {
         echo '<p><b>';
@@ -1029,7 +1046,7 @@ function epaperChannelUpload() {
         echo " <b>OK</b>";
     }
     $uploadit=$result['pdfId'];
-    //    print_r($result);
+//        print_r($result);
     _e('<br />Upload was sucessful','1000grad-epaper');
 
                 }
