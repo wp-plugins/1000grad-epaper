@@ -4,10 +4,10 @@ Donate link:
 Tags: epaper pdf pageflip blätterkatalog flashflip emagazine
 Requires at least: 3.4
 Tested up to: 3.4.2
-Stable tag: 1.0.4
+Stable tag: 1.2.1
 License: GPLv2 or later
 
-Create browsable ePapers easily from within Wordpress.
+Easily create browsable ePapers within Wordpress.
 
 Konvertieren Sie Ihre PDF in ein blätterbares Web-Dokument und binden Sie es mit einem Widget ein. 
 
@@ -75,13 +75,17 @@ The beta phase will run for approximately 3 months, followed by the 1.0 release 
 
 = Can I upload bigger sized PDFs too? =
 
-The upload size is mostly limited by your wordpress installation or installed PHP. Your can increase that value by editing wp-admin/.htaccess with these values:
+The upload size is mostly limited by your wordpress installation or installed PHP. Your can increase that value by editing wp-admin/.htaccess or php.ini with these values:
 * php_value upload_max_filesize 50M
 * php_value post_max_size 50M
 * php_value max_execution_time 200
 * php_value max_input_time 200
 
 or have a look at http://php.net/manual/en/features.file-upload.php
+
+= Can I integrate other 1000° products, i.e. purchased ePapers? =
+
+When using shortcodes you can also link to existing ePapers. Use [ePaper url=http://....] with the URL to your ePaper on your own server.
 
 = Wie kann ich starten? =
 
@@ -97,7 +101,7 @@ Die Beta-Phase läuft 3 Monate und geht dann in die Version 1.0 über. Für die 
 
 = Kann man auch größere PDF Dateien hochladen =
 
-Die Upload Begrenzung erfolgt durch die Voreinstellungen des jeweiligen Wordpress/PHP-Systems. Bei Bedarf können folgende Werte in die Datei wp-admin/.htaccess eingetragen werden:
+Die Upload Begrenzung erfolgt durch die Voreinstellungen des jeweiligen Wordpress/PHP-Systems. Bei Bedarf können folgende Werte in die Datei wp-admin/.htaccess bzw. php.ini eingetragen werden:
 * php_value upload_max_filesize 50M
 * php_value post_max_size 50M
 * php_value max_execution_time 200
@@ -105,7 +109,28 @@ Die Upload Begrenzung erfolgt durch die Voreinstellungen des jeweiligen Wordpres
 
 oder siehe http://php.net/manual/de/features.file-upload.php
 
+= Kann man auch andere 1000° Produkte verlinken, z.B. gekaufte ePaper? =
+
+Bei der Benutzung der Kürzel (Shortcodes) können auch bereits existierende ePapers verlinkt werden. Verwenden Sie [ePaper url=http://....] mit der URL zum ePaper auf ihrem Server.
+
 == Changelog ==
+
+= 1.2.1 =
+
+now possible to upload file without pdf extension
+fixed bug with older curl versions (filename)
+
+= 1.1.2 =
+
+more messages in case of local php problems on pdf-upload/curl-problems
+
+= 1.1.0 =
+
+bugfix call_user_func_array, some texts and translations changed
+
+= 1.0.5 =
+
+english welcome-mail, feedback form added, colorbox integration changed
 
 = 1.0.2 =
 
