@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: 1000°ePaper
-Plugin URI: http://www.1000grad-epaper.de/loesungen/wp-plugin
+Plugin URI: http://epaper-apps.1000grad.com/
 Description: Easily create browsable ePapers within Wordpress! Konvertieren Sie Ihre PDF in ein blätterbares Web-Dokument und binden Sie es mit einem Widget ein! Auch auf Android, iPad & Co. macht Ihr ePaper in der automatischen HTML5-Darstellung einen sehr guten Eindruck.
-Version: 1.2.1
+Version: 1.2.2
 Author: 1000°DIGITAL Leipzig GmbH
-Author URI: http://www.1000grad-epaper.de/
+Author URI: http://www.1000grad.com
 */
 
 //echo "<pre>";
@@ -31,37 +31,11 @@ add_filter('the_posts', array($myEpaperClass,'conditionally_add_scripts_and_styl
 
 // doesnt work for the moment :-(
 //add_action('wp_head', array($myEpaperClass,'colorboxinlineheader')); 
-add_action('wp_footer', array($myEpaperClass,'colorboxinline')); 
+//add_action('wp_footer', array($myEpaperClass,'colorboxinline')); 
+//add_action('wp_head', array($myEpaperClass,'colorboxinline')); 
 
 class epaper {
-
-  function colorboxinlineheader() {
-      echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>';
-  }
-    
-  function colorboxinline() {
-    echo '<script>jQuery(".iframe").colorbox({iframe:true, width:"80%", height:"95%"}); </script>';
-    $code= '<script type="text/javascript">
-      $(document).ready(function(){
-      $(".iframe").colorbox({iframe:true, width:"80%", height:"95%"});
-      $(".ajax").colorbox();
-      $(".callbacks").colorbox({
-        onOpen:function(){ alert("onOpen: colorbox is about to open"); },
-        onLoad:function(){ alert("onLoad: colorbox has started to load the targeted content"); },
-        onComplete:function(){ alert("onComplete: colorbox has displayed the loaded content); },
-        onCleanup:function(){ alert("onCleanup: colorbox has begun the close process"); },
-        onClosed:function(){ alert("onClosed: colorbox has completely closed"); }
-    });
-
-$("#click").click(function(){
-  $("#click").css({"background-color":"#f00", "color":"#fff", "cursor":"inherit"}).text("Open this window again and this message will still be here.");
-  return false;
-});      
-  });
-  </script>
-  ';
-// echo $code;
-  }
+//  private var $apiKey = null;
 
   function addEpaperMetaBox() {
        $epaper_options = get_option("plugin_epaper_options");
@@ -73,27 +47,26 @@ $("#click").click(function(){
   }
 
 
-
   function conditionally_add_scripts_and_styles($posts) {
     if (empty($posts))
       return $posts;
 
-    $shortcode_found = false; // use this flag to see if styles and scripts need to be enqueued
-
-    foreach ($posts as $post) {
-      if (stripos($post->post_content, 'ePaper')) {
-        $shortcode_found = true; // bingo!
-        break;
-      }
-    }
+//    $shortcode_found = false; // use this flag to see if styles and scripts need to be enqueued
+//
+//    foreach ($posts as $post) {
+//      if (stripos($post->post_content, 'ePaper')) {
+//        $shortcode_found = true; // bingo!
+//        break;
+//      }
+//    }
 
  //   if ($shortcode_found)
         {
-  //    wp_enqueue_script('js_colorbox_min', plugins_url('1000grad-epaper/colorbox/jquery.colorbox-min.js'));
-      wp_enqueue_script('js_colorbox', plugins_url('1000grad-epaper/colorbox/jquery.colorbox.js'));
+      wp_enqueue_script( 'jquery' );      
+      wp_enqueue_script('js_colorbox_min', plugins_url('1000grad-epaper/colorbox/jquery.colorbox-min.js'));
+//      wp_enqueue_script('js_colorbox', plugins_url('1000grad-epaper/colorbox/jquery.colorbox.js'));
+      wp_enqueue_script('colorbox-epaper', plugins_url('1000grad-epaper/colorbox-epaper.js'));
       wp_enqueue_style('style_colorbox', plugins_url('1000grad-epaper/colorbox/colorbox.css'));         
-#      wp_enqueue_script('yo', 'yo');
-#      wp_head('yo',  'yo');
          }
 
     return $posts;
@@ -554,9 +527,9 @@ function epaperContact() {
     <br />D-04107 Leipzig
     <br />Support: +49 341 96382-63
     <br />Fax: +49 341 96382-22
-    <p>info@1000grad.de
-    <br />http://www.1000grad.de
-    <br />http://www.1000grad-epaper.de/loesungen/wp-plugin
+    <p>info@epaper-apps.1000grad.com
+    <br />http://epaper-apps.1000grad.com/
+    <br />http://www.1000grad-epaper.de
         <?php
 }
 
@@ -688,9 +661,9 @@ function epaperSettings() {
     <br />Support: +49 341 96382-63
     <br />Fon: +49 341 96382-82
     <br />Fax: +49 341 96382-22
-    <p>info@1000grad.de
-    <br />http://www.1000grad.de
-    <br />http://www.1000grad-epaper.de/loesungen/wp-plugin
+    <p>info@epaper-apps.1000grad.com
+    <br />http://epaper-apps.1000grad.com/
+    <br />http://www.1000grad-epaper.de
     <br />
 <?php    
     _e("<a href=http://www.1000grad.de/upload/Dokumente/agb/terms_of_use_1000grad_ePaper_API_WP_Plugin.pdf>terms of use</a>",'1000grad-epaper');    
@@ -1002,6 +975,8 @@ function epaperChannelUpload() {
     'file' => "@".$file.'; filename='.$uploadName,
     'apikey' =>  $apiKey,
 );
+    
+    // bugfixing for https://bugs.php.net/bug.php?id=46696 - no filename on upload due to some curl problems in earlier versions)
 move_uploaded_file($file,dirname($file)."/".$uploadName.'.pdf');
     $postParams =array(
     'file' => "@".dirname($file).'/'.$uploadName.'.pdf',

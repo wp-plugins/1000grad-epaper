@@ -4,7 +4,7 @@ Donate link:
 Tags: epaper pdf pageflip blätterkatalog flashflip emagazine
 Requires at least: 3.4
 Tested up to: 3.4.2
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPLv2 or later
 
 Easily create browsable ePapers within Wordpress.
@@ -115,30 +115,35 @@ Bei der Benutzung der Kürzel (Shortcodes) können auch bereits existierende ePa
 
 == Changelog ==
 
+= 1.2.2 =
+
+* colorbox now working correctly with all themes
+* new landing page http://epaper-apps.1000grad.com/
+
 = 1.2.1 =
 
-now possible to upload file without pdf extension
-fixed bug with older curl versions (filename)
+* now possible to upload file without pdf extension
+* fixed bug with older curl versions (filename)
 
 = 1.1.2 =
 
-more messages in case of local php problems on pdf-upload/curl-problems
+* more messages in case of local php problems on pdf-upload/curl-problems
 
 = 1.1.0 =
 
-bugfix call_user_func_array, some texts and translations changed
+* bugfix call_user_func_array, some texts and translations changed
 
 = 1.0.5 =
 
-english welcome-mail, feedback form added, colorbox integration changed
+* english welcome-mail, feedback form added, colorbox integration changed
 
 = 1.0.2 =
 
-checks and warnings about the need of php5-curl and some more english translations
+* checks and warnings about the need of php5-curl and some more english translations
 
 = 1.0.1 =
 
-warning about curl, that has to be installed on your wordpress-server
+* warning about curl, that has to be installed on your wordpress-server
 
 = 1.0.0 =
 
@@ -183,7 +188,6 @@ We're going to release periodical updates.
 * 1000°DIGITAL GmbH
 * Lampestr. 2
 * D-04107 Leipzig
-* support@1000grad-epaper.de
-* www.1000grad-epaper.de
-
+* info@epaper-apps.1000grad.com
+* http://epaper-apps.1000grad.com/
     
