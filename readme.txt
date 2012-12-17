@@ -3,8 +3,8 @@ Contributors: 1000grad
 Donate link: 
 Tags: epaper pdf pageflip blätterkatalog flashflip emagazine
 Requires at least: 3.4
-Tested up to: 3.4.2
-Stable tag: 1.2.2
+Tested up to: 3.5
+Stable tag: 1.2.3
 License: GPLv2 or later
 
 Easily create browsable ePapers within Wordpress.
