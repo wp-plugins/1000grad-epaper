@@ -1,10 +1,10 @@
 === Plugin Name ===
 Contributors: 1000grad
 Donate link: 
-Tags: epaper pdf pageflip blätterkatalog flashflip emagazine
+Tags: epaper pdf newspaper ebook catalogue pageflip blätterkatalog flashflip emagazine
 Requires at least: 3.4
-Tested up to: 3.5
-Stable tag: 1.2.3
+Tested up to: 3.5.1
+Stable tag: 1.3.4
 License: GPLv2 or later
 
 Easily create browsable ePapers within Wordpress.
@@ -114,6 +114,18 @@ oder siehe http://php.net/manual/de/features.file-upload.php
 Bei der Benutzung der Kürzel (Shortcodes) können auch bereits existierende ePapers verlinkt werden. Verwenden Sie [ePaper url=http://....] mit der URL zum ePaper auf ihrem Server.
 
 == Changelog ==
+
+= 1.3.3 =
+
+* more documentation and more tests
+
+= 1.3.2 =
+
+* Bugfixing the refactoring and more translations
+
+= 1.3 =
+
+* Code Refactoring
 
 = 1.2.2 =
 
