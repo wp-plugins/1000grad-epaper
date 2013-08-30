@@ -18,7 +18,7 @@ class EpaperApi
     public function __construct() 
     {
         $this->epaperOptions = get_option("plugin_epaper_options");
-        $this->apikey = $this->epaperOptions['apikey'];
+        $this->apikey = isset($this->epaperOptions['apikey'])?$this->epaperOptions['apikey']:NULL;
         $this->_isRegistered();
     }
     
@@ -56,27 +56,26 @@ class EpaperApi
      */
     public function returnEpaperInfos ($apikey, $id) 
     {
-        $this->epaperApiConnect();
+        $res=$this->epaperApiConnect();
+        if ( is_wp_error($res) )
+            return $res;        
         try {
-            $info = $this->epaperApiClient->epaperGetInfos($apikey,$id);
-		} catch (SoapFault $e) {
-            _e("ePaper read fault.",'1000grad-epaper');
-            echo $e->getMessage(); 
-            return false;            
+            return $this->epaperApiClient->epaperGetInfos($apikey,$id);
+        } catch (SoapFault $e) {
+            return  new WP_Error('ePaper read fault (1)', $e->getMessage() ); 
         }
-        return $info;
     }
     
-      /**
+    /**
      * ePaper List
      */
-  public function returnEpaperList ($apikey)
+    public function returnEpaperList ($apikey)
     {
         $this->epaperApiConnect();
         try {
             $epaperList = $this->epaperApiClient->epaperGetList($apikey);
 		} catch (SoapFault $e) {
-            _e("ePaper read fault.",'1000grad-epaper');
+            _e("ePaper read fault (2).",'1000grad-epaper');
             echo $e->getMessage(); 
             return false;            
         }
@@ -145,9 +144,9 @@ class EpaperApi
         }   
     }
     
-     /**
-     * Publizierung des pdf
-     */
+    /**
+    * Publizierung des pdf
+    */
     public function epaperCreateFromPdf($apikey,$pdfId) 
     {
         $this->epaperApiConnect();
@@ -213,9 +212,9 @@ class EpaperApi
         } 
     }
 
-      /**
-     * Verschieben bzw. Umbenennen von einem ePaper
-     */
+   /**
+    * Verschieben bzw. Umbenennen von einem ePaper
+    */
     public function epaperMove($apikey, $uploadId , $key, $value)
     {
         $this->epaperApiConnect();
