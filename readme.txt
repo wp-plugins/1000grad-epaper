@@ -9,7 +9,7 @@ License: GPLv2 or later
 
 Easily create browsable ePapers within Wordpress.
 
-Convert your PDF document to an online document by using the 1000° ePaper service. Embed it via widget or shortcode. 
+Convert your PDF document to an online document by using the 1000° ePaper service.
 
 == Description ==
 
