@@ -6,7 +6,6 @@
  */
 class EpaperChannelApi 
 {
-    private $channelApiWsdl;
     private $channelApiClient;
     
     private $apikey;
@@ -16,7 +15,7 @@ class EpaperChannelApi
     public function __construct() 
     {
         $this->epaperOptions = get_option("plugin_epaper_options");
-        $this->apikey = $this->epaperOptions['apikey'];
+        $this->apikey = isset($this->epaperOptions['apikey'])?$this->epaperOptions['apikey']:NULL;
         $this->_isRegistered();
     }
     
@@ -144,5 +143,29 @@ class EpaperChannelApi
             echo $e->getMessage(); 
             return false;
         }
-    }   
+    }  
+    
+    
+     /**
+     * Kanal Name
+     */
+    public function setChannelTitle($apikey, $iChannelId, $sTitle) 
+    {
+        $this->epaperChannelApiConnect();
+        try {
+            $res = $this->channelApiClient->channelsSetChannelTitle($apikey, $iChannelId, $sTitle);
+            return $res;            
+		} catch (SoapFault $e) {
+            echo "<br />";
+            _e("Error with ePaper Channel.",'1000grad-epaper');
+            echo $e->getMessage(); 
+            return false;
+        }
+    }    
+    
+    
+    
+    
+    
+    
 }
