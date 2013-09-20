@@ -3,7 +3,7 @@
 Plugin Name: 1000°ePaper
 Plugin URI: http://epaper-apps.1000grad.com/
 Description: Easily create browsable ePapers within Wordpress! Convert your PDFs to online documents by using the 1000° ePaper service. Embed it via widget or shortcode.  1000°ePaper is an electronic publishing service that allows you to quickly and easily create native page flipping electronic publications such as e-Books, e-Catalogs, e-Brochures, e-Presentations and much more.
-Version: 1.4.0
+Version: 1.4.1
 Author: 1000°DIGITAL Leipzig GmbH
 Author URI: http://www.1000grad.de
 License:
@@ -33,7 +33,7 @@ require_once("lib/epaperChannelApi.php");
 
 class TG_Epaper_WP_Plugin {
     
-    static $sPluginVersion = "1.4.0";
+    static $sPluginVersion = "1.4.1";
     
     private $aEpaperOptions = array();  
     
@@ -126,6 +126,15 @@ class TG_Epaper_WP_Plugin {
             
         endif;
     }
+    
+    public function checkSoapIsActivated(){
+        if(extension_loaded('soap') === false):
+            $this->showWarning(__("<b>The 1000°ePaper plugin requires SOAP extension for PHP (php_soap).<br/><br/>Please ask your system administrator to activate it.</b>","1000grad-epaper"));
+            return false;
+        endif;
+        
+        return true;
+    }    
     
     //returns current plugin-version
     public static function getPluginVersion(){
@@ -430,6 +439,8 @@ class TG_Epaper_WP_Plugin {
     //subscription-adminpage
     public function adminpage_epaper_subscription()
     {
+        if(!$this->checkSoapIsActivated()) return false;
+        
         try {
             $sLanguage = substr(get_bloginfo ( 'language' ), 0, 2);
             $sPPButton = $this->oAccountApi->getPPButtonCode(($sLanguage != NULL && $sLanguage != false)?$sLanguage:'en');
@@ -453,6 +464,8 @@ class TG_Epaper_WP_Plugin {
     //settings-adminpage
     public function adminpage_epaper_settings()
     {   
+        if(!$this->checkSoapIsActivated()) return false;
+        
         $this->oView->feedback_sent = false;
         $this->aTemplateVars = array('TITLE' => sprintf('%s - %s',$this->sDefaultTitle, 'Settings'));
         
@@ -539,6 +552,8 @@ class TG_Epaper_WP_Plugin {
     
     //channel-list
     public function adminpage_epaper_channels(){
+        if(!$this->checkSoapIsActivated()) return false;
+        
         $this->clearAllChannelPreviewImages();
         $this->oView->bAgbWasAccepted = $this->agbWasAccepted();
         $this->oView->sAdminUrl = get_admin_url();

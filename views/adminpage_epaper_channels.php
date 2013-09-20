@@ -131,7 +131,11 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
     <?php if(!$this->oView->bAgbWasAccepted): ?>
         <div id="tg_epaper_agb_overlay">
             <div id="tg_epaper_agb_check_content" class="tg-border-radius">
-                <div class="bold"><?php echo __('Please read and accept our terms and conditions, before using the ePaper Wordpress-Plugin.','1000grad-epaper') ?></div>
+                        <div class="tg_header_box_logo">
+            <img align=right alt=1000grad-logo hspace=10 vspace=10 src='<?php echo plugin_dir_url(""). "1000grad-epaper/img/1000grad_logo.png" ?>'>    
+        </div>
+
+                <div class="bold"><?php echo __('Please read and accept our terms and conditions, before using the 1000°ePaper Wordpress-Plugin.','1000grad-epaper') ?></div>
                 <div id="tge_agb_box">
                     <input type="checkbox" name="agb"  id="tg_epaper_agb"> 
                     <span><?php echo __('I have read the <a target="_blank" href="http://www.1000grad.de/upload/Dokumente/agb/SaaSAgreement-TCen-2013-07-26.pdf">terms of use</a> and I agree.','1000grad-epaper'); ?></span><br />
