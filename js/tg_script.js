@@ -558,12 +558,12 @@ jQuery.extend(TgEpaper.prototype,{
         });
     },
     initAgbAccepted:function(){
-        jQuery('a#agb_accept_button').click(function(){
-            var data = {
+        jQuery('button#agb_accept_button').click(function(){
+            /*var data = {
                 action: 'epaper_ajax',
                 ajax_option: 'acceptAgb',
                 tge_nonce: TGELocalData.tge_nonce
-            };
+            };*/
             
             if (jQuery('#tg_epaper_agb').is(':checked') === false) {
                 jQuery('#tge_agb_box').attr('class', 'bold');
@@ -572,9 +572,14 @@ jQuery.extend(TgEpaper.prototype,{
                 jQuery('#tge_agb_box').attr('class', 'default');
             }
 
-            TgEpaper._epaper_global_ajax_request = jQuery.post(TGELocalData.ajaxurl, data, function() {
+            /*TgEpaper._epaper_global_ajax_request = jQuery.post(TGELocalData.ajaxurl, data, function() {
                 jQuery('div#tg_epaper_agb_overlay').remove();
-            });        
+            });*/    
+        });
+        
+        jQuery('button#agb_cancel_button').click(function(){
+            location.href = jQuery(this).attr('href');
+            return false;
         });
 
         jQuery('#tg_epaper_agb').click(function() {

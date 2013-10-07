@@ -3,7 +3,7 @@
 Plugin Name: 1000°ePaper
 Plugin URI: http://epaper-apps.1000grad.com/
 Description: Easily create browsable ePapers within Wordpress! Convert your PDFs to online documents by using the 1000° ePaper service. Embed it via widget or shortcode.  1000°ePaper is an electronic publishing service that allows you to quickly and easily create native page flipping electronic publications such as e-Books, e-Catalogs, e-Brochures, e-Presentations and much more.
-Version: 1.4.1
+Version: 1.4.2
 Author: 1000°DIGITAL Leipzig GmbH
 Author URI: http://www.1000grad.de
 License:
@@ -26,14 +26,15 @@ License:
 Using the awesome plugin boilerplate by Tom MsFarlin: https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate
 
 */
-//error_reporting(0);
+/*error_reporting(0);*/
+
 require_once("lib/epaperApi.php");
 require_once("lib/epaperApikeyApi.php");
 require_once("lib/epaperChannelApi.php");
 
 class TG_Epaper_WP_Plugin {
     
-    static $sPluginVersion = "1.4.1";
+    static $sPluginVersion = "1.4.2";
     
     private $aEpaperOptions = array();  
     
@@ -122,9 +123,19 @@ class TG_Epaper_WP_Plugin {
 
             add_action('add_meta_boxes', array( $this, 'action_add_metabox_epaper' ) );
             // drop a warning on each page of the admin when 1000grad-epaper hasn't been configured
-            add_action( 'admin_notices', array( $this, 'showRegistrationInfo' ) );
+            //add_action( 'admin_notices', array( $this, 'showRegistrationInfo' ) );
             
         endif;
+        
+        //register_uninstall_hook(__FILE__, array('TG_Epaper_WP_Plugin', 'uninstallPlugin'));
+    }
+    
+    public static function uninstallPlugin(){
+        if ( !defined( 'WP_UNINSTALL_PLUGIN' ) ) 
+            exit();
+        
+        var_dump('uninstall');
+        exit;
     }
     
     public function checkSoapIsActivated(){
@@ -340,7 +351,16 @@ class TG_Epaper_WP_Plugin {
     //registration-adminpage
     public function adminpage_epaper_apikey()
     {
-        isset($_POST['register_account'])?$this->sendRegistrationEmail():NULL;
+        if(!$this->checkSoapIsActivated()) return false;
+        
+        if(isset($_POST['register_account'])):
+            $this->sendRegistrationEmail();
+            $sEmail = (isset($_POST['apikey_email']) && !empty($_POST['apikey_email']))?$_POST['apikey_email']:NULL;
+            if($sEmail !== NULL):
+                $this->aEpaperOptions['email'] = $sEmail;
+                update_option($this->sEpaperOptionIndex, $this->aEpaperOptions);
+            endif;
+        endif;
         
         $this->oView->registration_error = false;
         $this->oView->email_submitted = true;
@@ -440,6 +460,7 @@ class TG_Epaper_WP_Plugin {
     public function adminpage_epaper_subscription()
     {
         if(!$this->checkSoapIsActivated()) return false;
+        $this->showRegistrationInfo();
         
         try {
             $sLanguage = substr(get_bloginfo ( 'language' ), 0, 2);
@@ -465,7 +486,8 @@ class TG_Epaper_WP_Plugin {
     public function adminpage_epaper_settings()
     {   
         if(!$this->checkSoapIsActivated()) return false;
-        
+        $this->showRegistrationInfo();
+
         $this->oView->feedback_sent = false;
         $this->aTemplateVars = array('TITLE' => sprintf('%s - %s',$this->sDefaultTitle, 'Settings'));
         
@@ -552,8 +574,15 @@ class TG_Epaper_WP_Plugin {
     
     //channel-list
     public function adminpage_epaper_channels(){
-        if(!$this->checkSoapIsActivated()) return false;
+        if (!$this->checkSoapIsActivated())
+            return false;
         
+        if (isset($_POST['agb'])):
+            $this->aEpaperOptions[$this->sAgbAcceptIndex] = true;
+            update_option($this->sEpaperOptionIndex, $this->aEpaperOptions);
+        endif;
+            
+        $this->showRegistrationInfo();
         $this->clearAllChannelPreviewImages();
         $this->oView->bAgbWasAccepted = $this->agbWasAccepted();
         $this->oView->sAdminUrl = get_admin_url();
@@ -997,7 +1026,25 @@ class TG_Epaper_WP_Plugin {
             "en" => __('english','1000grad-epaper'),
             "es" => __('espanol','1000grad-epaper'),
             "fr" => __('francais','1000grad-epaper'),
-            "it" => __('italiano','1000grad-epaper')
+            "it" => __('italiano','1000grad-epaper'),
+            'da' => __('danish','1000grad-epaper'),
+            'nl' => __('dutch','1000grad-epaper'),
+            'fi' => __('finnish','1000grad-epaper'),
+            'cs' => __('czech','1000grad-epaper'),
+            'ru' => __('russian','1000grad-epaper'),
+            'hr' => __('croatian','1000grad-epaper'),
+            'ro' => __('Romanian', '1000grad-epaper'),
+            'sk' => __('Slovak', '1000grad-epaper'),
+            'sl' => __('Slovenian', '1000grad-epaper'),
+            'hu' => __('Hungarian', '1000grad-epaper'),
+            'pl' => __('polish','1000grad-epaper'),
+            'pt' => __('portuguese','1000grad-epaper'),
+            'tr' => __('turkish','1000grad-epaper'),
+            'bg' => __('bulgarian','1000grad-epaper'),
+            'ja' => __('japanese','1000grad-epaper'),
+            'el' => __('greek','1000grad-epaper'),
+            'zh_Hans' => __('simplified chinese','1000grad-epaper'),
+            'zh_Hant' => __('traditional chinese','1000grad-epaper')       
         );
     }
     
@@ -1059,7 +1106,8 @@ class TG_Epaper_WP_Plugin {
 class EpaperWidgetClass extends WP_Widget {
     
     private $oEpaper = NULL;
-    
+    private $sEpaperOptionIndex = 'plugin_epaper_options';
+        
     function EpaperWidgetClass() {
         parent::WP_Widget(false, $name = '1000°ePaper', array(
             'description' => __('display a 1000°ePaper','1000grad-epaper')

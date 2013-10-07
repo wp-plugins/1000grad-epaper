@@ -155,6 +155,17 @@ div#tg_epaper_progress_bar > div#overlayer_content, div#tg_epaper_agb_check_cont
 }
 
 div#tg_epaper_agb_check_content > div{
+    
+}
+
+div#tg_epaper_agb_check_content > div.tg_agb_logo{
+    float:left;
+    margin-bottom: 20px;
+}
+
+div#tg_epaper_agb_check_content > div.agb_text{
+    width:280px;
+    float:left;
     margin-bottom: 20px;
 }
 
