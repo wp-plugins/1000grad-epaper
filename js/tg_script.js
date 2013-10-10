@@ -413,7 +413,7 @@ jQuery.extend(TgEpaper.prototype,{
         });
     },
     initColorBox:function(){
-        jQuery(".ePaper").colorbox({iframe:true, width:"80%", height:"90%"});
+        $tgd(".ePaper").colorbox({iframe:true, width:"80%", height:"90%"});
     },
             
     startRendering:function(pdfId, oldEpaperId, channel_id, filename){
