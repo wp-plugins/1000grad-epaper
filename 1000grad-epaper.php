@@ -3,7 +3,7 @@
 Plugin Name: 1000°ePaper
 Plugin URI: http://epaper-apps.1000grad.com/
 Description: Easily create browsable ePapers within Wordpress! Convert your PDFs to online documents by using the 1000° ePaper service. Embed it via widget or shortcode.  1000°ePaper is an electronic publishing service that allows you to quickly and easily create native page flipping electronic publications such as e-Books, e-Catalogs, e-Brochures, e-Presentations and much more.
-Version: 1.4.2
+Version: 1.4.4
 Author: 1000°DIGITAL Leipzig GmbH
 Author URI: http://www.1000grad.de
 License:
@@ -34,7 +34,7 @@ require_once("lib/epaperChannelApi.php");
 
 class TG_Epaper_WP_Plugin {
     
-    static $sPluginVersion = "1.4.2";
+    static $sPluginVersion = "1.4.4";
     
     private $aEpaperOptions = array();  
     
