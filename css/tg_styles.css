@@ -531,7 +531,7 @@ div#tg_epaper_progress_bar a.tg_cancel_upload{
     white-space: nowrap;
 }
 
-.hidden{
+.tg_epaper_hidden{
     visibility: hidden;
 }
 

@@ -4,7 +4,7 @@ Donate link:
 Tags: epaper pdf newspaper flipbook ebook catalogue pageflip blätterbar katalog flashflip emagazine publisher
 Requires at least: 3.4
 Tested up to: 3.7-alpha-25000
-Stable tag: 1.4.3
+Stable tag: 1.4.4
 License: GPLv2 or later
 
 Easily create browsable ePapers within Wordpress.
@@ -45,7 +45,9 @@ Download the 1000° ePaper plugin from wordpress marketplace to your wordpress i
  
 = How about the ePaper quality and filesize? =
 
-The ePaper can only be as good as your given PDF. Save your document as an for web sites optimized version. Single pages (not spreads) in one PDF. Preferably 150 dpi resolution. It is possible to process higher dpi values but the quality experienced by the reader won't increase noticeably while viewing common document sizes. Whereas the file size will increase noticeably. Make sure all pages are the same size. If not, some pages might be cut off, due to the automatic correction by the player. The fonts used in your document need to be embedded in the PDF-file. Don't use very complex vector graphics within your document.
+The ePaper can only be as good as your given PDF. Save your document as an for web sites optimized version. 
+We recommend using the PDF/A-1b format. Single pages (not spreads) in one PDF. The fonts used in your document need to be embedded in the PDF-file. Don't use very complex vector graphics within your document. Preferably 150 dpi resolution. 
+It is possible to process higher dpi values but the quality experienced by the reader won't increase noticeably while viewing common document sizes. Whereas the file size will increase noticeably. Make sure all pages are the same size. If not, some pages might be cut off, due to the automatic correction by the player. 
 1000°ePaper is designed to convert any publication dimensions and represent your publication as a true reflection of its print counter part. It does not matter if your publication is a tabloid magazine, broadsheet newspaper, square, A3, A4 or A5. Whatever its shape, 1000°ePaper will interpret and convert.
 There is a maximum file size of 600 MB/publication. For your own convenience and upload time, they should be as small as possible. Note however, that there is no converter that down- or upscales the files to a specific dpi-value.
 
@@ -69,6 +71,11 @@ Yes, of course. When using shortcodes you can also link to existing ePapers. Use
 Usage via Widgets will be possible in a future version of that plugin. All our existing customers of our ePaper professional service do also have the possibility to call our support hotline via phone.
 
 == Changelog ==
+
+= 1.4.4 =
+
+* wordpress screenoptions bugfix
+* z-index for colorbox increased
 
 = 1.4.3 =
 
