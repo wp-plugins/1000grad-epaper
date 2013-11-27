@@ -16,6 +16,7 @@ class EpaperApikeyApi
     {
         $this->epaperOptions = get_option("plugin_epaper_options");
         $this->apikey = isset($this->epaperOptions['apikey'])?$this->epaperOptions['apikey']:NULL;
+        $this->apikey_as = isset($this->epaperOptions['apikey_as'])?$this->epaperOptions['apikey_as']:NULL;
         $this->ApikeyApiWsdl = $this->epaperOptions['wordpressapi'];
         
         $this->checkVersion();
@@ -303,6 +304,15 @@ class EpaperApikeyApi
             return  new WP_Error('getDefaultEpaperUrl fault',$e->getMessage()); 
         }
         
+    }
+    
+    public function paypalUnsubscribe($sSubscrId){
+        $this->epaperApikeyApiConnect();
+        try {
+            return $this->apikeyApiClient->cancelSubscription($this->apikey_as, $sSubscrId);
+        } catch (SoapFault $e) {
+            
+        }
     }
 }
 

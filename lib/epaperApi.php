@@ -38,10 +38,10 @@ class EpaperApi
      /**
      * Connect
      */
-    public function epaperApiConnect()
+    public function epaperApiConnect($wsdl = NULL)
     {
 
-        $wsdl = $this->epaperOptions['url'] . "epaper-wsdl/";	
+        $wsdl = ($wsdl == NULL)?$this->epaperOptions['url'] . "epaper-wsdl/":$wsdl;	
         try {
             $this->epaperApiClient = new SoapClient($wsdl , array());
             return true;
@@ -201,10 +201,7 @@ class EpaperApi
     {
         $this->epaperApiConnect();
         try {
-            echo "<pre>";
-            print_r(json_decode($this->epaperApiClient->epaperGetInfos($apikey, $uploadId)));
-            echo "<pre>";
-            return true;
+            return json_decode($this->epaperApiClient->epaperGetInfos($apikey, $uploadId));
         } catch (SoapFault $e) {
             _e("Error: Could not set attribute.",'1000grad-epaper');
             echo $e->getMessage(); 
@@ -226,6 +223,16 @@ class EpaperApi
             echo $e->getMessage(); 
             return false;
         } 
-    } 
+    }
+    
+    public function getEpaperPlayerLanguages($sLanguage){
+        try {
+            return (array)json_decode($this->epaperApiClient->getPlayerLanguages($this->apikey, array('v3'), $sLanguage));
+        } catch (SoapFault $e) {
+            _e("Error: Could not fetch player languages.",'1000grad-epaper');
+            echo $e->getMessage(); 
+            return false;
+        } 
+    }
     
 }

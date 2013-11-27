@@ -3,7 +3,7 @@
 Plugin Name: 1000°ePaper
 Plugin URI: http://epaper-apps.1000grad.com/
 Description: Easily create browsable ePapers within Wordpress! Convert your PDFs to online documents by using the 1000° ePaper service. Embed it via widget or shortcode.  1000°ePaper is an electronic publishing service that allows you to quickly and easily create native page flipping electronic publications such as e-Books, e-Catalogs, e-Brochures, e-Presentations and much more.
-Version: 1.4.5
+Version: 1.4.6
 Author: 1000°DIGITAL Leipzig GmbH
 Author URI: http://www.1000grad.de
 License:
@@ -34,7 +34,7 @@ require_once("lib/epaperChannelApi.php");
 
 class TG_Epaper_WP_Plugin {
     
-    static $sPluginVersion = "1.4.5";
+    static $sPluginVersion = "1.4.6";
     
     private $aEpaperOptions = array();  
     
@@ -264,7 +264,16 @@ class TG_Epaper_WP_Plugin {
     {                  
         add_action( 'admin_enqueue_scripts', array($this,'action_enqueue_scripts_for_all_adminpages' ));
         
-        add_menu_page(
+//        add_menu_page(
+//            'ePaper', 
+//            '1000°ePaper', 
+//            'upload_files', 
+//            'epaper_channels', 
+//            array($this, 'adminpage_epaper_channels'),
+//                "<div class='menu-icon-media'></div>"
+//                );
+        
+         add_menu_page(
             'ePaper', 
             '1000°ePaper', 
             'upload_files', 
@@ -272,6 +281,8 @@ class TG_Epaper_WP_Plugin {
             array($this, 'adminpage_epaper_channels'), 
             plugins_url($this->sBasePluginPath."img/1000grad_icon.png")
         );
+        
+        
         
         if ($this->bIsRegistered === false):   
             add_submenu_page(
@@ -323,6 +334,8 @@ class TG_Epaper_WP_Plugin {
     //shortcode function of plugin
     public function shortcode_epaper($aArgs) 
     {
+        if (isset($aArgs['url'])) 
+            return "<a href=".$aArgs['url']." class=ePaper target=_blank> <img class=tg_preview_image src=".$aArgs['url']."/epaper/epaper-ani.gif /></a>";
         if ($this->bIsRegistered === true)  {
             $iChannel = (isset($aArgs['nr']) && !empty($aArgs['nr']))?$aArgs['nr']:1;
             $iPage = (isset($aArgs['page']) && !empty($aArgs['page']))?$aArgs['page']:1;
@@ -341,7 +354,6 @@ class TG_Epaper_WP_Plugin {
             $this->showContent();
             $sShortcodeContent = ob_get_contents();
             ob_end_clean();
-
             return $sShortcodeContent;
         }
         
@@ -795,10 +807,20 @@ class TG_Epaper_WP_Plugin {
                             if($oInfos->published == 0 && $oInfos->status == 'ready' && $oChannelInfo->id_epaper == ''):
                                 $this->oChannelApi->publishEpaperToChannel($this->aEpaperOptions['apikey'],$iEpaperId, $iChannelId);
                                 $sOutput = 0;
-                            elseif( ($oInfos->published == 0 && $oChannelInfo->status != '' && $oInfos->status == 'do_publish_to_channel') || $oInfos->published == 1):
+                            elseif( ($oInfos->published == 0 && $oChannelInfo->status != '' && $oInfos->status == 'do_publish_to_channel')):
                                 $sOutput = 50;
-                            elseif($oChannelInfo->status == ''):
+                            elseif( ($oInfos->published == 0 && $oChannelInfo->status != '' && $oInfos->status == 'do_publish')):
+                                $sOutput = 60;
+                            elseif($oInfos->status == 'ready' && $oChannelInfo->status == '' && $oChannelInfo->id_epaper != ''):
                                 $sOutput = 100; 
+                            elseif($oChannelInfo->status == '' && $oChannelInfo->id_epaper != ''):
+                                $sOutput = 70; 
+                            elseif($oChannelInfo->status == ''):
+                                $sOutput = 80; 
+                            elseif($oChannelInfo->id_epaper != ''):
+                                $sOutput = 90; 
+                            elseif('y' == 'y'):
+                                $sOutput = 95; 
                             endif;
                             echo $sOutput;
                             
@@ -894,6 +916,11 @@ class TG_Epaper_WP_Plugin {
             case 'deleteAccount':
                     delete_option($this->sWidgetClassIndex);
                     delete_option($this->sEpaperOptionIndex);
+                break;
+            
+            case 'cancelSubscr':
+                    $sSubscrId = isset($_POST['subscr_id'])?$_POST['subscr_id']:NULL;
+                    echo $this->oAccountApi->paypalUnsubscribe($sSubscrId);
                 break;
             
             case 'translateUploadErrorMessage':
@@ -1021,31 +1048,14 @@ class TG_Epaper_WP_Plugin {
     
     //returns available languages of epaper-player
     public function getAvailableLanguages(){
-        return array(
-            "de" => __('german','1000grad-epaper'), 
-            "en" => __('english','1000grad-epaper'),
-            "es" => __('espanol','1000grad-epaper'),
-            "fr" => __('francais','1000grad-epaper'),
-            "it" => __('italiano','1000grad-epaper'),
-            'da' => __('danish','1000grad-epaper'),
-            'nl' => __('dutch','1000grad-epaper'),
-            'fi' => __('finnish','1000grad-epaper'),
-            'cs' => __('czech','1000grad-epaper'),
-            'ru' => __('russian','1000grad-epaper'),
-            'hr' => __('croatian','1000grad-epaper'),
-            'ro' => __('Romanian', '1000grad-epaper'),
-            'sk' => __('Slovak', '1000grad-epaper'),
-            'sl' => __('Slovenian', '1000grad-epaper'),
-            'hu' => __('Hungarian', '1000grad-epaper'),
-            'pl' => __('polish','1000grad-epaper'),
-            'pt' => __('portuguese','1000grad-epaper'),
-            'tr' => __('turkish','1000grad-epaper'),
-            'bg' => __('bulgarian','1000grad-epaper'),
-            'ja' => __('japanese','1000grad-epaper'),
-            'el' => __('greek','1000grad-epaper'),
-            'zh_Hans' => __('simplified chinese','1000grad-epaper'),
-            'zh_Hant' => __('traditional chinese','1000grad-epaper')       
-        );
+        $sCmsLanguage = substr(get_bloginfo ( 'language' ), 0, 2);
+        $aPlayerLanguages = $this->oEpaperApi->getEpaperPlayerLanguages(($sCmsLanguage == 'de')?'de':'en');
+        $aPlayerVersion = array_keys($aPlayerLanguages);
+        $aLanguageArray = (array)$aPlayerLanguages[$aPlayerVersion[0]];
+        foreach($aLanguageArray as $sLangKey => $sLanguage):
+            $aLanguages[strtolower($sLangKey)] = strtolower($sLanguage);
+        endforeach;
+        return $aLanguages;
     }
     
     //returns blog-language
