@@ -16,8 +16,9 @@ class EpaperApikeyApi
     {
         $this->epaperOptions = get_option("plugin_epaper_options");
         $this->apikey = isset($this->epaperOptions['apikey'])?$this->epaperOptions['apikey']:NULL;
+        $this->apikey_as = isset($this->epaperOptions['apikey_as'])?$this->epaperOptions['apikey_as']:NULL;
         $this->ApikeyApiWsdl = $this->epaperOptions['wordpressapi'];
-        
+        $this->epaperApikeyApiConnect();
         $this->checkVersion();
         $this->_isRegistered();
 
@@ -38,7 +39,6 @@ class EpaperApikeyApi
                 $this->ApikeyApiWsdl = $this->epaperOptions['wordpressapi'];
             }
 
-            $this->epaperApikeyApiConnect();
             try {
                 $sJson = $this->apikeyApiClient->refreshAccApiKeyByCmsApiAndEmail(
                         $this->epaperOptions['apikey'], 
@@ -94,7 +94,6 @@ class EpaperApikeyApi
      */
     public function getApikeyApiVersion() 
     {  
-        $this->epaperApikeyApiConnect();
         try {
             $version = $this->apikeyApiClient->getVersion();
             return $version;            
@@ -110,7 +109,6 @@ class EpaperApikeyApi
      */
     public function getApikeyApiFunctions() 
     {  
-        $this->epaperApikeyApiConnect();
         try {
             $functions = $this->apikeyApiClient->__getFunctions();
             return $functions;            
@@ -128,7 +126,6 @@ class EpaperApikeyApi
                     $phptime, $wordpresscode, $agb, $newsletter, $version_wordpress ,$version_php, $language)
     {
         $sMessage = NULL;
-        $this->epaperApikeyApiConnect();  
         //debug test
         //var_export($this->apikeyApiClient->__getFunctions()); die("zzz");
         //var_export($this->apikeyApiClient->getRegistrationCodeByEmail($email, $text, $wordpress, $phpupload, $phptime, $wordpresscode, $agb, $newsletter, $version_wordpress ,$version_php, $language)); die("zzz");
@@ -156,7 +153,6 @@ class EpaperApikeyApi
      */
     public function sendCodeGetApikey($email, $code) 
     {
-        $this->epaperApikeyApiConnect();
         try {
             $res = $this->apikeyApiClient->sendCodeGetApikey($email, $code);
             return $res;            
@@ -173,7 +169,6 @@ class EpaperApikeyApi
      */
     public function sendFeedback($email = NULL, $text = NULL, $more = NULL, $adminUrl = NULL, $phpupload = NULL, $phptime = NULL, $wpVersion = NULL, $phpVersion = NULL, $language = NULL, $plugin_version = NULL)
     {
-        $this->epaperApikeyApiConnect();
         try {
             $res = $this->apikeyApiClient->sendFeedback($email, $text, $more, $adminUrl, $phpupload, $phptime, 
                                                         $wpVersion, $phpVersion, $language, $plugin_version);
@@ -192,7 +187,6 @@ class EpaperApikeyApi
      */
     public function sendCodeGetMoreChannels($email, $code) 
     {
-        $this->epaperApikeyApiConnect();
         try {
             $res = $this->apikeyApiClient->sendCodeGetMoreChannels($email, $code);
             return $res;            
@@ -213,8 +207,7 @@ class EpaperApikeyApi
      * Subscription Formular holt Account-Info-HTML
      */
     public function getPPAccountInfo ($pp_button_uri, $pp_seller_email)
-    {
-        $this->epaperApikeyApiConnect();  
+    { 
         try {
             $res = $this->apikeyApiClient->getPPAccountInfo ($this->_get_user_apikey_as(), $pp_button_uri, $pp_seller_email);
             return $res;  
@@ -238,8 +231,7 @@ class EpaperApikeyApi
             return ($apikey_as);
         endif;
         //die($apikey_as);
-
-        $this->epaperApikeyApiConnect();  
+ 
         try {            
             $res = $this->apikeyApiClient->getPPButtonCode ($apikey_as , $sLanguage);
             return $res;  
@@ -249,7 +241,6 @@ class EpaperApikeyApi
     } 
     
     public function updatePluginInfos(){
-        $this->epaperApikeyApiConnect();  
         try{
             global $wp_version;
             $sWordpressVersion = $wp_version;
@@ -274,7 +265,6 @@ class EpaperApikeyApi
         }
         else{
             if(isset($epaper_options["apikey"]) && $epaper_options["apikey"]){
-                $this->epaperApikeyApiConnect();
                 try {                    
                     $new_apikey_as = $this->apikeyApiClient->getMissedApikeyByEpaperapikey($epaper_options["apikey"], $epaper_options["email"]);
                     $new_apikey_as = json_decode($new_apikey_as);
@@ -295,7 +285,6 @@ class EpaperApikeyApi
     }
     
     public function getDefaultEpaperUrl(){
-        $this->epaperApikeyApiConnect();  
         try {
             $json = $this->apikeyApiClient->getDefaultEpaperUrl();
             return json_decode($json);  
@@ -303,6 +292,14 @@ class EpaperApikeyApi
             return  new WP_Error('getDefaultEpaperUrl fault',$e->getMessage()); 
         }
         
+    }
+    
+    public function paypalUnsubscribe($sSubscrId){
+        try {
+            return $this->apikeyApiClient->cancelSubscription($this->apikey_as, $sSubscrId);
+        } catch (SoapFault $e) {
+            
+        }
     }
 }
 
