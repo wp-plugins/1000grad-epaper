@@ -20,6 +20,7 @@ class EpaperApi
         $this->epaperOptions = get_option("plugin_epaper_options");
         $this->apikey = isset($this->epaperOptions['apikey'])?$this->epaperOptions['apikey']:NULL;
         $this->_isRegistered();
+        $this->epaperApiConnect();
     }
     
     /**
@@ -40,7 +41,7 @@ class EpaperApi
      */
     public function epaperApiConnect($wsdl = NULL)
     {
-
+        if($this->epaperOptions['url'] == NULL) return false;
         $wsdl = ($wsdl == NULL)?$this->epaperOptions['url'] . "epaper-wsdl/":$wsdl;	
         try {
             $this->epaperApiClient = new SoapClient($wsdl , array());
@@ -55,10 +56,7 @@ class EpaperApi
      * Infos ueber ePaper
      */
     public function returnEpaperInfos ($apikey, $id) 
-    {
-        $res=$this->epaperApiConnect();
-        if ( is_wp_error($res) )
-            return $res;        
+    {     
         try {
             return $this->epaperApiClient->epaperGetInfos($apikey,$id);
         } catch (SoapFault $e) {
@@ -71,7 +69,6 @@ class EpaperApi
      */
     public function returnEpaperList ($apikey)
     {
-        $this->epaperApiConnect();
         try {
             $epaperList = $this->epaperApiClient->epaperGetList($apikey);
 		} catch (SoapFault $e) {
@@ -87,7 +84,6 @@ class EpaperApi
      */
     public function getEpaperApiVersion() 
     {  
-        $this->epaperApiConnect();
         try {
             $version = $this->epaperApiClient->getVersion();
             return $version;            
@@ -103,7 +99,6 @@ class EpaperApi
      */
     public function getEpaperApiFunctions() 
     {  
-        $this->epaperApiConnect();
         try {
             $functions = $this->epaperApiClient->__getFunctions();
             return $functions;            
@@ -118,7 +113,6 @@ class EpaperApi
      */
     public function getEpaperApiClientInfos($apikey) 
     {  
-        $this->epaperApiConnect();
         try {
             $clientinfos = $this->epaperApiClient->clientGetInfos($apikey);
             return $clientinfos;            
@@ -133,7 +127,6 @@ class EpaperApi
      */
     public function epaperDelete ($apikey, $epaperId) 
     {
-        $this->epaperApiConnect();
         try {
             $this->epaperApiClient->epaperDelete($apikey, $epaperId);
             return true;
@@ -149,7 +142,6 @@ class EpaperApi
     */
     public function epaperCreateFromPdf($apikey,$pdfId) 
     {
-        $this->epaperApiConnect();
         try {
             $temp= $this->epaperApiClient->epaperCreateFromPdf($apikey, $pdfId);
 //            return true;
@@ -167,7 +159,6 @@ class EpaperApi
      */
     public function epaperStartRenderprocess($apikey,$uploadId)
     {
-        $this->epaperApiConnect();
         try {
             $this->epaperApiClient->epaperStartRenderprocess($apikey,$uploadId);
             return true;
@@ -183,7 +174,6 @@ class EpaperApi
      */
     public function epaperSetVar($apikey, $uploadId , $key, $value)
     {
-        $this->epaperApiConnect();
         try {
             $this->epaperApiClient->epaperSetVar($apikey, $uploadId , $key, $value);
             return true;
@@ -199,7 +189,6 @@ class EpaperApi
      */
      public function epaperGetInfos($apikey, $uploadId)
     {
-        $this->epaperApiConnect();
         try {
             return json_decode($this->epaperApiClient->epaperGetInfos($apikey, $uploadId));
         } catch (SoapFault $e) {
@@ -214,7 +203,6 @@ class EpaperApi
     */
     public function epaperMove($apikey, $uploadId , $key, $value)
     {
-        $this->epaperApiConnect();
         try {
             $this->epaperApiClient->epaperMove($apikey, $uploadId , $key, $value);
             return true;
