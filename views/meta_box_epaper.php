@@ -70,6 +70,6 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 <script type="text/javascript">
     jQuery(document).ready(function(){
         TgEpaper.initChannelSwitcher();
-        TgEpaper.initColorBox();
+        TgEpaper.initColor1000Box();
     });
 </script>

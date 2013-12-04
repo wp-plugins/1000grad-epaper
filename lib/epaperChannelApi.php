@@ -17,6 +17,7 @@ class EpaperChannelApi
         $this->epaperOptions = get_option("plugin_epaper_options");
         $this->apikey = isset($this->epaperOptions['apikey'])?$this->epaperOptions['apikey']:NULL;
         $this->_isRegistered();
+        $this->epaperChannelApiConnect();
     }
     
     /**
@@ -35,7 +36,8 @@ class EpaperChannelApi
      * Connect
      */
     public function epaperChannelApiConnect() 
-    {               
+    {            
+        if($this->epaperOptions['url'] == NULL) return false;
         $wsdl = $this->epaperOptions['url'] . "channels-wsdl/";
         try {
             $this->channelApiClient = new SoapClient($wsdl , array());
@@ -52,7 +54,6 @@ class EpaperChannelApi
      */
     public function getChannelApiVersion ()
     {
-        $this->epaperChannelApiConnect();
         try {
             $version = $this->channelApiClient->getVersion();
             return $version;            
@@ -68,7 +69,6 @@ class EpaperChannelApi
      */
     public function getChannelApiFunctions() 
     {  
-        $this->epaperChannelApiConnect();
         try {
             $functions = $this->channelApiClient->__getFunctions();
             return $functions;            
@@ -83,7 +83,6 @@ class EpaperChannelApi
      */
     public function getChannelsList ($apikey) 
     {
-        $this->epaperChannelApiConnect();
         try {
             $list = $this->channelApiClient->channelsGetList($apikey);
             return $list;            
@@ -99,7 +98,6 @@ class EpaperChannelApi
      */
     public function removeEpaperFromChannel ($apikey, $id) 
     {
-        $this->epaperChannelApiConnect();
         try {
             $this->channelApiClient->channelsRemoveEpaperFromChannel($apikey,$id);
             return true;            
@@ -116,7 +114,6 @@ class EpaperChannelApi
      */
     public function publishEpaperToChannel ($apikey, $epaperId, $id) 
     {
-        $this->epaperChannelApiConnect();
         try {
             $res = $this->channelApiClient->channelsPublishEpaperToChannel($apikey, $epaperId, $id);
             return $res;            
@@ -133,7 +130,6 @@ class EpaperChannelApi
      */
     public function getChannelInfo($apikey, $channelId) 
     {
-        $this->epaperChannelApiConnect();
         try {
             $res = $this->channelApiClient->channelsGetChannelInfo($apikey, $channelId);
             return $res;            
@@ -151,7 +147,6 @@ class EpaperChannelApi
      */
     public function setChannelTitle($apikey, $iChannelId, $sTitle) 
     {
-        $this->epaperChannelApiConnect();
         try {
             $res = $this->channelApiClient->channelsSetChannelTitle($apikey, $iChannelId, $sTitle);
             return $res;            
