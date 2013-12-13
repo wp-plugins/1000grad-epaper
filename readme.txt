@@ -3,8 +3,8 @@ Contributors: 1000grad
 Donate link: 
 Tags: epaper pdf newspaper flipbook ebook catalogue pageflip blätterbar katalog flashflip emagazine publisher
 Requires at least: 3.4
-Tested up to: 3.7-alpha-25000
-Stable tag: 1.4.2
+Tested up to: 3.8.1
+Stable tag: 1.4.9
 License: GPLv2 or later
 
 Easily create browsable ePapers within Wordpress.
@@ -13,14 +13,18 @@ Convert your PDF document to an online document by using the 1000° ePaper servi
 
 == Description ==
 
-In only a few simple steps you can create <b>a browsable ePaper</b> from scratch, simply by providing a PDF document. Thanks to our up to date <b>HTML5 viewer</b> your ePaper will look brilliant and sharp, even on Android, iPad and other devices.
+In only a few simple steps you can create a **browsable ePaper** from scratch, simply by providing a PDF document. Thanks to our up to date <b>HTML5 viewer</b> your ePaper will look brilliant and sharp, even on Android, iPad and other devices.
+
 1000°ePaper is an electronic publishing service that allows you to quickly and easily create native page flipping electronic publications such as e-Books, e-Catalogs, e-Brochures, e-Presentations and much more.
 
 = Information =
 
 Convert your PDF document to an online document, by using our 1000° web service and embed it via wordpress widget or shortcode in your page.
+
 Regular web browsers make use of our enhanced flash viewer, whereas mobile devices running on Android and iOS will use out up-to-date HTML5 viewer.
+
 Your converted PDF document can be updated, or replaced anytime. In order to do that, simply upload the new PDF document to your existing ePaper channel.
+
 Take a closer look at a zero-priced first ePaper channel for a test-drive. Additional publishing channels can be added on demand and be discharged with paypal.
 
 
@@ -41,23 +45,31 @@ Take a closer look at a zero-priced first ePaper channel for a test-drive. Addit
 
 = How to get started? =
  
-Download the 1000° ePaper plugin from wordpress marketplace to your wordpress installation. The first time you access the newly created 1000° ePaper page in your control panel, you will be asked for registration. Registering with our service is free of charge and without obligation, but yet necessary to provide every user with their respective ePaper-publication. After successful registration you can immediately start uploading your PDF file and so creating your ePaper-publications. Finally you can embed them into your blog.
+Download the 1000° ePaper plugin from wordpress marketplace to your wordpress installation. The first time you access the newly created 1000° ePaper page in your control panel, you will be asked for registration. Registering with our service is free of charge and without obligation, but yet necessary to provide every user with their respective ePaper-publication. After successful registration you can immediately **start uploading your PDF file** and your first ePaper-publications will be created. Finally you can embed them into your blog.
  
 = How about the ePaper quality and filesize? =
 
-The ePaper can only be as good as your given PDF. Save your document as an for web sites optimized version. Single pages (not spreads) in one PDF. Preferably 150 dpi resolution. It is possible to process higher dpi values but the quality experienced by the reader won't increase noticeably while viewing common document sizes. Whereas the file size will increase noticeably. Make sure all pages are the same size. If not, some pages might be cut off, due to the automatic correction by the player. The fonts used in your document need to be embedded in the PDF-file. Don't use very complex vector graphics within your document.
+The ePaper can only be as good as your given PDF. Save your document as an for web sites optimized version. 
+
+We recommend using the **PDF/A-1b** format. Single pages (not spreads) in one PDF. The fonts used in your document need to be embedded in the PDF-file. Don't use very complex vector graphics within your document. Preferably **150 dpi** resolution. 
+
+It is possible to process higher dpi values but the quality experienced by the reader won't increase noticeably while viewing common document sizes. Whereas the file size will increase noticeably. Make sure all pages are the same size. If not, some pages might be cut off, due to the automatic correction by the player. 
+
 1000°ePaper is designed to convert any publication dimensions and represent your publication as a true reflection of its print counter part. It does not matter if your publication is a tabloid magazine, broadsheet newspaper, square, A3, A4 or A5. Whatever its shape, 1000°ePaper will interpret and convert.
+
 There is a maximum file size of 600 MB/publication. For your own convenience and upload time, they should be as small as possible. Note however, that there is no converter that down- or upscales the files to a specific dpi-value.
 
 = Are there any costs for the use of this plugin? =
  
-Using this plugin is free of charge and without obligation. For the moment, every user is provided with one free ePaper channel to publish documents and evaluate our service. 
-As a thank-you gift, they receive a free channel for 12 months even after the completion. Please rest assured, you don’t have to pay anything unless explicitly want to.
+Using this plugin is **free of charge** and without obligation. For the moment, every user is provided with one free ePaper channel to publish documents and evaluate our service. 
+
+As a thank-you gift, they receive a **free channel for 12 months** even after the completion. Please rest assured, you don’t have to pay anything unless explicitly want to.
  
 = How can I use more then one channel? =
 
 Further channels can be purchased by clicking the upgrade button. You can subscribe to as many channels as you need. You can change that number as often as you want to.
-The payment is realized with Paypal monthly subscriptions. A detailed Page in our Plugin will list all details about that.
+
+The payment is realized with **Paypal monthly subscriptions**. A detailed Page in our Plugin will list all details about that.
 
 = Whats the difference between the free-for-use and free-of-charge channel and the first payed channel? =
 
@@ -65,10 +77,45 @@ According to the terms of use of 1000°ePaper that free-for-use channel does hav
 
 = Can I integrate other 1000° products, i.e. a purchased ePaper professional? =
 
-Yes, of course. When using shortcodes you can also link to existing ePapers. Use [ePaper url=http://....] with the URL to your ePaper on your own server. 
+Yes, of course. When using shortcodes you can also link to existing ePapers. Use this with the URL to your ePaper on your own server:
+
+`[ePaper url=http://....]`
+
 Usage via Widgets will be possible in a future version of that plugin. All our existing customers of our ePaper professional service do also have the possibility to call our support hotline via phone.
 
 == Changelog ==
+
+= 1.4.9 =
+
+* 1000grad svg button for wordpress 3.8 menu
+
+= 1.4.8 =
+
+* colorbox: update and bugfix
+
+= 1.4.7 =
+
+* upload button bugfix
+
+= 1.4.6 =
+
+* shortcode for external ePapers bugfix
+* the new 1000°ePaper Webplayer
+
+= 1.4.5 =
+
+* better layout for infopages at wordpress
+
+
+= 1.4.4 =
+
+* wordpress screenoptions bugfix
+* z-index for colorbox increased
+
+= 1.4.3 =
+
+* bugfixing upload button (noConflict mode) 
+
 
 = 1.4.2 =
 
