@@ -89,6 +89,12 @@ jQuery.extend(TgEpaper.prototype,{
             
     setRenderstatusOutput:function(response, iEpaperId, iChannelId){
         result = jQuery.parseJSON(response);
+        
+        if(result.error != undefined){
+            jQuery('div#tg_epaper_progress_rendering').find('div.tg_status').addClass('tg_epaper_dialog_error');
+            window.setTimeout("alert(result.error)", 500);
+            window.setTimeout("TgEpaper.reloadChannelList()", 100);
+        }
         render_percent = result.render_percent;
         render_pages_text = result.render_pages_text;
         if(parseInt(render_percent) > 0){

@@ -4,7 +4,7 @@ Donate link:
 Tags: epaper pdf newspaper flipbook ebook catalogue pageflip blätterbar katalog flashflip emagazine publisher
 Requires at least: 3.4
 Tested up to: 3.8.1
-Stable tag: 1.4.9
+Stable tag: 1.4.10
 License: GPLv2 or later
 
 Easily create browsable ePapers within Wordpress.
@@ -84,6 +84,11 @@ Yes, of course. When using shortcodes you can also link to existing ePapers. Use
 Usage via Widgets will be possible in a future version of that plugin. All our existing customers of our ePaper professional service do also have the possibility to call our support hotline via phone.
 
 == Changelog ==
+
+= 1.4.10 =
+
+* bugfix default ePaper language
+* better errorhandling with renderprocess
 
 = 1.4.9 =
 

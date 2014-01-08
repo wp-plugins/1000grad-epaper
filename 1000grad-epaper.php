@@ -3,7 +3,7 @@
 Plugin Name: 1000°ePaper
 Plugin URI: http://epaper-apps.1000grad.com/
 Description: Easily create browsable ePapers within Wordpress! Convert your PDFs to online documents by using the 1000° ePaper service. Embed it via widget or shortcode.  1000°ePaper is an electronic publishing service that allows you to quickly and easily create native page flipping electronic publications such as e-Books, e-Catalogs, e-Brochures, e-Presentations and much more.
-Version: 1.4.9
+Version: 1.4.10
 Author: 1000°DIGITAL Leipzig GmbH
 Author URI: http://www.1000grad.de
 License:
@@ -34,7 +34,7 @@ require_once("lib/epaperChannelApi.php");
 
 class TG_Epaper_WP_Plugin {
     
-    static $sPluginVersion = "1.4.9";
+    static $sPluginVersion = "1.4.10";
     
     private $aEpaperOptions = array();  
     
@@ -60,7 +60,8 @@ class TG_Epaper_WP_Plugin {
     private $oEpaperApi  = NULL;
     
     private $sDefaultLang = 'en';
-    
+    private $sLanguageFallback = 'en';
+
     private $sEpaperOptionsChannelConfig = "channel_config";
     private $sEpaperOptionsChannelDefaultUrl = "epaper_default_url";
     
@@ -745,6 +746,7 @@ class TG_Epaper_WP_Plugin {
                   $this->oEpaperApi->epaperSetVar($this->aEpaperOptions['apikey'], $iNewEpaperId, "pdf_name", $sDocumentName);
                   $this->oEpaperApi->epaperSetVar($this->aEpaperOptions['apikey'], $iNewEpaperId, "title", $sDocumentName);
                   $this->oEpaperApi->epaperSetVar($this->aEpaperOptions['apikey'], $iNewEpaperId, 'add_export_info', json_encode($aExtraInfo));
+                  $this->oEpaperApi->epaperSetVar($this->aEpaperOptions['apikey'], $iNewEpaperId, 'language', $this->getEpaperDefaultLanguage());
                   foreach($this->getChannels()->channels as $iChannel => $aChannelConfig):
                       if($aChannelConfig->id == $iChannelId):
                             $this->oChannelApi->setChannelTitle($this->aEpaperOptions['apikey'], $iChannelId, sprintf('ePaper Channel #%u', ($iChannel+1)));
@@ -766,6 +768,9 @@ class TG_Epaper_WP_Plugin {
                                 'render_percent' => $oInfos->renderprocess->percent,
                                 'render_pages_text' => sprintf('(%s %u/%u)', __('page','1000grad-epaper'), $oInfos->renderprocess->current_page, $oInfos->pages)
                                 ));
+                            
+                            if($oInfos->pages == 0) $sJson = json_encode(array('error' => __('Error while rendering PDF.', '1000grad-epaper')));
+                            
                             echo $sJson;
                             break;
                         
@@ -777,6 +782,8 @@ class TG_Epaper_WP_Plugin {
                                     'render_percent' => $oInfos->renderprocess->percent,
                                     'render_pages_text' => sprintf('(%s %u/%u)', __('page','1000grad-epaper'), $oInfos->renderprocess->current_page, $oInfos->pages)
                                 ));
+                                
+                                if($oInfos->pages == 0) $sJson = json_encode(array('error' => __('Error while rendering PDF.', '1000grad-epaper')));
                                 
                                 header('Content-Type: text/event-stream');
                                 header('Cache-Control: no-cache');
@@ -1061,7 +1068,7 @@ class TG_Epaper_WP_Plugin {
     //returns blog-language
     private function getBlogDefaultLanguage(){
         $sLangCode = get_bloginfo('language'); //en_EN
-        $aLangCode = explode("_", $sLangCode);
+        $aLangCode = explode("-", $sLangCode);
         return isset($aLangCode[0])?$aLangCode[0]:false;
     }
     
@@ -1108,6 +1115,10 @@ class TG_Epaper_WP_Plugin {
     
     private function agbWasAccepted(){
         return (isset($this->aEpaperOptions[$this->sAgbAcceptIndex]))?true:false;
+    }
+    
+    public function getEpaperDefaultLanguage(){
+        return array_key_exists($this->sDefaultLang, $this->getAvailableLanguages())?$this->sDefaultLang:$this->sLanguageFallback;
     }
     
 }
