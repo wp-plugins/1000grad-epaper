@@ -3,7 +3,7 @@
 Plugin Name: 1000°ePaper
 Plugin URI: http://epaper-apps.1000grad.com/
 Description: Easily create browsable ePapers within Wordpress! Convert your PDFs to online documents by using the 1000° ePaper service. Embed it via widget or shortcode.  1000°ePaper is an electronic publishing service that allows you to quickly and easily create native page flipping electronic publications such as e-Books, e-Catalogs, e-Brochures, e-Presentations and much more.
-Version: 1.4.2
+Version: 1.4.11
 Author: 1000°DIGITAL Leipzig GmbH
 Author URI: http://www.1000grad.de
 License:
@@ -34,7 +34,7 @@ require_once("lib/epaperChannelApi.php");
 
 class TG_Epaper_WP_Plugin {
     
-    static $sPluginVersion = "1.4.2";
+    static $sPluginVersion = "1.4.11";
     
     private $aEpaperOptions = array();  
     
@@ -60,7 +60,8 @@ class TG_Epaper_WP_Plugin {
     private $oEpaperApi  = NULL;
     
     private $sDefaultLang = 'en';
-    
+    private $sLanguageFallback = 'en';
+
     private $sEpaperOptionsChannelConfig = "channel_config";
     private $sEpaperOptionsChannelDefaultUrl = "epaper_default_url";
     
@@ -76,55 +77,59 @@ class TG_Epaper_WP_Plugin {
 
     //initializes the plugin by setting localization, filters, and administration functions
     function __construct($bRegisterActions = true) {
+        
+        if($this->checkSoapIsActivated()):
+        
+            if(!defined('TGE_PLUGIN_ACCOUNT_API_URI')){
+                define( 'TGE_PLUGIN_ACCOUNT_API_URI', $this->sDefaultAccountApiUrl);
+            }
 
-        if(!defined('TGE_PLUGIN_ACCOUNT_API_URI')){
-            define( 'TGE_PLUGIN_ACCOUNT_API_URI', $this->sDefaultAccountApiUrl);
-        }
-        
-        $this->load_epaper_options();
-        $this->oView = new stdClass();
-        
-        $this->sPage = isset($_GET['page'])?$_GET['page']:NULL;
-        $this->sDefaultLang = $this->getBlogDefaultLanguage();
-        
-        //Epaper API
-        $this->oChannelApi = new EpaperChannelApi();
-        $this->oAccountApi = new EpaperApikeyApi();
-        $this->oEpaperApi  = new EpaperApi();
-   
-        ini_set('max_execution_time', 120);
-        ini_set("soap.wsdl_cache_enabled", 1);
-        ini_set("soap.wsdl_cache_ttl", 86400);  
-        
-        $this->is_registered();
-        
-        if($bRegisterActions == true):
-            //ajax-action
-            add_action( 'wp_ajax_nopriv_epaper_ajax', array( $this, 'fetchAjaxRequest' ) );
-            add_action( 'wp_ajax_epaper_ajax', array( $this, 'fetchAjaxRequest' ) );
+            $this->load_epaper_options();
+            $this->oView = new stdClass();
 
-            //load plugin translations
-            add_action( 'init', array( $this, 'plugin_textdomain' ) );     
-            
-            //load styles and scripts
-            add_action( 'init', array( $this, 'action_admin_init_register_styles_and_scripts' ) ); 
-            add_filter('the_posts', array( $this,'filter_posts_conditionally_add_scripts_and_styles'));   
+            $this->sPage = isset($_GET['page'])?$_GET['page']:NULL;
+            $this->sDefaultLang = $this->getBlogDefaultLanguage();
 
-            //custom actions            
-            add_action('admin_menu', array( $this,'action_epaper_integration_menu'));    
-            add_shortcode('ePaper', array( $this,'shortcode_epaper'));
+            //Epaper API
+            $this->oChannelApi = new EpaperChannelApi();
+            $this->oAccountApi = new EpaperApikeyApi();
+            $this->oEpaperApi  = new EpaperApi();
 
-            if($this->is_registered() == true):
-                add_action( 'widgets_init', create_function('', 'return register_widget("EpaperWidgetClass");') );
-                add_filter('mce_external_plugins', array ($this,'addScriptToTinymce' ) );
-		add_filter('mce_buttons', array ($this,'registerTgTinyButton' ) );
-                add_action('init', array($this, 'updatePlugin'));
+            ini_set('max_execution_time', 120);
+            ini_set("soap.wsdl_cache_enabled", 1);
+            ini_set("soap.wsdl_cache_ttl", 86400);  
+
+            $this->is_registered();
+
+            if($bRegisterActions == true):
+                //ajax-action
+                add_action( 'wp_ajax_nopriv_epaper_ajax', array( $this, 'fetchAjaxRequest' ) );
+                add_action( 'wp_ajax_epaper_ajax', array( $this, 'fetchAjaxRequest' ) );
+
+                //load plugin translations
+                add_action( 'init', array( $this, 'plugin_textdomain' ) );     
+
+                //load styles and scripts
+                add_action( 'init', array( $this, 'action_admin_init_register_styles_and_scripts' ) ); 
+                add_filter('the_posts', array( $this,'filter_posts_conditionally_add_scripts_and_styles'));   
+
+                //custom actions            
+                add_action('admin_menu', array( $this,'action_epaper_integration_menu'));    
+                add_shortcode('ePaper', array( $this,'shortcode_epaper'));
+
+                if($this->is_registered() == true):
+                    add_action( 'widgets_init', create_function('', 'return register_widget("EpaperWidgetClass");') );
+                    add_filter('mce_external_plugins', array ($this,'addScriptToTinymce' ) );
+                    add_filter('mce_buttons', array ($this,'registerTgTinyButton' ) );
+                    add_action('init', array($this, 'updatePlugin'));
+                endif;
+
+                add_action('add_meta_boxes', array( $this, 'action_add_metabox_epaper' ) );
+                // drop a warning on each page of the admin when 1000grad-epaper hasn't been configured
+                //add_action( 'admin_notices', array( $this, 'showRegistrationInfo' ) );
+
             endif;
-
-            add_action('add_meta_boxes', array( $this, 'action_add_metabox_epaper' ) );
-            // drop a warning on each page of the admin when 1000grad-epaper hasn't been configured
-            //add_action( 'admin_notices', array( $this, 'showRegistrationInfo' ) );
-            
+        
         endif;
         
         //register_uninstall_hook(__FILE__, array('TG_Epaper_WP_Plugin', 'uninstallPlugin'));
@@ -139,7 +144,7 @@ class TG_Epaper_WP_Plugin {
     }
     
     public function checkSoapIsActivated(){
-        if(extension_loaded('soap') === false):
+        if(extension_loaded('soap') === false || !class_exists('SoapClient')):
             $this->showWarning(__("<b>The 1000°ePaper plugin requires SOAP extension for PHP (php_soap).<br/><br/>Please ask your system administrator to activate it.</b>","1000grad-epaper"));
             return false;
         endif;
@@ -264,14 +269,25 @@ class TG_Epaper_WP_Plugin {
     {                  
         add_action( 'admin_enqueue_scripts', array($this,'action_enqueue_scripts_for_all_adminpages' ));
         
-        add_menu_page(
+//        add_menu_page(
+//            'ePaper', 
+//            '1000°ePaper', 
+//            'upload_files', 
+//            'epaper_channels', 
+//            array($this, 'adminpage_epaper_channels'),
+//                "<div class='menu-icon-media'></div>"
+//                );
+        
+         add_menu_page(
             'ePaper', 
             '1000°ePaper', 
             'upload_files', 
             'epaper_channels', 
             array($this, 'adminpage_epaper_channels'), 
-            plugins_url($this->sBasePluginPath."img/1000grad_icon.png")
+            'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0ZWQgYnkgSWNvTW9vbi5pbyAtLT4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIyMyIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDIzIDIwIj4KPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAwKSI+Cgk8cGF0aCBkPSJNMTcuODkxIDExLjk4MWMwIDAuNjMyLTAuMjIgMC45NjUtMC43NTIgMC45NjUtMC41MyAwLTAuNzUtMC4zMzMtMC43NS0wLjk2NXYtMS40MDVjMC0wLjYzMiAwLjIyLTAuOTY2IDAuNzUtMC45NjYgMC41MzIgMCAwLjc1MiAwLjMzMyAwLjc1MiAwLjk2NnYxLjQwNU0xOS4wODUgMTIuMDI1di0xLjQ5M2MwLTEuMjkxLTAuNjU0LTIuMDE5LTEuOTQ2LTIuMDE5LTEuMjkgMC0xLjk0NCAwLjcyOS0xLjk0NCAyLjAxOXYxLjQ5M2MwIDEuMjkxIDAuNjU0IDIuMDE5IDEuOTQ0IDIuMDE5IDEuMjkxIDAgMS45NDYtMC43MjkgMS45NDYtMi4wMTl6IiBmaWxsPSIjZmZmZmZmIiAvPgoJPHBhdGggZD0iTTcuMjgzIDExLjk4MWMwIDAuNjMyLTAuMjIxIDAuOTY1LTAuNzUxIDAuOTY1cy0wLjc1MS0wLjMzMy0wLjc1MS0wLjk2NXYtMS40MDVjMC0wLjYzMiAwLjIyMS0wLjk2NiAwLjc1MS0wLjk2NiAwLjUzMSAwIDAuNzUxIDAuMzMzIDAuNzUxIDAuOTY2djEuNDA1TTguNDc3IDEyLjAyNXYtMS40OTNjMC0xLjI5MS0wLjY1NC0yLjAxOS0xLjk0NS0yLjAxOS0xLjI5MSAwLTEuOTQ1IDAuNzI5LTEuOTQ1IDIuMDE5djEuNDkzYzAgMS4yOTEgMC42NTQgMi4wMTkgMS45NDUgMi4wMTlzMS45NDUtMC43MjkgMS45NDUtMi4wMTl6IiBmaWxsPSIjZmZmZmZmIiAvPgoJPHBhdGggZD0iTTMuNjQ4IDEzLjk1N3YtMS4wOTdoLTEuMTY3di00LjI2aC0xLjEwNWwtMS4yNTUgMC40NjV2MS4xNDFsMS4xNjctMC4zMzN2Mi45ODdoLTEuMjYxdjEuMDk3aDMuNjIxIiBmaWxsPSIjZmZmZmZmIiAvPgoJPHBhdGggZD0iTTIxLjkxMSA5LjM1N2MwIDAuMjMzLTAuMTkgMC40MjEtMC40MjQgMC40MjEtMC4yMzUgMC0wLjQyNS0wLjE4OS0wLjQyNS0wLjQyMSAwLTAuMjMzIDAuMTktMC40MjEgMC40MjUtMC40MjEgMC4yMzQgMCAwLjQyNCAwLjE4OCAwLjQyNCAwLjQyMU0yMi42NCA5LjM1NmMwLTAuNjMyLTAuNTE1LTEuMTQ1LTEuMTUzLTEuMTQ1LTAuNjM2IDAtMS4xNTMgMC41MTMtMS4xNTMgMS4xNDUgMCAwLjYzMyAwLjUxNiAxLjE0NSAxLjE1MyAxLjE0NSAwLjYzNyAwIDEuMTUzLTAuNTEyIDEuMTUzLTEuMTQ1eiIgZmlsbD0iI2ZmZmZmZiIgLz4KCTxwYXRoIGQ9Ik0xMi41ODcgMTEuOTgxYzAgMC42MzItMC4yMiAwLjk2NS0wLjc1MSAwLjk2NS0wLjUzIDAtMC43NS0wLjMzMy0wLjc1LTAuOTY1di0xLjQwNWMwLTAuNjMyIDAuMjIxLTAuOTY2IDAuNzUtMC45NjYgMC41MzEgMCAwLjc1MSAwLjMzMyAwLjc1MSAwLjk2NnYxLjQwNU0xMy43ODEgMTIuMDI1di0xLjQ5M2MwLTEuMjkxLTAuNjU0LTIuMDE5LTEuOTQ1LTIuMDE5LTEuMjkgMC0xLjk0NCAwLjcyOS0xLjk0NCAyLjAxOXYxLjQ5M2MwIDEuMjkxIDAuNjU0IDIuMDE5IDEuOTQ0IDIuMDE5IDEuMjkxIDAgMS45NDUtMC43MjkgMS45NDUtMi4wMTl6IiBmaWxsPSIjZmZmZmZmIiAvPgoJPHBhdGggZD0iTTIwLjk4NiA1LjY1N2gtMTguNTU2YzAgMC0xLjA3MyAwLTEuMDczIDEuMDIwdjAuODJoMS4wNTVsMC4wMTktMC42MTVjMC0wLjIzNSAwLjI0My0wLjI0MiAwLjI0My0wLjI0MmgxOC4wNzJjMC4yNSAwIDAuMjQzIDAuMjQyIDAuMjQzIDAuMjQybDAuMDI1IDAuNjE1aDEuMDQ3di0wLjgyYzAtMC4yLTAuMDUwLTEuMDIwLTEuMDc1LTEuMDIwIiBmaWxsPSIjZmZmZmZmIiAvPgoJPHBhdGggZD0iTTIuNjczIDE1Ljc2N2MtMC4yNTUgMC0wLjI0My0wLjI0Mi0wLjI0My0wLjI0MmwtMC4wMTktMC41MzVoLTEuMDU0djAuNzc3YzAgMC0wLjAwOCAxLjAzMSAxLjA3MyAxLjAzMWgzLjc2M3YtMS4wMzFoLTMuNTE5IiBmaWxsPSIjZmZmZmZmIiAvPgoJPHBhdGggZD0iTTIwLjk4NiAxNS41MjVjMCAwLjI1NS0wLjI0MyAwLjI0Mi0wLjI0MyAwLjI0MmgtMC44MTF2MS4wMzFoMS4wNTVjMCAwIDEuMDc1IDAuMDQxIDEuMDc1LTEuMDMxdi00LjUyOGgtMS4wNzV2NC4yODYiIGZpbGw9IiNmZmZmZmYiIC8+Cgk8cGF0aCBkPSJNNy42MTQgMTcuMDE5YzAuMDIxIDAuMzQxIDAuMTc2IDAuNDk5IDAuNDY4IDAuNDk5IDAuMjMyIDAgMC42MDEtMC4wNjggMC42MDEtMC4wNjh2MC40MjNjMCAwLTAuMzM1IDAuMDc3LTAuNjIzIDAuMDc3LTAuNTQ2IDAtMC45MjQtMC4yODctMC45MjQtMS4wMzR2LTAuMTc5YzAtMC42MTEgMC4yNzUtMS4wMDggMC44NDItMS4wMDhzMC43OTEgMC4zOTMgMC43OTEgMC44OTJ2MC4zOTdoLTEuMTU1TTguMzI3IDE2LjYwMmMwLTAuMjY0LTAuMDY5LTAuNDc4LTAuMzQ0LTAuNDc4LTAuMjk3IDAtMC4zNjkgMC4yMTctMC4zNzQgMC41NDVoMC43MTh2LTAuMDY3eiIgZmlsbD0iI2ZmZmZmZiIgLz4KCTxwYXRoIGQ9Ik0xMC4yNDMgMTYuNjY5aC0wLjQ2NHYxLjIzOGgtMC40NzJ2LTMuMDMwaDAuOTM2YzAuNjE5IDAgMC45NzUgMC4yNzMgMC45NzUgMC44OTZzLTAuMzU3IDAuODk2LTAuOTc1IDAuODk2TTEwLjIyMSAxNS4zMDNoLTAuNDQzdjAuOTRoMC40NDNjMC4zNDkgMCAwLjUyNS0wLjE1MyAwLjUyNS0wLjQ3LTAuMDAxLTAuMzE1LTAuMTc3LTAuNDctMC41MjUtMC40N3oiIGZpbGw9IiNmZmZmZmYiIC8+Cgk8cGF0aCBkPSJNMTIuNTcxIDE3LjkwN3YtMC4xMmMtMC4xMzcgMC4wODYtMC4zMTggMC4xNjMtMC41MTkgMC4xNjMtMC40MTcgMC0wLjY2Mi0wLjIwOS0wLjY2Mi0wLjY0MSAwLTAuNDQgMC4yNzEtMC42NTcgMC43NDgtMC42NTcgMC4xNTggMCAwLjI5NSAwLjAwOSAwLjQxMiAwLjAyNnYtMC4xNzFjMC0wLjIyMy0wLjA5OS0wLjM0My0wLjM1My0wLjM0My0wLjI2MiAwLTAuNjU3IDAuMDg2LTAuNjU3IDAuMDg2di0wLjQxYzAgMCAwLjM2LTAuMTExIDAuNzIyLTAuMTExIDAuNTcxIDAgMC43NiAwLjI2NCAwLjc2IDAuNzc3djEuNGgtMC40NTJNMTIuNTUxIDE3LjAxNmgtMC4zNjFjLTAuMjMzIDAtMC4zMjcgMC4wOTctMC4zMjcgMC4yODEgMCAwLjE2MyAwLjA5NSAwLjI1NyAwLjI4MyAwLjI1NyAwLjEzMyAwIDAuMjc5LTAuMDUyIDAuNDA0LTAuMTE1di0wLjQyM3oiIGZpbGw9IiNmZmZmZmYiIC8+Cgk8cGF0aCBkPSJNMTQuNDE1IDE3LjkwN2MtMC4wODIgMC0wLjIyMy0wLjAxMy0wLjM2MS0wLjAzMHYwLjg0MWgtMC40NzN2LTIuOTQ1aDAuNDUxdjAuMTAzYzAuMTMzLTAuMDgyIDAuMzAxLTAuMTQ2IDAuNDg2LTAuMTQ2IDAuNDc3IDAgMC42OTYgMC4yOTEgMC42OTYgMC43NDd2MC42ODJjLTAuMDAxIDAuNDc1LTAuMjY3IDAuNzQ4LTAuNzk5IDAuNzQ4TTE0Ljc0MSAxNi41MDhjMC0wLjIxMy0wLjA4NS0wLjM2My0wLjMyMS0wLjM2My0wLjExNyAwLTAuMjUgMC4wNDMtMC4zNjUgMC4wOTl2MS4yNThoMC4zM2MwLjI1OSAwIDAuMzU3LTAuMTQxIDAuMzU3LTAuMzUzdi0wLjY0MXoiIGZpbGw9IiNmZmZmZmYiIC8+Cgk8cGF0aCBkPSJNMTYuMjA3IDE3LjAxOWMwLjAyMSAwLjM0MSAwLjE3NyAwLjQ5OSAwLjQ2OCAwLjQ5OSAwLjIzMyAwIDAuNjAxLTAuMDY4IDAuNjAxLTAuMDY4djAuNDIzYzAgMC0wLjMzNSAwLjA3Ny0wLjYyMyAwLjA3Ny0wLjU0NSAwLTAuOTIzLTAuMjg3LTAuOTIzLTEuMDM0di0wLjE3OWMwLTAuNjExIDAuMjc1LTEuMDA4IDAuODQyLTEuMDA4czAuNzkgMC4zOTMgMC43OSAwLjg5MnYwLjM5N2gtMS4xNTVNMTYuOTIgMTYuNjAyYzAtMC4yNjQtMC4wNjktMC40NzgtMC4zNDQtMC40NzgtMC4yOTYgMC0wLjM2OSAwLjIxNy0wLjM3NCAwLjU0NWgwLjcxN3YtMC4wNjd6IiBmaWxsPSIjZmZmZmZmIiAvPgoJPHBhdGggZD0iTTE4Ljc5IDE2LjI1NmMtMC4yMDMgMC0wLjM0NSAwLjE0Ni0wLjQzOCAwLjI5NHYxLjM1OGgtMC40NzN2LTIuMTM0aDAuNDUxdjAuMjYxYzAuMDY1LTAuMTU3IDAuMTk0LTAuMzAzIDAuNDI1LTAuMzAzIDAuMDc3IDAgMC4xNTUgMC4wMjIgMC4xNTUgMC4wMjJ2MC41MTJjLTAuMDAxLTAuMDAxLTAuMDY1LTAuMDA5LTAuMTItMC4wMDkiIGZpbGw9IiNmZmZmZmYiIC8+CjwvZz4KPC9zdmc+Cg=='
         );
+        
+        
         
         if ($this->bIsRegistered === false):   
             add_submenu_page(
@@ -323,6 +339,8 @@ class TG_Epaper_WP_Plugin {
     //shortcode function of plugin
     public function shortcode_epaper($aArgs) 
     {
+        if (isset($aArgs['url'])) 
+            return "<a href=".$aArgs['url']." class=ePaper target=_blank> <img class=tg_preview_image src=".$aArgs['url']."/epaper/epaper-ani.gif /></a>";
         if ($this->bIsRegistered === true)  {
             $iChannel = (isset($aArgs['nr']) && !empty($aArgs['nr']))?$aArgs['nr']:1;
             $iPage = (isset($aArgs['page']) && !empty($aArgs['page']))?$aArgs['page']:1;
@@ -341,7 +359,6 @@ class TG_Epaper_WP_Plugin {
             $this->showContent();
             $sShortcodeContent = ob_get_contents();
             ob_end_clean();
-
             return $sShortcodeContent;
         }
         
@@ -351,8 +368,6 @@ class TG_Epaper_WP_Plugin {
     //registration-adminpage
     public function adminpage_epaper_apikey()
     {
-        if(!$this->checkSoapIsActivated()) return false;
-        
         if(isset($_POST['register_account'])):
             $this->sendRegistrationEmail();
             $sEmail = (isset($_POST['apikey_email']) && !empty($_POST['apikey_email']))?$_POST['apikey_email']:NULL;
@@ -459,7 +474,6 @@ class TG_Epaper_WP_Plugin {
     //subscription-adminpage
     public function adminpage_epaper_subscription()
     {
-        if(!$this->checkSoapIsActivated()) return false;
         $this->showRegistrationInfo();
         
         try {
@@ -485,7 +499,6 @@ class TG_Epaper_WP_Plugin {
     //settings-adminpage
     public function adminpage_epaper_settings()
     {   
-        if(!$this->checkSoapIsActivated()) return false;
         $this->showRegistrationInfo();
 
         $this->oView->feedback_sent = false;
@@ -574,9 +587,6 @@ class TG_Epaper_WP_Plugin {
     
     //channel-list
     public function adminpage_epaper_channels(){
-        if (!$this->checkSoapIsActivated())
-            return false;
-        
         if (isset($_POST['agb'])):
             $this->aEpaperOptions[$this->sAgbAcceptIndex] = true;
             update_option($this->sEpaperOptionIndex, $this->aEpaperOptions);
@@ -673,10 +683,10 @@ class TG_Epaper_WP_Plugin {
             $sImageSrc = sprintf('%s%s',$this->getChannelInfos($iChannelId)->url, $this->sDefaultPreviewImage);
         endif;
 
-        if(!file_exists($sFilePath)):
+        if(!file_exists($sFilePath) || (file_exists($sFilePath) && filesize($sFilePath) === 0)):
                 $sImage = @file_get_contents($sImageSrc);
                 $bFileExist = @file_put_contents($sFilePath, $sImage);
-                if($bFileExist == false):
+                if($bFileExist === false || (file_exists($sFilePath) && filesize($sFilePath) === 0)):
                     $sFileUrl = $sImageSrc;                    
                 endif;
         endif;
@@ -733,6 +743,7 @@ class TG_Epaper_WP_Plugin {
                   $this->oEpaperApi->epaperSetVar($this->aEpaperOptions['apikey'], $iNewEpaperId, "pdf_name", $sDocumentName);
                   $this->oEpaperApi->epaperSetVar($this->aEpaperOptions['apikey'], $iNewEpaperId, "title", $sDocumentName);
                   $this->oEpaperApi->epaperSetVar($this->aEpaperOptions['apikey'], $iNewEpaperId, 'add_export_info', json_encode($aExtraInfo));
+                  $this->oEpaperApi->epaperSetVar($this->aEpaperOptions['apikey'], $iNewEpaperId, 'language', $this->getEpaperDefaultLanguage());
                   foreach($this->getChannels()->channels as $iChannel => $aChannelConfig):
                       if($aChannelConfig->id == $iChannelId):
                             $this->oChannelApi->setChannelTitle($this->aEpaperOptions['apikey'], $iChannelId, sprintf('ePaper Channel #%u', ($iChannel+1)));
@@ -754,6 +765,9 @@ class TG_Epaper_WP_Plugin {
                                 'render_percent' => $oInfos->renderprocess->percent,
                                 'render_pages_text' => sprintf('(%s %u/%u)', __('page','1000grad-epaper'), $oInfos->renderprocess->current_page, $oInfos->pages)
                                 ));
+                            
+                            if($oInfos->pages == 0) $sJson = json_encode(array('error' => __('Error while rendering PDF.', '1000grad-epaper')));
+                            
                             echo $sJson;
                             break;
                         
@@ -765,6 +779,8 @@ class TG_Epaper_WP_Plugin {
                                     'render_percent' => $oInfos->renderprocess->percent,
                                     'render_pages_text' => sprintf('(%s %u/%u)', __('page','1000grad-epaper'), $oInfos->renderprocess->current_page, $oInfos->pages)
                                 ));
+                                
+                                if($oInfos->pages == 0) $sJson = json_encode(array('error' => __('Error while rendering PDF.', '1000grad-epaper')));
                                 
                                 header('Content-Type: text/event-stream');
                                 header('Cache-Control: no-cache');
@@ -795,10 +811,20 @@ class TG_Epaper_WP_Plugin {
                             if($oInfos->published == 0 && $oInfos->status == 'ready' && $oChannelInfo->id_epaper == ''):
                                 $this->oChannelApi->publishEpaperToChannel($this->aEpaperOptions['apikey'],$iEpaperId, $iChannelId);
                                 $sOutput = 0;
-                            elseif( ($oInfos->published == 0 && $oChannelInfo->status != '' && $oInfos->status == 'do_publish_to_channel') || $oInfos->published == 1):
+                            elseif( ($oInfos->published == 0 && $oChannelInfo->status != '' && $oInfos->status == 'do_publish_to_channel')):
                                 $sOutput = 50;
-                            elseif($oChannelInfo->status == ''):
+                            elseif( ($oInfos->published == 0 && $oChannelInfo->status != '' && $oInfos->status == 'do_publish')):
+                                $sOutput = 60;
+                            elseif($oInfos->status == 'ready' && $oChannelInfo->status == '' && $oChannelInfo->id_epaper != ''):
                                 $sOutput = 100; 
+                            elseif($oChannelInfo->status == '' && $oChannelInfo->id_epaper != ''):
+                                $sOutput = 70; 
+                            elseif($oChannelInfo->status == ''):
+                                $sOutput = 80; 
+                            elseif($oChannelInfo->id_epaper != ''):
+                                $sOutput = 90; 
+                            elseif('y' == 'y'):
+                                $sOutput = 95; 
                             endif;
                             echo $sOutput;
                             
@@ -894,6 +920,11 @@ class TG_Epaper_WP_Plugin {
             case 'deleteAccount':
                     delete_option($this->sWidgetClassIndex);
                     delete_option($this->sEpaperOptionIndex);
+                break;
+            
+            case 'cancelSubscr':
+                    $sSubscrId = isset($_POST['subscr_id'])?$_POST['subscr_id']:NULL;
+                    echo $this->oAccountApi->paypalUnsubscribe($sSubscrId);
                 break;
             
             case 'translateUploadErrorMessage':
@@ -1021,37 +1052,20 @@ class TG_Epaper_WP_Plugin {
     
     //returns available languages of epaper-player
     public function getAvailableLanguages(){
-        return array(
-            "de" => __('german','1000grad-epaper'), 
-            "en" => __('english','1000grad-epaper'),
-            "es" => __('espanol','1000grad-epaper'),
-            "fr" => __('francais','1000grad-epaper'),
-            "it" => __('italiano','1000grad-epaper'),
-            'da' => __('danish','1000grad-epaper'),
-            'nl' => __('dutch','1000grad-epaper'),
-            'fi' => __('finnish','1000grad-epaper'),
-            'cs' => __('czech','1000grad-epaper'),
-            'ru' => __('russian','1000grad-epaper'),
-            'hr' => __('croatian','1000grad-epaper'),
-            'ro' => __('Romanian', '1000grad-epaper'),
-            'sk' => __('Slovak', '1000grad-epaper'),
-            'sl' => __('Slovenian', '1000grad-epaper'),
-            'hu' => __('Hungarian', '1000grad-epaper'),
-            'pl' => __('polish','1000grad-epaper'),
-            'pt' => __('portuguese','1000grad-epaper'),
-            'tr' => __('turkish','1000grad-epaper'),
-            'bg' => __('bulgarian','1000grad-epaper'),
-            'ja' => __('japanese','1000grad-epaper'),
-            'el' => __('greek','1000grad-epaper'),
-            'zh_Hans' => __('simplified chinese','1000grad-epaper'),
-            'zh_Hant' => __('traditional chinese','1000grad-epaper')       
-        );
+        $sCmsLanguage = substr(get_bloginfo ( 'language' ), 0, 2);
+        $aPlayerLanguages = $this->oEpaperApi->getEpaperPlayerLanguages(($sCmsLanguage == 'de')?'de':'en');
+        $aPlayerVersion = array_keys($aPlayerLanguages);
+        $aLanguageArray = (array)$aPlayerLanguages[$aPlayerVersion[0]];
+        foreach($aLanguageArray as $sLangKey => $sLanguage):
+            $aLanguages[strtolower($sLangKey)] = strtolower($sLanguage);
+        endforeach;
+        return $aLanguages;
     }
     
     //returns blog-language
     private function getBlogDefaultLanguage(){
         $sLangCode = get_bloginfo('language'); //en_EN
-        $aLangCode = explode("_", $sLangCode);
+        $aLangCode = explode("-", $sLangCode);
         return isset($aLangCode[0])?$aLangCode[0]:false;
     }
     
@@ -1098,6 +1112,10 @@ class TG_Epaper_WP_Plugin {
     
     private function agbWasAccepted(){
         return (isset($this->aEpaperOptions[$this->sAgbAcceptIndex]))?true:false;
+    }
+    
+    public function getEpaperDefaultLanguage(){
+        return array_key_exists($this->sDefaultLang, $this->getAvailableLanguages())?$this->sDefaultLang:$this->sLanguageFallback;
     }
     
 }

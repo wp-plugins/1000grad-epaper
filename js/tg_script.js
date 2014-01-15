@@ -89,6 +89,12 @@ jQuery.extend(TgEpaper.prototype,{
             
     setRenderstatusOutput:function(response, iEpaperId, iChannelId){
         result = jQuery.parseJSON(response);
+        
+        if(result.error != undefined){
+            jQuery('div#tg_epaper_progress_rendering').find('div.tg_status').addClass('tg_epaper_dialog_error');
+            window.setTimeout("alert(result.error)", 500);
+            window.setTimeout("TgEpaper.reloadChannelList()", 100);
+        }
         render_percent = result.render_percent;
         render_pages_text = result.render_pages_text;
         if(parseInt(render_percent) > 0){
@@ -158,7 +164,7 @@ jQuery.extend(TgEpaper.prototype,{
         TgEpaper._epaper_global_ajax_request = jQuery.post( TGELocalData.ajaxurl, data, function(response) {
             jQuery('#tg_menupage').parents('div').first().html(response);
         }).done(function(){
-            TgEpaper.initColorBox();
+            TgEpaper.initColor1000Box();
             TgEpaper.resetProgressBar();
             TgEpaper.hideProgressBar();
             TgEpaper.refreshImageSrc();
@@ -405,15 +411,15 @@ jQuery.extend(TgEpaper.prototype,{
 
                         TgEpaper._epaper_global_ajax_request = jQuery.post( TGELocalData.ajaxurl, data, function(response) {
                             jQuery('#tg_menupage').parents('div').first().html(response);
-                            //TgEpaper.initColorBox();
+                            //TgEpaper.initColor1000Box();
                         });    
                     }
                 });            
             
         });
     },
-    initColorBox:function(){
-        jQuery(".ePaper").colorbox({iframe:true, width:"80%", height:"90%"});
+    initColor1000Box:function(){
+        $tgd(".ePaper").color1000box({iframe:true, width:"80%", height:"90%"});
     },
             
     startRendering:function(pdfId, oldEpaperId, channel_id, filename){

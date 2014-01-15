@@ -207,7 +207,7 @@ _e("This plugin aims to support you in creating and adding ePaper publications t
         <?php endif; ?>
         TgEpaper.initClearChannelAction();
         TgEpaper.initEpaperSettings();
-        TgEpaper.initColorBox();
+        TgEpaper.initColor1000Box();
         TgEpaper.initShortcodeBox();
         TgEpaper.initUploadify();
     });
