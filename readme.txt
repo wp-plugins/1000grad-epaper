@@ -3,7 +3,7 @@ Contributors: 1000grad
 Donate link: 
 Tags: epaper pdf newspaper flipbook ebook catalogue pageflip blätterbar katalog flashflip emagazine publisher
 Requires at least: 3.4
-Tested up to: 3.8.1
+Tested up to: 3.9
 Stable tag: 1.4.11
 License: GPLv2 or later
 
