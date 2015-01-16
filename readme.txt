@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== edelpaper ===
 Contributors: 1000grad
 Donate link: 
 Tags: epaper pdf newspaper flipbook ebook catalogue pageflip blätterbar katalog flashflip emagazine publisher
