@@ -2,8 +2,8 @@
 /**
  * This file contains the contents of the 1000grad-epaper channels admin page.
  *
- * @copyright Copyright (C) 2013 1000°DIGITAL GmbH. All rights reserved.
- * @author 1000°DIGITAL
+ * @copyright Copyright (C) 2013 1000grad DIGITAL GmbH. All rights reserved.
+ * @author 1000grad DIGITAL
  * @license This program is free software; you can redistribute it and/or modify
  *          it under the terms of the GNU General Public License as published by
  *          the Free Software Foundation; either version 2 of the License, or
@@ -22,13 +22,15 @@ if (!defined('ABSPATH'))
     exit; // Exit if accessed directly
 ?>
 <div class="text-justify tg_text_box"><?php
-_e("This plugin aims to support you in creating and adding ePaper publications to the WordPress blog. "
-        . "Creating interactive FLASH and HTML5 based ePapers has never been easier. Upload your pdf file and create your interactive "
-        . "multimedia publication in a few steps. Embed that to your website via widget or shortcode. "
-        . "Each publication is optimized for web and mobile (iOS and Android) display and is "
+_e(       "This plugin aims to support you in creating and adding your interactive publications to the WordPress blog. "
+        . "<br> * Creating interactive FLASH and HTML5 based documents has never been easier. "
+        . "<br> * Upload your pdf file and create your interactive "
+        . "multimedia publication in a few steps. "
+        . "<br> * Embed that to your website via widget or shortcode. "
+        . "<br> * Each publication is optimized for web and mobile (iOS and Android) display and is "
         . "equipped with an automatic device recognition. "
-        . "<br>You can refresh your ePaper channel as often as you want by upload a new PDF to the existing one."
-        . "", '1000grad-epaper');
+        . "<br> * You can refresh your document permalink as often as you want by upload a new PDF to the existing one."
+        . "", '1000grad-epaper');        
 ?></div>
 
     <?php if (isset($this->oView->channelobject)): ?>
@@ -47,7 +49,7 @@ _e("This plugin aims to support you in creating and adding ePaper publications t
                     <div class="tg_box_channel_list_content_details">
                         <div class="tg_box_channel_list_channel_header">
                             <span class="tg_channel_show">
-                                <span class="channel_title"><?php echo ($oChannelInfo->title != '') ? $oChannelInfo->title : sprintf('%s #%u', __("ePaper Channel", '1000grad-epaper'), ($iChannel + 1)) ?></span>
+                                <span class="channel_title"><?php echo ($oChannelInfo->title != '') ? $oChannelInfo->title : sprintf('%s #%u', __("edelpaper Channel", '1000grad-epaper'), ($iChannel + 1)) ?></span>
                             </span>
                         </div>
 
@@ -107,15 +109,15 @@ _e("This plugin aims to support you in creating and adding ePaper publications t
 
         <div class='tg_info_box tg_box'>
             <div class='tg_info_box_inner'>
-                <div class="tg_info_box_inner_header"><?php _e("add more ePaper Channels", '1000grad-epaper'); ?></div>
+                <div class="tg_info_box_inner_header"><?php _e("add more edelpaper Channels", '1000grad-epaper'); ?></div>
                 <div class='tg_info_box_inner_content'>
                     <div>
-    <?php _e("You can get more 1000°ePaper channels via PayPal.", "1000grad-epaper") ?>
+    <?php _e("You can get more edelpaper channels via PayPal.", "1000grad-epaper") ?>
                         <a href='admin.php?page=epaper_subscription'><?php _e('Manage Subscriptions', '1000grad-epaper'); ?></a>                       
                     </div>
                     <br/>
                     <div>
-    <?php _e('Please have a look at our <a target="_blank" href="http://wordpress.org/plugins/1000grad-epaper/faq/">frequently asked questions (FAQ)</a> or give us <a href=options-general.php?page=epaper_settings>feedback about this plugin</a>', '1000grad-epaper'); ?>                       
+    <?php _e('Please have a look at our <a target="_blank" href="http://support.edelpaper.com/hc/en-us/articles/202245111">frequently asked questions (FAQ)</a> or give us <a href=options-general.php?page=epaper_settings>feedback about this plugin</a>', '1000grad-epaper'); ?>                       
 
 
                     </div>
@@ -130,7 +132,7 @@ _e("This plugin aims to support you in creating and adding ePaper publications t
         <form method="post" action="<?php echo $this->oView->sAdminUrl ?>?page=epaper_channels">
             <div id="tg_epaper_agb_overlay">
                 <div id="tg_epaper_agb_check_content" class="tg-border-radius">
-                    <div class="bold agb_text"><?php echo __('Please read and accept our terms and conditions, before using the 1000°ePaper Wordpress-Plugin.', '1000grad-epaper') ?></div>
+                    <div class="bold agb_text"><?php echo __('Please read and accept our terms and conditions, before using the edelpaper Wordpress-Plugin.', '1000grad-epaper') ?></div>
                     <div class="tg_agb_logo">
                         <img align=right alt=1000grad-logo src='<?php echo plugin_dir_url("") . "1000grad-epaper/img/1000grad_logo.png" ?>'>    
                     </div>
@@ -138,7 +140,7 @@ _e("This plugin aims to support you in creating and adding ePaper publications t
 
                     <div id="tge_agb_box">
                         <input type="checkbox" name="agb"  id="tg_epaper_agb"> 
-                        <span><?php echo __('I have read the <a target="_blank" href="http://www.1000grad.de/upload/Dokumente/agb/SaaSAgreement-TCen-2013-07-26.pdf">terms of use</a> and I agree.', '1000grad-epaper'); ?></span><br />
+                        <span><?php echo __('I have read the <a target="_blank" href="http://www.edelpaper.com/terms_of_use/SaaS-Agreement-Edelpaper-TC-en-2013-07-26.pdf">terms of use</a> and I agree.', '1000grad-epaper'); ?></span><br />
                     </div>
 
                     <div>

@@ -540,7 +540,7 @@ div#tg_epaper_progress_bar a.tg_cancel_upload{
 }
 
 div.tg_epaper_progress_bar_logo, div.tg_epaper_save_bar_logo{
-    background: url('../img/1000grad_logo.png');
+    background: url('../img/edelpaper_logo_100.png')no-repeat;
     height:51px;
     width: 100px;
     margin:7px 15px 0px 19px;

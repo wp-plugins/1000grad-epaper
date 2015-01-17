@@ -491,11 +491,11 @@ jQuery.extend(TgEpaper.prototype,{
         jQuery('input.file_upload').each(function(){
             var channel = jQuery(this).attr('channel');
             apiUrl = jQuery('#tg_upload_api_url').val();
-            form_id = jQuery(this).attr('id');
+            form_id = jQuery(this).attr('id');            
             jQuery("#"+form_id).uploadify({
                 fileObjName   : 'file',
                 height        : 20,
-                swf           : '../wp-content/plugins/1000grad-epaper/js/uploadify/uploadify.swf',
+                swf           : TGELocalData.wpcontenturl+'/plugins/1000grad-epaper/js/uploadify/uploadify.swf',
                 uploader      : apiUrl+'pdf-upload/',
                 buttonText    : TgEpaper._uploadButton,
                 newbuttonText    : 'Upload to Channel '+channel,

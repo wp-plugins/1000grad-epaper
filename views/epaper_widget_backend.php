@@ -34,7 +34,7 @@
                     <?php endfor ?>
                 </select>
                 <div class="tg_epaper_dialog_question float_left">
-                    <div class="tg_epaper_dialog_question_text"><?php _e("first page when opening ePaper",'1000grad-epaper');?></div>
+                    <div class="tg_epaper_dialog_question_text"><?php _e("first page when opening edelpaper",'1000grad-epaper');?></div>
                 </div> 
                 <div class="clear"></div>
             </div>

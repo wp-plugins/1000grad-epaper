@@ -2,8 +2,8 @@
 /**
  * This file contains the contents of the 1000grad-epaper channel meta box admin page.
  *
- * @copyright Copyright (C) 2013 1000°DIGITAL GmbH. All rights reserved.
- * @author 1000°DIGITAL
+ * @copyright Copyright (C) 2013 1000grad DIGITAL GmbH. All rights reserved.
+ * @author 1000grad DIGITAL
  * @license This program is free software; you can redistribute it and/or modify
  *          it under the terms of the GNU General Public License as published by
  *          the Free Software Foundation; either version 2 of the License, or
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 ?>
 
 <?php if($this->oView->channelobject->count == 0): ?>
-    <h2><?php _e('no ePaper Channel existing!','1000grad-epaper') ?></h2>
+    <h2><?php _e('no edelpaper Channel existing!','1000grad-epaper') ?></h2>
 <?php endif; ?>
 
     <div id="tg_epaper_meta_box_container">

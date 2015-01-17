@@ -2,8 +2,8 @@
 /**
  * This file contains the contents of the 1000grad-epaper channels admin page.
  *
- * @copyright Copyright (C) 2013 1000°DIGITAL GmbH. All rights reserved.
- * @author 1000°DIGITAL
+ * @copyright Copyright (C) 2013 1000grad DIGITAL GmbH. All rights reserved.
+ * @author 1000grad DIGITAL
  * @license This program is free software; you can redistribute it and/or modify
  *          it under the terms of the GNU General Public License as published by
  *          the Free Software Foundation; either version 2 of the License, or
@@ -23,8 +23,8 @@ if (!defined('ABSPATH'))
 
 ?><div class="text-justify tg_text_box">
     <?php _e("You can manage your plan below, as often as you need. The payment is realized with Paypal monthly Subscription.<br> 
-                For questions relating licensing or purchasing, please contact a customer service representative via <a target = '_blank' href='mailto:info@epaper-apps.1000grad.com'>info@epaper-apps.1000grad.com</a>.
-                To request technical support, please visit our <a target = '_blank' href='http://wordpress.org/support/plugin/1000grad-epaper'>Support Page</a> or or give us <a href=options-general.php?page=epaper_settings>feedback</a>." , '1000grad-epaper');
+                For questions relating licensing or purchasing, please contact a customer service representative via <a target = '_blank' href='mailto:info@edelpaper.com'>info@edelpaper.com</a>.
+                <br />To request technical support, please visit our <a target = '_blank' href='http://support.edelpaper.com/hc/en-us/articles/202133892'>Support Page</a> or or give us <a href=options-general.php?page=epaper_settings>feedback</a>." , '1000grad-epaper');
 ?></div>
 
 <div class='tg_info_box tg_box'>
