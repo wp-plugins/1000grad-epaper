@@ -1,7 +1,7 @@
 <?php
 /**
- * Class wraps functions for communiction with the 1000° channel API
- * @copyright (c) 2013, 1000°DIGITAL Leipzig GmbH
+ * Class wraps functions for communiction with the 1000grad channel API
+ * @copyright (c) 2013, 1000grad DIGITAL Leipzig GmbH
  * @author Karsten Lemme <karsten.lemme@1000grad.de>
  */
 class EpaperChannelApi 
@@ -36,7 +36,9 @@ class EpaperChannelApi
      * Connect
      */
     public function epaperChannelApiConnect() 
-    {            
+    {      
+        if(!isset($this->epaperOptions['url']))
+            return false;
         if($this->epaperOptions['url'] == NULL) return false;
         $wsdl = $this->epaperOptions['url'] . "channels-wsdl/";
         try {
@@ -103,7 +105,7 @@ class EpaperChannelApi
             return true;            
 		} catch (SoapFault $e) {
             echo "<br />";
-            _e("Error: could not remove ePaper.",'1000grad-epaper');
+            _e("Error: could not remove edelpaper.",'1000grad-epaper');
             echo $e->getMessage(); 
             return false;
         }
@@ -135,7 +137,7 @@ class EpaperChannelApi
             return $res;            
 		} catch (SoapFault $e) {
             echo "<br />";
-            _e("Error with ePaper Channel.",'1000grad-epaper');
+            _e("Error with edelpaper Channel.",'1000grad-epaper');
             echo $e->getMessage(); 
             return false;
         }
@@ -152,7 +154,7 @@ class EpaperChannelApi
             return $res;            
 		} catch (SoapFault $e) {
             echo "<br />";
-            _e("Error with ePaper Channel.",'1000grad-epaper');
+            _e("Error with edelpaper Channel.",'1000grad-epaper');
             echo $e->getMessage(); 
             return false;
         }

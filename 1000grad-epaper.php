@@ -1,14 +1,14 @@
 <?php
 /*
-Plugin Name: edelpaper
-Plugin URI: http://epaper-apps.1000grad.com/
-Description: Easily create browsable ePapers within Wordpress! Convert your PDFs to online documents by using the 1000° ePaper service. Embed it via widget or shortcode.  1000°ePaper is an electronic publishing service that allows you to quickly and easily create native page flipping electronic publications such as e-Books, e-Catalogs, e-Brochures, e-Presentations and much more.
-Version: 1.4.11
-Author: 1000°DIGITAL Leipzig GmbH
-Author URI: http://www.1000grad.de
-License:
+Plugin Name: edelpaper*
+Plugin URI: http://support.edelpaper.com/hc/en-us/articles/202133892-Simple-and-fast-the-edelpaper-wordpress-plugin
+Description: Easily create browsable interactive documents within Wordpress! Convert your PDFs to online documents by using the edelpaper service. Embed it via widget or shortcode.  edelpaper is an electronic publishing service that allows you to quickly and easily create native page flipping electronic publications such as e-Books, e-Catalogs, e-Brochures, e-Presentations and much more.
+Version: 1.4.12
+Author: edelpaper (a service by 1000grad Digital GmbH, Germany)
+Author URI: http://www.edelpaper.com
+License: GPLv2 or later
 
-  Copyright (C) 2013 1000grad Digital GmbH (info@1000grad.de)
+  Copyright (C) 2015 1000grad Digital GmbH (info@1000grad.de)
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License, version 2, as 
@@ -27,14 +27,13 @@ Using the awesome plugin boilerplate by Tom MsFarlin: https://github.com/tommcfa
 
 */
 /*error_reporting(0);*/
-
 require_once("lib/epaperApi.php");
 require_once("lib/epaperApikeyApi.php");
 require_once("lib/epaperChannelApi.php");
 
 class TG_Epaper_WP_Plugin {
     
-    static $sPluginVersion = "1.4.11";
+    static $sPluginVersion = "1.4.12";
     
     private $aEpaperOptions = array();  
     
@@ -45,7 +44,7 @@ class TG_Epaper_WP_Plugin {
     private $sBasePluginPath = '1000grad-epaper/';
     private $sTemplatePath = 'views/';
     private $sMainTemplate = 'adminpage_epaper_template';
-    private $sDefaultTitle = 'edelpaper';
+    private $sDefaultTitle = 'edelpaper*';
     private $ePaperSettingsFormTemplate = 'epaper_settings_form';
     private $sDefaultPreviewImage = 'epaper/epaper-ani.gif';
     private $sAgbAcceptIndex = 'agb_accepted';
@@ -86,20 +85,20 @@ class TG_Epaper_WP_Plugin {
 
             $this->load_epaper_options();
             $this->oView = new stdClass();
-
             $this->sPage = isset($_GET['page'])?$_GET['page']:NULL;
             $this->sDefaultLang = $this->getBlogDefaultLanguage();
 
             //Epaper API
             $this->oChannelApi = new EpaperChannelApi();
-            $this->oAccountApi = new EpaperApikeyApi();
+            $this->oAccountApi = new EpaperApikeyApi();    
             $this->oEpaperApi  = new EpaperApi();
-
+            
             ini_set('max_execution_time', 120);
             ini_set("soap.wsdl_cache_enabled", 1);
             ini_set("soap.wsdl_cache_ttl", 86400);  
 
             $this->is_registered();
+        
 
             if($bRegisterActions == true):
                 //ajax-action
@@ -131,8 +130,8 @@ class TG_Epaper_WP_Plugin {
             endif;
         
         endif;
-        
         //register_uninstall_hook(__FILE__, array('TG_Epaper_WP_Plugin', 'uninstallPlugin'));
+
     }
     
     public static function uninstallPlugin(){
@@ -145,7 +144,7 @@ class TG_Epaper_WP_Plugin {
     
     public function checkSoapIsActivated(){
         if(extension_loaded('soap') === false || !class_exists('SoapClient')):
-            $this->showWarning(__("<b>The 1000°ePaper plugin requires SOAP extension for PHP (php_soap).<br/><br/>Please ask your system administrator to activate it.</b>","1000grad-epaper"));
+            $this->showWarning(__("<b>The edelpaper plugin requires SOAP extension for PHP (php_soap).<br/><br/>Please ask your system administrator to activate it.</b>","1000grad-epaper"));
             return false;
         endif;
         
@@ -259,6 +258,7 @@ class TG_Epaper_WP_Plugin {
                 wp_localize_script( 'tg_script_js', 'TGELocalData', array(
                         'ajaxurl'       => admin_url( 'admin-ajax.php' ),
                         'tge_nonce'     => wp_create_nonce( 'epaper_ajax-nonce' ),
+                        'wpcontenturl'  => content_url(),
                 )); 
                 break;
         endswitch;
@@ -267,24 +267,14 @@ class TG_Epaper_WP_Plugin {
     //integrate epaper-plugin to main-menu
     public function action_epaper_integration_menu() 
     {                  
-        add_action( 'admin_enqueue_scripts', array($this,'action_enqueue_scripts_for_all_adminpages' ));
-        
-//        add_menu_page(
-//            'ePaper', 
-//            '1000°ePaper', 
-//            'upload_files', 
-//            'epaper_channels', 
-//            array($this, 'adminpage_epaper_channels'),
-//                "<div class='menu-icon-media'></div>"
-//                );
-        
+        add_action( 'admin_enqueue_scripts', array($this,'action_enqueue_scripts_for_all_adminpages' ));        
          add_menu_page(
             'ePaper', 
-            '1000°ePaper', 
+            'edelpaper', 
             'upload_files', 
             'epaper_channels', 
             array($this, 'adminpage_epaper_channels'), 
-            'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0ZWQgYnkgSWNvTW9vbi5pbyAtLT4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIyMyIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDIzIDIwIj4KPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAwKSI+Cgk8cGF0aCBkPSJNMTcuODkxIDExLjk4MWMwIDAuNjMyLTAuMjIgMC45NjUtMC43NTIgMC45NjUtMC41MyAwLTAuNzUtMC4zMzMtMC43NS0wLjk2NXYtMS40MDVjMC0wLjYzMiAwLjIyLTAuOTY2IDAuNzUtMC45NjYgMC41MzIgMCAwLjc1MiAwLjMzMyAwLjc1MiAwLjk2NnYxLjQwNU0xOS4wODUgMTIuMDI1di0xLjQ5M2MwLTEuMjkxLTAuNjU0LTIuMDE5LTEuOTQ2LTIuMDE5LTEuMjkgMC0xLjk0NCAwLjcyOS0xLjk0NCAyLjAxOXYxLjQ5M2MwIDEuMjkxIDAuNjU0IDIuMDE5IDEuOTQ0IDIuMDE5IDEuMjkxIDAgMS45NDYtMC43MjkgMS45NDYtMi4wMTl6IiBmaWxsPSIjZmZmZmZmIiAvPgoJPHBhdGggZD0iTTcuMjgzIDExLjk4MWMwIDAuNjMyLTAuMjIxIDAuOTY1LTAuNzUxIDAuOTY1cy0wLjc1MS0wLjMzMy0wLjc1MS0wLjk2NXYtMS40MDVjMC0wLjYzMiAwLjIyMS0wLjk2NiAwLjc1MS0wLjk2NiAwLjUzMSAwIDAuNzUxIDAuMzMzIDAuNzUxIDAuOTY2djEuNDA1TTguNDc3IDEyLjAyNXYtMS40OTNjMC0xLjI5MS0wLjY1NC0yLjAxOS0xLjk0NS0yLjAxOS0xLjI5MSAwLTEuOTQ1IDAuNzI5LTEuOTQ1IDIuMDE5djEuNDkzYzAgMS4yOTEgMC42NTQgMi4wMTkgMS45NDUgMi4wMTlzMS45NDUtMC43MjkgMS45NDUtMi4wMTl6IiBmaWxsPSIjZmZmZmZmIiAvPgoJPHBhdGggZD0iTTMuNjQ4IDEzLjk1N3YtMS4wOTdoLTEuMTY3di00LjI2aC0xLjEwNWwtMS4yNTUgMC40NjV2MS4xNDFsMS4xNjctMC4zMzN2Mi45ODdoLTEuMjYxdjEuMDk3aDMuNjIxIiBmaWxsPSIjZmZmZmZmIiAvPgoJPHBhdGggZD0iTTIxLjkxMSA5LjM1N2MwIDAuMjMzLTAuMTkgMC40MjEtMC40MjQgMC40MjEtMC4yMzUgMC0wLjQyNS0wLjE4OS0wLjQyNS0wLjQyMSAwLTAuMjMzIDAuMTktMC40MjEgMC40MjUtMC40MjEgMC4yMzQgMCAwLjQyNCAwLjE4OCAwLjQyNCAwLjQyMU0yMi42NCA5LjM1NmMwLTAuNjMyLTAuNTE1LTEuMTQ1LTEuMTUzLTEuMTQ1LTAuNjM2IDAtMS4xNTMgMC41MTMtMS4xNTMgMS4xNDUgMCAwLjYzMyAwLjUxNiAxLjE0NSAxLjE1MyAxLjE0NSAwLjYzNyAwIDEuMTUzLTAuNTEyIDEuMTUzLTEuMTQ1eiIgZmlsbD0iI2ZmZmZmZiIgLz4KCTxwYXRoIGQ9Ik0xMi41ODcgMTEuOTgxYzAgMC42MzItMC4yMiAwLjk2NS0wLjc1MSAwLjk2NS0wLjUzIDAtMC43NS0wLjMzMy0wLjc1LTAuOTY1di0xLjQwNWMwLTAuNjMyIDAuMjIxLTAuOTY2IDAuNzUtMC45NjYgMC41MzEgMCAwLjc1MSAwLjMzMyAwLjc1MSAwLjk2NnYxLjQwNU0xMy43ODEgMTIuMDI1di0xLjQ5M2MwLTEuMjkxLTAuNjU0LTIuMDE5LTEuOTQ1LTIuMDE5LTEuMjkgMC0xLjk0NCAwLjcyOS0xLjk0NCAyLjAxOXYxLjQ5M2MwIDEuMjkxIDAuNjU0IDIuMDE5IDEuOTQ0IDIuMDE5IDEuMjkxIDAgMS45NDUtMC43MjkgMS45NDUtMi4wMTl6IiBmaWxsPSIjZmZmZmZmIiAvPgoJPHBhdGggZD0iTTIwLjk4NiA1LjY1N2gtMTguNTU2YzAgMC0xLjA3MyAwLTEuMDczIDEuMDIwdjAuODJoMS4wNTVsMC4wMTktMC42MTVjMC0wLjIzNSAwLjI0My0wLjI0MiAwLjI0My0wLjI0MmgxOC4wNzJjMC4yNSAwIDAuMjQzIDAuMjQyIDAuMjQzIDAuMjQybDAuMDI1IDAuNjE1aDEuMDQ3di0wLjgyYzAtMC4yLTAuMDUwLTEuMDIwLTEuMDc1LTEuMDIwIiBmaWxsPSIjZmZmZmZmIiAvPgoJPHBhdGggZD0iTTIuNjczIDE1Ljc2N2MtMC4yNTUgMC0wLjI0My0wLjI0Mi0wLjI0My0wLjI0MmwtMC4wMTktMC41MzVoLTEuMDU0djAuNzc3YzAgMC0wLjAwOCAxLjAzMSAxLjA3MyAxLjAzMWgzLjc2M3YtMS4wMzFoLTMuNTE5IiBmaWxsPSIjZmZmZmZmIiAvPgoJPHBhdGggZD0iTTIwLjk4NiAxNS41MjVjMCAwLjI1NS0wLjI0MyAwLjI0Mi0wLjI0MyAwLjI0MmgtMC44MTF2MS4wMzFoMS4wNTVjMCAwIDEuMDc1IDAuMDQxIDEuMDc1LTEuMDMxdi00LjUyOGgtMS4wNzV2NC4yODYiIGZpbGw9IiNmZmZmZmYiIC8+Cgk8cGF0aCBkPSJNNy42MTQgMTcuMDE5YzAuMDIxIDAuMzQxIDAuMTc2IDAuNDk5IDAuNDY4IDAuNDk5IDAuMjMyIDAgMC42MDEtMC4wNjggMC42MDEtMC4wNjh2MC40MjNjMCAwLTAuMzM1IDAuMDc3LTAuNjIzIDAuMDc3LTAuNTQ2IDAtMC45MjQtMC4yODctMC45MjQtMS4wMzR2LTAuMTc5YzAtMC42MTEgMC4yNzUtMS4wMDggMC44NDItMS4wMDhzMC43OTEgMC4zOTMgMC43OTEgMC44OTJ2MC4zOTdoLTEuMTU1TTguMzI3IDE2LjYwMmMwLTAuMjY0LTAuMDY5LTAuNDc4LTAuMzQ0LTAuNDc4LTAuMjk3IDAtMC4zNjkgMC4yMTctMC4zNzQgMC41NDVoMC43MTh2LTAuMDY3eiIgZmlsbD0iI2ZmZmZmZiIgLz4KCTxwYXRoIGQ9Ik0xMC4yNDMgMTYuNjY5aC0wLjQ2NHYxLjIzOGgtMC40NzJ2LTMuMDMwaDAuOTM2YzAuNjE5IDAgMC45NzUgMC4yNzMgMC45NzUgMC44OTZzLTAuMzU3IDAuODk2LTAuOTc1IDAuODk2TTEwLjIyMSAxNS4zMDNoLTAuNDQzdjAuOTRoMC40NDNjMC4zNDkgMCAwLjUyNS0wLjE1MyAwLjUyNS0wLjQ3LTAuMDAxLTAuMzE1LTAuMTc3LTAuNDctMC41MjUtMC40N3oiIGZpbGw9IiNmZmZmZmYiIC8+Cgk8cGF0aCBkPSJNMTIuNTcxIDE3LjkwN3YtMC4xMmMtMC4xMzcgMC4wODYtMC4zMTggMC4xNjMtMC41MTkgMC4xNjMtMC40MTcgMC0wLjY2Mi0wLjIwOS0wLjY2Mi0wLjY0MSAwLTAuNDQgMC4yNzEtMC42NTcgMC43NDgtMC42NTcgMC4xNTggMCAwLjI5NSAwLjAwOSAwLjQxMiAwLjAyNnYtMC4xNzFjMC0wLjIyMy0wLjA5OS0wLjM0My0wLjM1My0wLjM0My0wLjI2MiAwLTAuNjU3IDAuMDg2LTAuNjU3IDAuMDg2di0wLjQxYzAgMCAwLjM2LTAuMTExIDAuNzIyLTAuMTExIDAuNTcxIDAgMC43NiAwLjI2NCAwLjc2IDAuNzc3djEuNGgtMC40NTJNMTIuNTUxIDE3LjAxNmgtMC4zNjFjLTAuMjMzIDAtMC4zMjcgMC4wOTctMC4zMjcgMC4yODEgMCAwLjE2MyAwLjA5NSAwLjI1NyAwLjI4MyAwLjI1NyAwLjEzMyAwIDAuMjc5LTAuMDUyIDAuNDA0LTAuMTE1di0wLjQyM3oiIGZpbGw9IiNmZmZmZmYiIC8+Cgk8cGF0aCBkPSJNMTQuNDE1IDE3LjkwN2MtMC4wODIgMC0wLjIyMy0wLjAxMy0wLjM2MS0wLjAzMHYwLjg0MWgtMC40NzN2LTIuOTQ1aDAuNDUxdjAuMTAzYzAuMTMzLTAuMDgyIDAuMzAxLTAuMTQ2IDAuNDg2LTAuMTQ2IDAuNDc3IDAgMC42OTYgMC4yOTEgMC42OTYgMC43NDd2MC42ODJjLTAuMDAxIDAuNDc1LTAuMjY3IDAuNzQ4LTAuNzk5IDAuNzQ4TTE0Ljc0MSAxNi41MDhjMC0wLjIxMy0wLjA4NS0wLjM2My0wLjMyMS0wLjM2My0wLjExNyAwLTAuMjUgMC4wNDMtMC4zNjUgMC4wOTl2MS4yNThoMC4zM2MwLjI1OSAwIDAuMzU3LTAuMTQxIDAuMzU3LTAuMzUzdi0wLjY0MXoiIGZpbGw9IiNmZmZmZmYiIC8+Cgk8cGF0aCBkPSJNMTYuMjA3IDE3LjAxOWMwLjAyMSAwLjM0MSAwLjE3NyAwLjQ5OSAwLjQ2OCAwLjQ5OSAwLjIzMyAwIDAuNjAxLTAuMDY4IDAuNjAxLTAuMDY4djAuNDIzYzAgMC0wLjMzNSAwLjA3Ny0wLjYyMyAwLjA3Ny0wLjU0NSAwLTAuOTIzLTAuMjg3LTAuOTIzLTEuMDM0di0wLjE3OWMwLTAuNjExIDAuMjc1LTEuMDA4IDAuODQyLTEuMDA4czAuNzkgMC4zOTMgMC43OSAwLjg5MnYwLjM5N2gtMS4xNTVNMTYuOTIgMTYuNjAyYzAtMC4yNjQtMC4wNjktMC40NzgtMC4zNDQtMC40NzgtMC4yOTYgMC0wLjM2OSAwLjIxNy0wLjM3NCAwLjU0NWgwLjcxN3YtMC4wNjd6IiBmaWxsPSIjZmZmZmZmIiAvPgoJPHBhdGggZD0iTTE4Ljc5IDE2LjI1NmMtMC4yMDMgMC0wLjM0NSAwLjE0Ni0wLjQzOCAwLjI5NHYxLjM1OGgtMC40NzN2LTIuMTM0aDAuNDUxdjAuMjYxYzAuMDY1LTAuMTU3IDAuMTk0LTAuMzAzIDAuNDI1LTAuMzAzIDAuMDc3IDAgMC4xNTUgMC4wMjIgMC4xNTUgMC4wMjJ2MC41MTJjLTAuMDAxLTAuMDAxLTAuMDY1LTAuMDA5LTAuMTItMC4wMDkiIGZpbGw9IiNmZmZmZmYiIC8+CjwvZz4KPC9zdmc+Cg=='
+            'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+DQo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+DQoNCjxzdmcNCiAgIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyINCiAgIHhtbG5zOmNjPSJodHRwOi8vY3JlYXRpdmVjb21tb25zLm9yZy9ucyMiDQogICB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiDQogICB4bWxuczpzdmc9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIg0KICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIg0KICAgeG1sbnM6c29kaXBvZGk9Imh0dHA6Ly9zb2RpcG9kaS5zb3VyY2Vmb3JnZS5uZXQvRFREL3NvZGlwb2RpLTAuZHRkIg0KICAgeG1sbnM6aW5rc2NhcGU9Imh0dHA6Ly93d3cuaW5rc2NhcGUub3JnL25hbWVzcGFjZXMvaW5rc2NhcGUiDQogICB2ZXJzaW9uPSIxLjEiDQogICBpZD0iRWJlbmVfMSINCiAgIHg9IjBweCINCiAgIHk9IjBweCINCiAgIHdpZHRoPSIxMjAiDQogICBoZWlnaHQ9IjEyMCINCiAgIHZpZXdCb3g9IjEyMy41MzEgMzI5LjQ2IDEyMCAxMjAiDQogICBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDEyMy41MzEgMzI5LjQ2IDYxMi45NjQgMTQ3LjU0OSINCiAgIHhtbDpzcGFjZT0icHJlc2VydmUiDQogICBpbmtzY2FwZTp2ZXJzaW9uPSIwLjQ4LjUgcjEwMDQwIg0KICAgc29kaXBvZGk6ZG9jbmFtZT0iZWRlbHBhcGVyX2ljb25fZ3JhdS5zdmciPjxtZXRhZGF0YQ0KICAgICBpZD0ibWV0YWRhdGE1NyI+PHJkZjpSREY+PGNjOldvcmsNCiAgICAgICAgIHJkZjphYm91dD0iIj48ZGM6Zm9ybWF0PmltYWdlL3N2Zyt4bWw8L2RjOmZvcm1hdD48ZGM6dHlwZQ0KICAgICAgICAgICByZGY6cmVzb3VyY2U9Imh0dHA6Ly9wdXJsLm9yZy9kYy9kY21pdHlwZS9TdGlsbEltYWdlIiAvPjxkYzp0aXRsZT48L2RjOnRpdGxlPjwvY2M6V29yaz48L3JkZjpSREY+PC9tZXRhZGF0YT48ZGVmcw0KICAgICBpZD0iZGVmczU1IiAvPjxzb2RpcG9kaTpuYW1lZHZpZXcNCiAgICAgcGFnZWNvbG9yPSIjZmZmZmZmIg0KICAgICBib3JkZXJjb2xvcj0iIzY2NjY2NiINCiAgICAgYm9yZGVyb3BhY2l0eT0iMSINCiAgICAgb2JqZWN0dG9sZXJhbmNlPSIxMCINCiAgICAgZ3JpZHRvbGVyYW5jZT0iMTAiDQogICAgIGd1aWRldG9sZXJhbmNlPSIxMCINCiAgICAgaW5rc2NhcGU6cGFnZW9wYWNpdHk9IjAiDQogICAgIGlua3NjYXBlOnBhZ2VzaGFkb3c9IjIiDQogICAgIGlua3NjYXBlOndpbmRvdy13aWR0aD0iMTA5MCINCiAgICAgaW5rc2NhcGU6d2luZG93LWhlaWdodD0iMTA5NiINCiAgICAgaWQ9Im5hbWVkdmlldzUzIg0KICAgICBzaG93Z3JpZD0iZmFsc2UiDQogICAgIGlua3NjYXBlOnpvb209IjUuMTU1Mjc4NCINCiAgICAgaW5rc2NhcGU6Y3g9IjQ1LjU1NzY3MiINCiAgICAgaW5rc2NhcGU6Y3k9IjczLjc3NDQ5OCINCiAgICAgaW5rc2NhcGU6d2luZG93LXg9IjgyNCINCiAgICAgaW5rc2NhcGU6d2luZG93LXk9IjI0Ig0KICAgICBpbmtzY2FwZTp3aW5kb3ctbWF4aW1pemVkPSIwIg0KICAgICBpbmtzY2FwZTpjdXJyZW50LWxheWVyPSJFYmVuZV8xIiAvPjxyZWN0DQogICAgIHg9IjY1LjcyNDk5OCINCiAgICAgeT0iLTcuMDU3OTk3NyINCiAgICAgZGlzcGxheT0ibm9uZSINCiAgICAgd2lkdGg9IjcwOC42NjYwMiINCiAgICAgaGVpZ2h0PSIyMzYuNjY2Ig0KICAgICBpZD0icmVjdDMiDQogICAgIHN0eWxlPSJmaWxsOiMzMzMzMzM7ZGlzcGxheTpub25lIiAvPjxnDQogICAgIGRpc3BsYXk9Im5vbmUiDQogICAgIGlkPSJnNSINCiAgICAgc3R5bGU9ImRpc3BsYXk6bm9uZSINCiAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwtMjcuNTQ4OTk3KSI+PHBhdGgNCiAgICAgICBkaXNwbGF5PSJpbmxpbmUiDQogICAgICAgZD0ibSAxNjEuMzA3LDE4NC43OTIgYyAtNS40OTYsMCAtMTAuMjI0LC0xLjA1MiAtMTQuMTg4LC0zLjE2NSAtMy45NjYsLTIuMTIzIC03LjIxMiwtNC45NDYgLTkuNzI5LC04LjQ0NiAtMi41MjcsLTMuNTI3IC00LjM5NCwtNy41NjMgLTUuNjA5LC0xMi4xMDYgLTEuMjE5LC00LjU0OCAtMS44MjQsLTkuMzAxIC0xLjgyNCwtMTQuMjU2IDAsLTUuMDQ3IDAuNjA1LC05Ljg2OSAxLjgyNCwtMTQuNDYzIDEuMjE3LC00LjU5MyAzLjEzMiwtOC42MjYgNS43NDEsLTEyLjA5MiAyLjYxNCwtMy40NjggNS45MjcsLTYuMjM4IDkuOTM0LC04LjMxNSA0LjAwOCwtMi4wNyA4LjgwOSwtMy4xMDggMTQuMzkzLC0zLjEwOCA4LjU2MSwwIDE1LjYzNCwzLjEwOCAyMS4yMTksOS4zMjggMi43MDUsMy4wNjUgNC44ODksNi41MzMgNi41NTcsMTAuNDA0IDEuNjY4LDMuODc1IDIuNTAyLDguMTk4IDIuNTAyLDEyLjk3NSB2IDkuNDYzIEggMTQ5LjY5IGMgMC4yNzEsMi4xMjcgMC42MDQsNC4yMDggMS4wMTQsNi4yNDkgMC40MDEsMi4wMzYgMS4wNzksMy44NDggMi4wMjYsNS40NTggMC45NDgsMS41OTcgMi4yMywyLjg3OCAzLjg1MiwzLjg2MiAxLjYyMSwwLjk2IDMuNzg2LDEuNDYzIDYuNDg1LDEuNDYzIDMuNDI2LDAgNi4yODcsLTAuODM3IDguNTg0LC0yLjUwNiAyLjI5OSwtMS42NjYgNC40MzQsLTMuODAzIDYuNDIsLTYuNDIgbCAxNC41OTYsOS4xOTEgYyAtMi4xNjYsMy4yOTkgLTQuMzUsNS45NzUgLTYuNTU3LDguMDM5IC0yLjIwOCwyLjA2MyAtNC41NzIsMy42ODMgLTcuMDkyLDQuODcyIC00Ljc4NSwyLjM4OCAtMTAuNjgxLDMuNTczIC0xNy43MTEsMy41NzMgeiBtIDAuNDA2LC02MC41NDIgYyAtMi4wNzQsMCAtMy44MDgsMC4zMTMgLTUuMTk5LDAuOTQgLTEuMzk3LDAuNjMyIC0yLjU1MSwxLjUxNSAtMy40NDgsMi42NCAtMC45LDEuMTMgLTEuNjA0LDIuNDUyIC0yLjA5NSwzLjk4NCAtMC40OTcsMS41MzggLTAuODc2LDMuMTUzIC0xLjE1Miw0Ljg2NCBoIDIzLjc4NiBjIC0wLjI3MSwtMy42OTIgLTEuMzk2LC02LjY2NiAtMy4zNzcsLTguOTE3IC0yLjA3MSwtMi4zNDIgLTQuOTE1LC0zLjUxMSAtOC41MTUsLTMuNTExIHoiDQogICAgICAgaWQ9InBhdGg3Ig0KICAgICAgIGlua3NjYXBlOmNvbm5lY3Rvci1jdXJ2YXR1cmU9IjAiDQogICAgICAgc3R5bGU9ImZpbGw6I2IyYjJiMjtkaXNwbGF5OmlubGluZSIgLz48cGF0aA0KICAgICAgIGRpc3BsYXk9ImlubGluZSINCiAgICAgICBkPSJtIDI0Ni4wNDIsMTc3LjQ5NCBjIC0yLjYwNywyLjI2MiAtNS4zNTUsNC4wMzUgLTguMjQzLDUuMzMxIC0yLjg4NSwxLjMyMSAtNi4wOCwxLjk2NyAtOS41OTIsMS45NjcgLTkuMzcsMCAtMTYuNjcxLC0zLjY5NiAtMjEuODk2LC0xMS4wODYgLTUuMTM3LC03LjEwNCAtNy43MDMsLTE2LjY2OCAtNy43MDMsLTI4LjY0NSAwLC0xMC4xOCAyLjc0NywtMTguNzQgOC4yNDIsLTI1LjY3NiA1LjY3NSwtNy4wMyAxMi43NDgsLTEwLjU0NiAyMS4yMTksLTEwLjU0NiAyLjc5NiwwIDUuNjA4LDAuNTQyIDguNDQ4LDEuNjI2IDIuODM2LDEuMDggNS4zMzcsMi41MjEgNy40OTcsNC4zMjQgViA4Mi44OTMgaCAxOS44NjggViAxODMuNDQ3IEggMjQ2LjcyIGwgLTAuNjc4LC01Ljk1MyB6IG0gLTcuMjcxLC01MC40MzIgYyAtMS45NjgsLTAuOTc1IC0zLjk4MywtMS40NjQgLTYuMDQ2LC0xLjQ2NCAtMi45NTksMCAtNS4zNTcsMC42NjggLTcuMTkzLDIuMDA0IC0xLjgzNiwxLjMzMSAtMy4yOTUsMy4wNDMgLTQuMzY3LDUuMTM4IC0xLjA4LDIuMDg2IC0xLjc5NCw0LjM3OSAtMi4xNTIsNi44NzIgLTAuMzYxLDIuNDg5IC0wLjUzNCw0Ljg5MSAtMC41MzQsNy4yMDYgMCwyLjMxNCAwLjE3Myw0LjczOSAwLjUzNCw3LjI3IDAuMzU4LDIuNTQgMS4wNzIsNC44MzYgMi4xNTIsNi44NzYgMS4wNzIsMi4wNDEgMi41MzEsMy43MzQgNC4zNjcsNS4wNjEgMS44MzYsMS4zNDYgNC4yMzQsMi4wMTggNy4xOTMsMi4wMTggMi41MDcsMCA0LjU2OSwtMC41MDMgNi4xODQsLTEuNDc3IDEuNjE0LC0wLjk3MSAzLjMxOCwtMi4yNjYgNS4xMDUsLTMuODcxIHYgLTMyLjAyNiBjIC0xLjUyMywtMS40MTkgLTMuMjY5LC0yLjYyNCAtNS4yNDMsLTMuNjA3IHoiDQogICAgICAgaWQ9InBhdGg5Ig0KICAgICAgIGlua3NjYXBlOmNvbm5lY3Rvci1jdXJ2YXR1cmU9IjAiDQogICAgICAgc3R5bGU9ImZpbGw6I2IyYjJiMjtkaXNwbGF5OmlubGluZSIgLz48cGF0aA0KICAgICAgIGRpc3BsYXk9ImlubGluZSINCiAgICAgICBkPSJtIDMwNC4wMjQsMTg0Ljc5MiBjIC01LjQ5NiwwIC0xMC4yMjUsLTEuMDUyIC0xNC4xODgsLTMuMTY1IC0zLjk2NywtMi4xMjMgLTcuMjEyLC00Ljk0NiAtOS43MywtOC40NDYgLTIuNTI1LC0zLjUyNyAtNC4zOTIsLTcuNTYzIC01LjYwNywtMTIuMTA2IC0xLjIxOSwtNC41NDggLTEuODI1LC05LjMwMSAtMS44MjUsLTE0LjI1NiAwLC01LjA0NyAwLjYwNiwtOS44NjkgMS44MjUsLTE0LjQ2MyAxLjIxNywtNC41OTMgMy4xMywtOC42MjYgNS43NCwtMTIuMDkyIDIuNjE1LC0zLjQ2OCA1LjkyOCwtNi4yMzggOS45MzQsLTguMzE1IDQuMDEsLTIuMDcgOC44MDgsLTMuMTA4IDE0LjM5NSwtMy4xMDggOC41NjEsMCAxNS42MzMsMy4xMDggMjEuMjE4LDkuMzI4IDIuNzA2LDMuMDY1IDQuODksNi41MzMgNi41NTgsMTAuNDA0IDEuNjY3LDMuODc1IDIuNTAxLDguMTk4IDIuNTAxLDEyLjk3NSB2IDkuNDYzIGggLTQyLjQzOCBjIDAuMjcsMi4xMjcgMC42MDUsNC4yMDggMS4wMTMsNi4yNDkgMC40MDMsMi4wMzYgMS4wOCwzLjg0OCAyLjAyOSw1LjQ1OCAwLjk0NywxLjU5NyAyLjIzLDIuODc4IDMuODUxLDMuODYyIDEuNjIxLDAuOTYgMy43ODUsMS40NjMgNi40ODUsMS40NjMgMy40MjUsMCA2LjI4NywtMC44MzcgOC41ODUsLTIuNTA2IDIuMjk3LC0xLjY2NiA0LjQzNSwtMy44MDMgNi40MTgsLTYuNDIgbCAxNC41OTcsOS4xOTEgYyAtMi4xNjUsMy4yOTkgLTQuMzQ5LDUuOTc1IC02LjU1OCw4LjAzOSAtMi4yMDcsMi4wNjMgLTQuNTY5LDMuNjgzIC03LjA5MSw0Ljg3MiAtNC43ODUsMi4zODggLTEwLjY4MiwzLjU3MyAtMTcuNzEyLDMuNTczIHogbSAwLjQwOCwtNjAuNTQyIGMgLTIuMDc2LDAgLTMuODEsMC4zMTMgLTUuMjAxLDAuOTQgLTEuMzk4LDAuNjMyIC0yLjU1LDEuNTE1IC0zLjQ1LDIuNjQgLTAuODk5LDEuMTMgLTEuNjAxLDIuNDUyIC0yLjA5NCwzLjk4NCAtMC40OTgsMS41MzggLTAuODc1LDMuMTUzIC0xLjE1Miw0Ljg2NCBoIDIzLjc4NiBjIC0wLjI2OCwtMy42OTIgLTEuMzk2LC02LjY2NiAtMy4zNzgsLTguOTE3IC0yLjA2OSwtMi4zNDIgLTQuOTEyLC0zLjUxMSAtOC41MTEsLTMuNTExIHoiDQogICAgICAgaWQ9InBhdGgxMSINCiAgICAgICBpbmtzY2FwZTpjb25uZWN0b3ItY3VydmF0dXJlPSIwIg0KICAgICAgIHN0eWxlPSJmaWxsOiNiMmIyYjI7ZGlzcGxheTppbmxpbmUiIC8+PHBhdGgNCiAgICAgICBkaXNwbGF5PSJpbmxpbmUiDQogICAgICAgZD0ibSAzNDcuNDE1LDgyLjg5MyBoIDE5Ljg1NiBWIDE4My40NDcgSCAzNDcuNDE1IFYgODIuODkzIHoiDQogICAgICAgaWQ9InBhdGgxMyINCiAgICAgICBpbmtzY2FwZTpjb25uZWN0b3ItY3VydmF0dXJlPSIwIg0KICAgICAgIHN0eWxlPSJmaWxsOiNiMmIyYjI7ZGlzcGxheTppbmxpbmUiIC8+PC9nPjxnDQogICAgIGRpc3BsYXk9Im5vbmUiDQogICAgIGlkPSJnMTUiDQogICAgIHN0eWxlPSJkaXNwbGF5Om5vbmUiDQogICAgIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAsLTI3LjU0ODk5NykiPjxwYXRoDQogICAgICAgZGlzcGxheT0iaW5saW5lIg0KICAgICAgIGQ9Im0gNDE2LjUxNiwxODQuNzkyIGMgLTIuODY4LDAgLTUuNjk4LC0wLjU0IC04LjQ4MywtMS42MTkgLTIuNzk0LC0xLjA4IC01LjI1NSwtMi41NjcgLTcuNDE0LC00LjQ2NyB2IDMwLjQxNyBoIC0xOS44NyB2IC05OC45MjcgaCAxOS4wNTYgdiA0LjcyNiBjIDIuNDM1LC0xLjg4NyA1LjAwMiwtMy4zNzYgNy43MDIsLTQuNDU2IDIuNzEyLC0xLjA4NyA1LjY0MSwtMS42MjYgOC43OCwtMS42MjYgOS4zODUsMCAxNi42NzksMy42OTYgMjEuODk3LDExLjA4NiA1LjIyMiw3LjIwNiA3LjgzNCwxNi43MTIgNy44MzQsMjguNTEzIDAsMTAuMjcxIC0yLjc4MiwxOC44ODEgLTguMzUyLDI1LjgxMiAtNS42Niw3LjAyNiAtMTIuNzE2LDEwLjU0MSAtMjEuMTUsMTAuNTQxIHogbSAtNC4zMzEsLTU5LjE5NCBjIC0yLjYxNywwIC00LjcyOSwwLjQ2NyAtNi4zOTYsMS40MDQgLTEuNjU2LDAuOTM0IC0zLjM4NCwyLjI0NyAtNS4xNzEsMy45MzUgdiAzMi4wMjIgYyAxLjUxMiwxLjM0IDMuMjM4LDIuNTIgNS4xNzEsMy41NCAxLjkzMywxLjAyMSAzLjk3MiwxLjUzOCA2LjExOSwxLjUzOCAyLjk2MywwIDUuMzYzLC0wLjY3MyA3LjE4OCwtMi4wMDQgMS44NDgsLTEuMzQxIDMuMjczLC0zLjA0OCA0LjMwNywtNS4xMzQgMS4wMzEsLTIuMDk1IDEuNzQsLTQuMzg4IDIuMTQ4LC02Ljg3NiAwLjQwNiwtMi40OTQgMC42LC00Ljg5MiAwLjYsLTcuMjA2IDAsLTMuNDczIC0wLjMxMiwtNi41MjEgLTAuOTM2LC05LjE0MiAtMC42MjYsLTIuNjIxIC0xLjU2MiwtNC44NzIgLTIuODIsLTYuNzM5IC0yLjI0NSwtMy41NTQgLTUuNjUzLC01LjMzOCAtMTAuMjEsLTUuMzM4IHoiDQogICAgICAgaWQ9InBhdGgxNyINCiAgICAgICBpbmtzY2FwZTpjb25uZWN0b3ItY3VydmF0dXJlPSIwIg0KICAgICAgIHN0eWxlPSJmaWxsOiNmNmY2ZjY7ZGlzcGxheTppbmxpbmUiIC8+PHBhdGgNCiAgICAgICBkaXNwbGF5PSJpbmxpbmUiDQogICAgICAgZD0ibSA0OTMuNiwxNzguNDMyIGMgLTMuNDMyLDIuMTczIC02LjgwNCwzLjc3IC0xMC4xMDQsNC44IC0zLjI5LDEuMDMzIC02Ljk3MywxLjU2IC0xMS4wMzksMS41NiAtMi45NzUsMCAtNS43MTEsLTAuNTA0IC04LjE4MSwtMS40ODYgLTIuNDk5LC0wLjk4NCAtNC42MzQsLTIuMzc5IC02LjQ0NSwtNC4xODcgLTEuODEyLC0xLjgwMiAtMy4yMDMsLTMuOTI2IC00LjE5NSwtNi4zNDcgLTAuOTk4LC0yLjQzOCAtMS40OTIsLTUuMTM3IC0xLjQ5MiwtOC4xMTEgMCwtNy40OSAyLjcwMiwtMTMuNDc0IDguMTAxLC0xNy45OCAzLjg4OCwtMy4wNjEgOC4wNTIsLTUuMjY2IDEyLjUwMiwtNi42MjQgNC40NjYsLTEuMzUxIDkuMDQ4LC0yLjQ3NiAxMy43MjcsLTMuMzc3IDEuNzA2LC0wLjM2MSAzLjY5NiwtMC42MzIgNS45NTEsLTAuODEgdiAtNC4xODcgYyAwLC0yLjYxNyAtMC44NjMsLTQuNTA3IC0yLjU2OCwtNS42ODMgLTEuNzE0LC0xLjE2NyAtMy43OSwtMS43NSAtNi4yMTYsLTEuNzUgLTMuNjk0LDAgLTYuNjQ2LDAuODM1IC04Ljg1NCwyLjQ5NiAtMi4yMDgsMS42NjUgLTQuMjU5LDMuOTM4IC02LjE1Myw2LjgyNiBsIC0xMy4yNDcsLTEwIGMgMy4xNTMsLTUuMDQ2IDcuMTg2LC04Ljc2NiAxMi4xMDUsLTExLjE1MSA0Ljg5NiwtMi4zODEgMTAuMjgyLC0zLjU4MiAxNi4xNDcsLTMuNTgyIDEwLjI5NywwIDE3LjYzOSwyLjQxMSAyMi4wNDQsNy4yMzUgNC40MDEsNC44MTcgNi42MDgsMTIuMjcyIDYuNjA4LDIyLjM2MSB2IDM0LjU5OCBjIDAsMi40MzggMC4xNjYsNC40MTQgMC41MjgsNS45NTIgMC4xOTEsMC41MjUgLTAuMDQ2LDEuMDI5IC0wLjY3LDEuNDg3IHYgMi45NzQgaCAtMTcuNjE1IGwgLTAuOTM0LC01LjAxNCB6IG0gLTcuMjcxLC0yNy4wOSBjIC0yLjMyNywwLjQ5OSAtNC41NjEsMS4xOTkgLTYuNjg0LDIuMSAtMi4xMjMsMC45MDIgLTMuOTI0LDIuMDkyIC01LjQxMywzLjU4MiAtMS40ODYsMS40NzkgLTIuMjI4LDMuNCAtMi4yMjgsNS43MzggMCwxLjk5NCAwLjU3MiwzLjU3OCAxLjcsNC43OTkgMS4xMjgsMS4yMjcgMi43MTMsMS44MjYgNC44MDEsMS44MjYgMi40MjMsMCA0LjkxOCwtMC43NDYgNy40ODQsLTIuMjMyIDIuNTY5LC0xLjQ4OCA0Ljc1MywtMi45NTEgNi41NjQsLTQuMzkzIHYgLTEyLjcwNSBjIC0xLjgwOSwwLjM2NiAtMy44NzEsMC43OTIgLTYuMjI0LDEuMjg1IHoiDQogICAgICAgaWQ9InBhdGgxOSINCiAgICAgICBpbmtzY2FwZTpjb25uZWN0b3ItY3VydmF0dXJlPSIwIg0KICAgICAgIHN0eWxlPSJmaWxsOiNmNmY2ZjY7ZGlzcGxheTppbmxpbmUiIC8+PHBhdGgNCiAgICAgICBkaXNwbGF5PSJpbmxpbmUiDQogICAgICAgZD0ibSA1NTkuMjMsMTg0Ljc5MiBjIC0yLjg3NywwIC01LjcxLC0wLjU0IC04LjQ5MSwtMS42MTkgLTIuNzg0LC0xLjA4IC01LjI1NywtMi41NjcgLTcuNDAyLC00LjQ2NyB2IDMwLjQxNyBoIC0xOS44NyB2IC05OC45MjcgaCAxOS4wNTEgdiA0LjcyNiBjIDIuNDM5LC0xLjg4NyA1LjAwNiwtMy4zNzYgNy43MTksLTQuNDU2IDIuNjg4LC0xLjA4NCA1LjYxNCwtMS42MjYgOC43ODIsLTEuNjI2IDkuMzU1LDAgMTYuNjUyLDMuNjk2IDIxLjg4NCwxMS4wODYgNS4yMzEsNy4yMDYgNy44NDcsMTYuNzEyIDcuODQ3LDI4LjUxMyAwLDEwLjI3MSAtMi43ODQsMTguODg2IC04LjM2MywyNS44MjIgLTUuNjUzLDcuMDE2IC0xMi43MDcsMTAuNTMxIC0yMS4xNTcsMTAuNTMxIHogbSAtNC4zNDEsLTU5LjE5NCBjIC0yLjU5LDAgLTQuNzI4LDAuNDcxIC02LjM4MiwxLjQwNCAtMS42NTYsMC45MzQgLTMuMzg1LDIuMjQ3IC01LjE3MSwzLjkzNSB2IDMyLjAxOCBjIDEuNTIyLDEuMzQ1IDMuMjUsMi41MjEgNS4xNzEsMy41NTUgMS45MTksMS4wMDcgMy45NiwxLjUzMiA2LjExNSwxLjUzMiAyLjk1NCwwIDUuMzU0LC0wLjY3MiA3LjIwMSwtMi4wMTggMS44MjYsLTEuMzI2IDMuMjY0LC0zLjA0NyA0LjI5NCwtNS4xMzMgMS4wMzIsLTIuMDg2IDEuNzUyLC00LjM3OSAyLjE0OCwtNi44NjcgMC40MDksLTIuNDg5IDAuNjEyLC00Ljg5MiAwLjYxMiwtNy4yMDYgMCwtMy40NzMgLTAuMzExLC02LjUyMSAtMC45NDYsLTkuMTQyIC0wLjYyNywtMi42MjEgLTEuNTc0LC00Ljg3MiAtMi44MjEsLTYuNzM5IC0yLjI0MiwtMy41NTUgLTUuNjM3LC01LjMzOSAtMTAuMjIxLC01LjMzOSB6Ig0KICAgICAgIGlkPSJwYXRoMjEiDQogICAgICAgaW5rc2NhcGU6Y29ubmVjdG9yLWN1cnZhdHVyZT0iMCINCiAgICAgICBzdHlsZT0iZmlsbDojZjZmNmY2O2Rpc3BsYXk6aW5saW5lIiAvPjxwYXRoDQogICAgICAgZGlzcGxheT0iaW5saW5lIg0KICAgICAgIGQ9Im0gNjI3LjAxNywxODQuNzkyIGMgLTUuNDk1LDAgLTEwLjIyMiwtMS4wNTIgLTE0LjE4MiwtMy4xNjUgLTMuOTcyLC0yLjEyMyAtNy4yMjIsLTQuOTQ2IC05Ljc0MiwtOC40NDYgLTIuNTIsLTMuNTI3IC00LjM5MywtNy41NjMgLTUuNjAzLC0xMi4xMDYgLTEuMjE0LC00LjU0OCAtMS44MjMsLTkuMzAxIC0xLjgyMywtMTQuMjU2IDAsLTUuMDQ3IDAuNjA5LC05Ljg2OSAxLjgyMywtMTQuNDYzIDEuMjEsLTQuNTkzIDMuMTMxLC04LjYyNiA1Ljc0OCwtMTIuMDkyIDIuNjEyLC0zLjQ2OCA1LjkyNiwtNi4yMzggOS45MzQsLTguMzE1IDQuMDA4LC0yLjA3IDguODA4LC0zLjEwOCAxNC4zODUsLTMuMTA4IDguNTU2LDAgMTUuNjMzLDMuMTA4IDIxLjIyNSw5LjMyOCAyLjY5OSwzLjA2NSA0Ljg4Nyw2LjUzMyA2LjU1MSwxMC40MDQgMS42NjksMy44NzUgMi40OTgsOC4xOTggMi40OTgsMTIuOTc1IHYgOS40NjMgaCAtNDIuNDI1IGMgMC4yNjEsMi4xMjcgMC42MDEsNC4yMDggMS4wMDcsNi4yNDkgMC40MDYsMi4wMzYgMS4wNzksMy44NDggMi4wMjYsNS40NTggMC45NDYsMS41OTcgMi4yMzIsMi44NzggMy44NTMsMy44NjIgMS42MTksMC45NiAzLjc5NCwxLjQ2MyA2LjQ3OSwxLjQ2MyAzLjQzMiwwIDYuMjg3LC0wLjgzNyA4LjU5MywtMi41MDYgMi4zMDIsLTEuNjY2IDQuNDM4LC0zLjgwMyA2LjQxOSwtNi40MiBsIDE0LjYwMSw5LjE5MSBjIC0yLjE3MiwzLjI5OSAtNC4zNTUsNS45NzUgLTYuNTYyLDguMDM5IC0yLjIxLDIuMDYzIC00LjU3MiwzLjY4MyAtNy4wOTIsNC44NzIgLTQuNzc5LDIuMzg4IC0xMC42OCwzLjU3MyAtMTcuNzEzLDMuNTczIHogbSAwLjQwOCwtNjAuNTQyIGMgLTIuMDc1LDAgLTMuODEzLDAuMzEzIC01LjIwNiwwLjk0IC0xLjM5MiwwLjYzMiAtMi41NDQsMS41MTUgLTMuNDQzLDIuNjQgLTAuODk3LDEuMTMgLTEuNTk1LDIuNDUyIC0yLjA5NywzLjk4NCAtMC40OTYsMS41MzggLTAuODY1LDMuMTUzIC0xLjE1Myw0Ljg2NCBoIDIzLjc5MSBjIC0wLjI3NCwtMy42OTIgLTEuNDAzLC02LjY2NiAtMy4zNzMsLTguOTE3IC0yLjA3NCwtMi4zNDIgLTQuOTE5LC0zLjUxMSAtOC41MTksLTMuNTExIHoiDQogICAgICAgaWQ9InBhdGgyMyINCiAgICAgICBpbmtzY2FwZTpjb25uZWN0b3ItY3VydmF0dXJlPSIwIg0KICAgICAgIHN0eWxlPSJmaWxsOiNmNmY2ZjY7ZGlzcGxheTppbmxpbmUiIC8+PHBhdGgNCiAgICAgICBkaXNwbGF5PSJpbmxpbmUiDQogICAgICAgZD0ibSA2OTIuOTc0LDEzMi44OTYgYyAtMi43OTYsMi4yNTUgLTQuNjQ2LDQuMzczIC01LjU0Niw2LjM1IHYgNDQuMjAxIGggLTE5Ljg1NiB2IC03My4yNTEgaCAxOC41MDMgdiA4LjM3NSBjIDIuNDM0LC0zLjU5OSA1LjMwMywtNi4xMjQgOC41ODksLTcuNTY1IDMuMjg4LC0xLjQzOSA3LjA5MSwtMi4xNjYgMTEuNDIzLC0yLjE2NiB2IDIwLjgxNiBsIC00LjA1NywtMC4yNzEgYyAtMi45NzYsLTAuMDkxIC02LjAwMiwxLjA4MSAtOS4wNTYsMy41MTEgeiINCiAgICAgICBpZD0icGF0aDI1Ig0KICAgICAgIGlua3NjYXBlOmNvbm5lY3Rvci1jdXJ2YXR1cmU9IjAiDQogICAgICAgc3R5bGU9ImZpbGw6I2Y2ZjZmNjtkaXNwbGF5OmlubGluZSIgLz48L2c+PHBvbHlnb24NCiAgICAgZGlzcGxheT0ibm9uZSINCiAgICAgcG9pbnRzPSI3MjQuNTAzLDYxLjU3NCA3MzAuMTg5LDczLjEwOCA3NDIuOTIxLDc0Ljk1NiA3MzMuNzA2LDgzLjkzIDczNS44OSw5Ni42MTMgNzI0LjUwMyw5MC42MjQgNzEzLjExNiw5Ni42MTMgNzE1LjMwMiw4My45MyA3MDYuMDg2LDc0Ljk1NiA3MTguODA3LDczLjEwOCAiDQogICAgIGlkPSJwb2x5Z29uMjciDQogICAgIHN0eWxlPSJmaWxsOiNkZWRjMDA7ZGlzcGxheTpub25lIg0KICAgICB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLC0yNy41NDg5OTcpIiAvPjxnDQogICAgIGlkPSJnMjkiDQogICAgIHRyYW5zZm9ybT0idHJhbnNsYXRlKDIwLjk0OTQwMiwtMTUuMzI4NTEyKSINCiAgICAgc3R5bGU9ImZpbGw6Izk5OTk5OTtmaWxsLW9wYWNpdHk6MSI+PHBhdGgNCiAgICAgICBkPSJtIDE1NC44ODIsNDUyLjY3NyBjIC01LjQ5NSwwIC0xMC4yMjMsLTEuMDUxIC0xNC4xODgsLTMuMTY0IC0zLjk2NiwtMi4xMjMgLTcuMjEyLC00Ljk0NSAtOS43MywtOC40NDUgLTIuNTI2LC0zLjUyNyAtNC4zOTMsLTcuNTYyIC01LjYwOCwtMTIuMTA1IC0xLjIxOSwtNC41NDkgLTEuODI0LC05LjMwMSAtMS44MjQsLTE0LjI1NiAwLC01LjA0NyAwLjYwNSwtOS44NjkgMS44MjQsLTE0LjQ2MyAxLjIxNywtNC41OTUgMy4xMzIsLTguNjI3IDUuNzQxLC0xMi4wOTMgMi42MTMsLTMuNDY5IDUuOTI3LC02LjIzNyA5LjkzNCwtOC4zMTUgNC4wMDgsLTIuMDcgOC44MDgsLTMuMTA3IDE0LjM5MiwtMy4xMDcgOC41NjIsMCAxNS42MzUsMy4xMDcgMjEuMjIsOS4zMjggMi43MDUsMy4wNjQgNC44ODksNi41MzMgNi41NTcsMTAuNDA0IDEuNjY4LDMuODc1IDIuNTAyLDguMTk2IDIuNTAyLDEyLjk3NSB2IDkuNDYzIGggLTQyLjQzNyBjIDAuMjcxLDIuMTI3IDAuNjA0LDQuMjA3IDEuMDE0LDYuMjQ4IDAuNDAxLDIuMDM3IDEuMDc5LDMuODQ4IDIuMDI2LDUuNDU5IDAuOTQ3LDEuNTk2IDIuMjMsMi44NzcgMy44NTIsMy44NjEgMS42MjEsMC45NjEgMy43ODYsMS40NjMgNi40ODUsMS40NjMgMy40MjYsMCA2LjI4NywtMC44MzYgOC41ODQsLTIuNTA2IDIuMjk5LC0xLjY2NiA0LjQzNCwtMy44MDMgNi40MiwtNi40MiBsIDE0LjU5Niw5LjE5MSBjIC0yLjE2NiwzLjI5OSAtNC4zNSw1Ljk3NSAtNi41NTcsOC4wMzkgLTIuMjA4LDIuMDYyIC00LjU3MiwzLjY4NCAtNy4wOTMsNC44NzEgLTQuNzgzLDIuMzg5IC0xMC42OCwzLjU3MiAtMTcuNzEsMy41NzIgeiBtIDAuNDA2LC02MC41NCBjIC0yLjA3NSwwIC0zLjgwOCwwLjMxMyAtNS4yLDAuOTQgLTEuMzk2LDAuNjMxIC0yLjU1LDEuNTE0IC0zLjQ0NywyLjYzOSAtMC45LDEuMTMyIC0xLjYwNCwyLjQ1MyAtMi4wOTYsMy45ODQgLTAuNDk3LDEuNTM5IC0wLjg3NiwzLjE1NCAtMS4xNTEsNC44NjUgaCAyMy43ODYgYyAtMC4yNzEsLTMuNjkzIC0xLjM5NiwtNi42NjYgLTMuMzc3LC04LjkxOCAtMi4wNzEsLTIuMzQgLTQuOTE0LC0zLjUxIC04LjUxNSwtMy41MSB6Ig0KICAgICAgIGlkPSJwYXRoMzEiDQogICAgICAgaW5rc2NhcGU6Y29ubmVjdG9yLWN1cnZhdHVyZT0iMCINCiAgICAgICBzdHlsZT0iZmlsbDojOTk5OTk5O2ZpbGwtb3BhY2l0eToxIiAvPjwvZz48cG9seWdvbg0KICAgICBwb2ludHM9IjcyOS40NjYsMzY0LjUgNzE4LjA3NywzNTguNTA5IDcwNi42OTEsMzY0LjUgNzA4Ljg3OCwzNTEuODE2IDY5OS42NiwzNDIuODQxIDcxMi4zODMsMzQwLjk5NCA3MTguMDc3LDMyOS40NiA3MjMuNzY1LDM0MC45OTQgNzM2LjQ5NSwzNDIuODQxIDcyNy4yODEsMzUxLjgxNiAiDQogICAgIGlkPSJwb2x5Z29uNTEiDQogICAgIHRyYW5zZm9ybT0idHJhbnNsYXRlKC01MDAuMDcwMDEsOC45MTg0ODE5KSINCiAgICAgc3R5bGU9ImZpbGw6Izk5OTk5OTtmaWxsLW9wYWNpdHk6MSIgLz48L3N2Zz4='
         );
         
         
@@ -309,15 +299,15 @@ class TG_Epaper_WP_Plugin {
             );            
         endif;
         
-        add_options_page( '1000°ePaper', '1000°ePaper', 'upload_files','epaper_settings', array($this,'adminpage_epaper_settings'));            
+        add_options_page( 'edelpaper', 'edelpaper', 'upload_files','epaper_settings', array($this,'adminpage_epaper_settings'));            
     }
     
     //add metabox to page|post-editor
     public function action_add_metabox_epaper()    
     {
         if ($this->bIsRegistered === true)  {  
-            add_meta_box('epaper_editorbox', '1000°ePaper', array($this, 'meta_box_epaper'), 'post', 'side', 'high');
-            add_meta_box('epaper_editorbox', '1000°ePaper', array($this, 'meta_box_epaper'), 'page', 'side', 'high');
+            add_meta_box('epaper_editorbox', 'edelpaper', array($this, 'meta_box_epaper'), 'post', 'side', 'high');
+            add_meta_box('epaper_editorbox', 'edelpaper', array($this, 'meta_box_epaper'), 'page', 'side', 'high');
             return true;
         }
         
@@ -329,7 +319,7 @@ class TG_Epaper_WP_Plugin {
     {        
         if ($this->bIsRegistered === false && !isset($_POST['registration_key_requested']) && (!isset($_GET['email']) && !isset($_GET['code']) )) {
             
-            $sMessage = sprintf("%s <br/><br/> %s", __( "1000°ePaper is not registered yet.", '1000grad-epaper' ), sprintf(__( "Please %sregister your installation%s.", '1000grad-epaper' ), 
+            $sMessage = sprintf("%s <br/><br/> %s", __( "edelpaper is not registered yet.", '1000grad-epaper' ), sprintf(__( "Please %sregister your installation%s.", '1000grad-epaper' ), 
                     "<a href='admin.php?page=epaper_apikey'>", "</a>"));
             
             $this->showInfo($sMessage);
@@ -405,7 +395,7 @@ class TG_Epaper_WP_Plugin {
                     $this->aEpaperOptions['apikey_as'] = $oResult->apikey_as;
                     update_option($this->sEpaperOptionIndex, $this->aEpaperOptions);
                     $this->bIsRegistered = true;
-                    $this->showInfo(sprintf('%s', __("<p>Now you can use this ePaper Plugin!</p>", '1000grad-epaper')));
+                    $this->showInfo(sprintf('%s', __("<p>Now you can use this edelpaper Plugin!</p>", '1000grad-epaper')));
                 endif;
                 
                 $this->oView->registration_error = ($oResult==false)?true:false;
@@ -422,7 +412,7 @@ class TG_Epaper_WP_Plugin {
                 break;
         endswitch;
 
-        $this->aTemplateVars = array('TITLE' => __("1000°ePaper Registration","1000grad-epaper"));
+        $this->aTemplateVars = array('TITLE' => __("edelpaper Registration","1000grad-epaper"));
         $this->sTemplate = 'adminpage_epaper_apikey';
         $this->bUseMainTemplate = true;
         $this->showContent();          
@@ -722,7 +712,7 @@ class TG_Epaper_WP_Plugin {
                   $sOldEpaperId = $_POST['oldEpaperId'];
                   $iChannelId = $_POST['channel_id'];
 
-                  $sFilename = isset($_POST['filename'])?$_POST['filename']:'1000°ePaper';
+                  $sFilename = isset($_POST['filename'])?$_POST['filename']:'edelpaper';
                   $sDocumentName = str_replace(".pdf", "", $sFilename);
                   
                   ob_start();
@@ -746,7 +736,7 @@ class TG_Epaper_WP_Plugin {
                   $this->oEpaperApi->epaperSetVar($this->aEpaperOptions['apikey'], $iNewEpaperId, 'language', $this->getEpaperDefaultLanguage());
                   foreach($this->getChannels()->channels as $iChannel => $aChannelConfig):
                       if($aChannelConfig->id == $iChannelId):
-                            $this->oChannelApi->setChannelTitle($this->aEpaperOptions['apikey'], $iChannelId, sprintf('ePaper Channel #%u', ($iChannel+1)));
+                            $this->oChannelApi->setChannelTitle($this->aEpaperOptions['apikey'], $iChannelId, sprintf('edelpaper Channel #%u', ($iChannel+1)));
                       endif;
                   endforeach;
                   
@@ -981,11 +971,11 @@ class TG_Epaper_WP_Plugin {
         return array(
             'dependency' => array('pdf_name' => array('is_pdf_download' => 1), 'title' => array('linktype' => 1)),
             'channel_title' => array('publish' => 0, 'save_option' => 'channel_title', 'type' => 'input', 'translation' => __('Channel-title','1000grad-epaper'), 'helptext' => __('internal channel name (for administration)', '1000grad-epaper')),
-            'linktype' => array('publish' => 0, 'save_option' => 'extra_infos', 'type' => 'select', 'translation' => __('Link-type','1000grad-epaper'), 'helptext' => __('open the ePaper in an overlayer box or in a new window/tab', '1000grad-epaper'), 'values' => array(0 => __('overlay', '1000grad-epaper'), 1 => __('extern', '1000grad-epaper')) ),
-            'title' =>  array('publish' => 1 ,'save_option' => 'epaper_config', 'type' => 'input', 'translation' => __('Tab-Title','1000grad-epaper'), 'helptext' => __('title of the browser-tab, when opening the ePaper','1000grad-epaper')),
-            'is_pdf_download' => array('publish' => 1, 'save_option' => 'epaper_config', 'type' => 'select', 'translation' => __('PDF Download','1000grad-epaper'), 'helptext' => __('allow user to download this ePaper as PDF (a download link is shown inside the ePaper)','1000grad-epaper'),'values' => array(0 => __('no','1000grad-epaper'), 1 => __('yes','1000grad-epaper'))),
+            'linktype' => array('publish' => 0, 'save_option' => 'extra_infos', 'type' => 'select', 'translation' => __('Link-type','1000grad-epaper'), 'helptext' => __('open the document in an overlayer box or in a new window/tab', '1000grad-epaper'), 'values' => array(0 => __('overlay', '1000grad-epaper'), 1 => __('extern', '1000grad-epaper')) ),
+            'title' =>  array('publish' => 1 ,'save_option' => 'epaper_config', 'type' => 'input', 'translation' => __('Tab-Title','1000grad-epaper'), 'helptext' => __('title of the browser-tab, when opening the document','1000grad-epaper')),
+            'is_pdf_download' => array('publish' => 1, 'save_option' => 'epaper_config', 'type' => 'select', 'translation' => __('PDF Download','1000grad-epaper'), 'helptext' => __('allow user to download this document as PDF (a download link is shown inside the ePaper)','1000grad-epaper'),'values' => array(0 => __('no','1000grad-epaper'), 1 => __('yes','1000grad-epaper'))),
             'pdf_name' => array('publish' => 1, 'save_option' => 'epaper_config', 'type' => 'input', 'translation' => __('PDF Filename','1000grad-epaper'), 'helptext' => __('filename of the pdf, when downloading','1000grad-epaper')),
-            'language'  => array('publish' => 1, 'save_option' => 'epaper_config', 'type' => 'select','translation' => __('ePaper Language','1000grad-epaper'), 'helptext' => __('set the language of the epaper-navigation','1000grad-epaper'), 'values' => $this->getAvailableLanguages()));
+            'language'  => array('publish' => 1, 'save_option' => 'epaper_config', 'type' => 'select','translation' => __('edelpaper Language','1000grad-epaper'), 'helptext' => __('set the language of the edelpaper-navigation','1000grad-epaper'), 'values' => $this->getAvailableLanguages()));
     }
     
     //returns epaper-settings form
@@ -1127,8 +1117,8 @@ class EpaperWidgetClass extends WP_Widget {
     private $sEpaperOptionIndex = 'plugin_epaper_options';
         
     function EpaperWidgetClass() {
-        parent::WP_Widget(false, $name = '1000°ePaper', array(
-            'description' => __('display a 1000°ePaper','1000grad-epaper')
+        parent::WP_Widget(false, $name = 'edelpaper', array(
+            'description' => __('display a edelpaper','1000grad-epaper')
         ));
         
         $this->aEpaperOptions = get_option($this->sEpaperOptionIndex);        
@@ -1186,7 +1176,7 @@ class EpaperWidgetClass extends WP_Widget {
                 endif;
             endif;
             
-            $aDefaults = array( 'title' => '1000°ePaper' );
+            $aDefaults = array( 'title' => 'edelpaper' );
             $aSettings = wp_parse_args( (array) $aSettings, $aDefaults ); 
 
             $this->oEpaper->set('oView', $oParams);
@@ -1197,6 +1187,6 @@ class EpaperWidgetClass extends WP_Widget {
         endif;
     }
 }
-
+        
 //initialize plugin
 new TG_Epaper_WP_Plugin();

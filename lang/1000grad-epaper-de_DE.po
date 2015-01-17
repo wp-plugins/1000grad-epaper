@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: 1000°ePaper v1.4.5\n"
+"Project-Id-Version: edelpaper v1.4.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2013-10-24 09:07:45+0000\n"
@@ -32,8 +32,8 @@ msgstr "nicht verwendet"
 
 #: views/adminpage_epaper_channels.php:50
 #@ 1000grad-epaper
-msgid "ePaper Channel"
-msgstr "ePaper Kanal"
+msgid "edelpaper Channel"
+msgstr "edelpaper Kanal"
 
 #: views/adminpage_epaper_settings.php:110
 #@ 1000grad-epaper
@@ -54,13 +54,13 @@ msgstr "de"
 
 #: views/adminpage_epaper_apikey.php:26
 #@ 1000grad-epaper
-msgid "Request 1000°ePaper Key"
-msgstr "1000°ePaper WP-Key anfordern"
+msgid "Request WP-Key"
+msgstr "WP-Key anfordern"
 
 #: views/adminpage_epaper_apikey.php:34
 #@ 1000grad-epaper
-msgid "I want to receive newsletters from 1000°DIGITAL GmbH."
-msgstr "Ich möchte über 1000°DIGITAL GmbH via Newsletter informiert werden."
+msgid "I want to receive service newsletter from edelpaper.com."
+msgstr "Ich möchte über edelpaper.com via Newsletter informiert werden."
 
 #: views/adminpage_epaper_apikey.php:35
 #@ 1000grad-epaper
@@ -74,8 +74,8 @@ msgstr "Registrierungs-Code"
 
 #: views/adminpage_epaper_apikey.php:62
 #@ 1000grad-epaper
-msgid "1000° ePaper WP-Key"
-msgstr "1000° ePaper WP-Key"
+msgid "WP-Key"
+msgstr "WP-Key"
 
 #: views/meta_box_epaper.php:52
 #@ 1000grad-epaper
@@ -133,8 +133,8 @@ msgstr "Einstellungen"
 
 #: views/meta_box_epaper.php:28
 #@ 1000grad-epaper
-msgid "no ePaper Channel existing!"
-msgstr "Es existiert kein ePaper Kanal!"
+msgid "no edelpaper Channel existing!"
+msgstr "Es existiert kein edelpaper Kanal!"
 
 #: lib/epaperApi.php:95
 #: lib/epaperApi.php:111
@@ -151,8 +151,8 @@ msgstr "Fehler in der Kanal API Kommunikation, bitte registrieren Sie Ihr Plugin
 
 #: 1000grad-epaper.php:393
 #@ 1000grad-epaper
-msgid "<p>Now you can use this ePaper Plugin!</p>"
-msgstr "<p>Jetzt ist das ePaper Plugin einsatzbereit.</p>"
+msgid "<p>Now you can use this edelpaper Plugin!</p>"
+msgstr "<p>Jetzt ist das edelpaper Plugin einsatzbereit.</p>"
 
 #: views/adminpage_epaper_settings.php:154
 #: views/adminpage_epaper_settings.php:175
@@ -220,13 +220,13 @@ msgstr "Fehler beim Kanalisieren."
 #: lib/epaperChannelApi.php:142
 #: lib/epaperChannelApi.php:160
 #@ 1000grad-epaper
-msgid "Error with ePaper Channel."
-msgstr "Fehler bei ePaper Kanal."
+msgid "Error with edelpaper Channel."
+msgstr "Fehler bei edelpaper Kanal."
 
 #: 1000grad-epaper.php:410
 #@ 1000grad-epaper
-msgid "1000°ePaper Registration"
-msgstr "1000°ePaper Registrierung"
+msgid "edelpaper Registration"
+msgstr "edelpaper Registrierung"
 
 #: views/adminpage_epaper_settings.php:34
 #@ 1000grad-epaper
@@ -266,8 +266,8 @@ msgstr "Abonnement verwalten"
 
 #: 1000grad-epaper.php:316
 #@ 1000grad-epaper
-msgid "1000°ePaper is not registered yet."
-msgstr "1000°ePaper wurde noch nicht registriert."
+msgid "edelpaper is not registered yet."
+msgstr "edelpaper wurde noch nicht registriert."
 
 #: 1000grad-epaper.php:481
 #@ 1000grad-epaper
@@ -277,7 +277,7 @@ msgstr "Abonnement verwalten"
 #: lib/epaperApi.php:78
 #@ 1000grad-epaper
 msgid "ePaper read fault (2)."
-msgstr "ePaper API Lesefehler (2)."
+msgstr "edelpaper API Lesefehler (2)."
 
 #: views/adminpage_epaper_channels.php:77
 #@ 1000grad-epaper
@@ -302,18 +302,18 @@ msgstr "Infos"
 
 #: views/adminpage_epaper_settings.php:143
 #@ 1000grad-epaper
-msgid "ePaper User-API"
-msgstr "ePaper User-API"
+msgid "User-API"
+msgstr "User-API"
 
 #: views/adminpage_epaper_settings.php:166
 #@ 1000grad-epaper
-msgid "ePaper Channel-API"
-msgstr "ePaper Channel-API"
+msgid "Channel-API"
+msgstr "Channel-API"
 
 #: views/adminpage_epaper_settings.php:187
 #@ 1000grad-epaper
-msgid "ePaper API License"
-msgstr "ePaper API Lizenz"
+msgid "edelpaper API License"
+msgstr "edelpaper API Lizenz"
 
 #: views/adminpage_epaper_subscription.php:32
 #@ 1000grad-epaper
@@ -342,8 +342,8 @@ msgstr "Auswahl ihres neuen Tarifes"
 
 #: views/adminpage_epaper_settings.php:107
 #@ 1000grad-epaper
-msgid "1000° ePaper Plugin Version:"
-msgstr "1000° ePaper Plugin Version:"
+msgid "edelpaper Plugin Version:"
+msgstr "edelpaper Plugin Version:"
 
 #: 1000grad-epaper.php:316
 #, php-format
@@ -504,8 +504,8 @@ msgstr "ePaper Sprache"
 
 #: 1000grad-epaper.php:1100
 #@ 1000grad-epaper
-msgid "display a 1000°ePaper"
-msgstr "1000°ePaper anzeigen"
+msgid "display a edelpaper"
+msgstr "edelpaper anzeigen"
 
 #: views/adminpage_epaper_channels.php:62
 #@ 1000grad-epaper
@@ -514,13 +514,13 @@ msgstr "für Profis"
 
 #: views/adminpage_epaper_channels.php:110
 #@ 1000grad-epaper
-msgid "add more ePaper Channels"
+msgid "add more edelpaper Channels"
 msgstr "weitere ePaper Kanäle buchen"
 
 #: views/adminpage_epaper_channels.php:113
 #@ 1000grad-epaper
-msgid "You can get more 1000°ePaper channels via PayPal."
-msgstr "Erhalten Sie mehr 1000°ePaper Kanäle mit Paypal."
+msgid "You can get more edelpaper channels via PayPal."
+msgstr "Erhalten Sie mehr edelpaper Kanäle mit Paypal."
 
 #: views/adminpage_epaper_channels.php:114
 #@ 1000grad-epaper
@@ -529,8 +529,8 @@ msgstr "Abonnement verwalten"
 
 #: views/adminpage_epaper_channels.php:118
 #@ 1000grad-epaper
-msgid "Please have a look at our <a target=\"_blank\" href=\"http://wordpress.org/plugins/1000grad-epaper/faq/\">frequently asked questions (FAQ)</a> or give us <a href=options-general.php?page=epaper_settings>feedback about this plugin</a>"
-msgstr "Bitte haben sie einen Blick auf unsere <a target=\"_blank\" href=\"http://wordpress.org/plugins/1000grad-epaper/faq/\">meist gestellte Fragen (FAQ)</a> oder geben uns  <a href=options-general.php?page=epaper_settings>Feedback über dieses Plugin</a>"
+msgid "Please have a look at our <a target=\"_blank\" href=\"http://support.edelpaper.com/hc/en-us/articles/202245111\">frequently asked questions (FAQ)</a> or give us <a href=options-general.php?page=epaper_settings>feedback about this plugin</a>"
+msgstr "Bitte haben sie einen Blick auf unsere <a target=\"_blank\" href=\"http://support.edelpaper.com/hc/en-us/articles/202245111\">meist gestellte Fragen (FAQ)</a> oder geben uns  <a href=options-general.php?page=epaper_settings>Feedback über dieses Plugin</a>"
 
 #: views/adminpage_epaper_channels.php:178
 #@ 1000grad-epaper
@@ -549,8 +549,8 @@ msgstr "Sind sie sicher? Das derzeitige ePaper wird überschrieben werden!"
 
 #: views/adminpage_epaper_settings.php:29
 #@ 1000grad-epaper
-msgid "<br><b>Your feedback comment was sent to the 1000°ePaper Support Team. Thank you for contacting us.</b>"
-msgstr "<br><b>Ihr Kommentar wurde an das 1000°ePaper Support Team übermittelt. Vielen Dank für Ihr Feedback.</b>"
+msgid "<br><b>Your feedback comment was sent to the edelpaper Support Team. Thank you for contacting us.</b>"
+msgstr "<br><b>Ihr Kommentar wurde an das edelpaper Support Team übermittelt. Vielen Dank für Ihr Feedback.</b>"
 
 #: views/adminpage_epaper_subscription.php:127
 #@ 1000grad-epaper
@@ -579,13 +579,13 @@ msgstr "erste Seite beim ePaper-Öffnen"
 
 #: views/adminpage_epaper_channels.php:31
 #@ 1000grad-epaper
-msgid "This plugin aims to support you in creating and adding ePaper publications to the WordPress blog. Creating interactive FLASH and HTML5 based ePapers has never been easier. Upload your pdf file and create your interactive multimedia publication in a few steps. Embed that to your website via widget or shortcode. Each publication is optimized for web and mobile (iOS and Android) display and is equipped with an automatic device recognition. <br>You can refresh your ePaper channel as often as you want by upload a new PDF to the existing one."
-msgstr "In nur wenigen Schritten erstellen Sie sich aus Ihrer PDF-Datei ein blätterbares Dokument für Ihre Webseite. Auch auf Android, iPad & Co. macht Ihr ePaper in der automatischen HTML5-Darstellung einen sehr guten Eindruck. Konvertieren Sie Ihre PDF mit dem Webservice von 1000° in ein blätterbares Web-Dokument. Binden Sie es einfach per Widget oder Shortcode ein. Desktop-Browser stellen das ePaper mittels Flash dar. Auf mobilen Endgeräten mit iOS oder Android macht Ihr ePaper in der automatischen HTML5-Darstellung einen sehr guten Eindruck. <br>Das Dokument im Wordpress-Widget können Sie beliebig oft aktualisieren oder austauschen. Dafür laden Sie Ihre neue PDF einfach in den bestehenden ePaper-Kanal."
+msgid "This plugin aims to support you in creating and adding your interactive publications to the WordPress blog. Creating interactive FLASH and HTML5 based documents has never been easier. Upload your pdf file and create your interactive multimedia publication in a few steps. Embed that to your website via widget or shortcode. Each publication is optimized for web and mobile (iOS and Android) display and is equipped with an automatic device recognition. <br>You can refresh your document permalink as often as you want by upload a new PDF to the existing one."
+msgstr "In nur wenigen Schritten erstellen Sie sich aus Ihrer PDF-Datei ein blätterbares Dokument für Ihre Webseite. Auch auf Android, iPad & Co. macht Ihr ePaper in der automatischen HTML5-Darstellung einen sehr guten Eindruck. Konvertieren Sie Ihre PDF mit dem edelpaper-Webservice in ein blätterbares Web-Dokument. Binden Sie es einfach per Widget oder Shortcode ein. Desktop-Browser stellen das Dokument mittels Flash dar. Auf mobilen Endgeräten mit iOS oder Android macht Ihre Publikation in der automatischen HTML5-Darstellung einen sehr guten Eindruck. <br>Das Dokument im Wordpress-Widget können Sie beliebig oft aktualisieren oder austauschen. Dafür laden Sie Ihre neue PDF einfach in den bestehenden edelpaper-Permalink."
 
 #: views/adminpage_epaper_settings.php:126
 #@ 1000grad-epaper
-msgid "ePaper Account-API"
-msgstr "ePaper Account-API"
+msgid "Account-API"
+msgstr "Account-API"
 
 #: views/adminpage_epaper_subscription.php:82
 #@ 1000grad-epaper
@@ -601,9 +601,9 @@ msgstr "Tarif:"
 #@ 1000grad-epaper
 msgid ""
 "You can manage your plan below, as often as you need. The payment is realized with Paypal monthly Subscription.<br> \n"
-"                For questions relating licensing or purchasing, please contact a customer service representative via <a target = '_blank' href='mailto:info@epaper-apps.1000grad.com'>info@epaper-apps.1000grad.com</a>.\n"
-"                To request technical support, please visit our <a target = '_blank' href='http://wordpress.org/support/plugin/1000grad-epaper'>Support Page</a> or or give us <a href=options-general.php?page=epaper_settings>feedback</a>."
-msgstr "Sie können ihren Tarif wechseln, so oft sie es benötigen. Die Bezahlung wird mittels Paypal - monatlichen Abonnement realisiert.<br>Für Fragen, die die Lizensierung und Kaufprozesse betreffen kontaktieren sie bitte unsere Support-Abteilung unter <a target = '_blank' href='mailto:info@epaper-apps.1000grad.com'>info@epaper-apps.1000grad.com</a>. Für technischen Support besuchen sie bitte unsere <a target = '_blank' href='http://wordpress.org/support/plugin/1000grad-epaper'>Support Seite</a> oder geben uns <a href=options-general.php?page=epaper_settings>Feedback</a>"
+"                For questions relating licensing or purchasing, please contact a customer service representative via <a target = '_blank' href='mailto:info@edelpaper.com'>info@edelpaper.com</a>.\n"
+"                To request technical support, please visit our <a target = '_blank' href='http://support.edelpaper.com/hc/en-us/articles/202133892'>Support Page</a> or or give us <a href=options-general.php?page=epaper_settings>feedback</a>."
+msgstr "Sie können ihren Tarif wechseln, so oft sie es benötigen. Die Bezahlung wird mittels Paypal - monatlichen Abonnement realisiert.<br>Für Fragen, die die Lizensierung und Kaufprozesse betreffen kontaktieren sie bitte unsere Support-Abteilung unter <a target = '_blank' href='mailto:info@edelpaper.com'>info@edelpaper.com</a>. Für technischen Support besuchen sie bitte unsere <a target = '_blank' href='http://support.edelpaper.com/hc/en-us/articles/202133892'>Support Seite</a> oder geben uns <a href=options-general.php?page=epaper_settings>Feedback</a>"
 
 #: views/adminpage_epaper_subscription.php:105
 #@ 1000grad-epaper
@@ -619,8 +619,8 @@ msgstr "(Bitte melden Sie sich mit %s bei Paypal an, bevor Sie den Link anklicke
 #: views/adminpage_epaper_apikey.php:32
 #: views/adminpage_epaper_channels.php:141
 #@ 1000grad-epaper
-msgid "I have read the <a target=\"_blank\" href=\"http://www.1000grad.de/upload/Dokumente/agb/SaaSAgreement-TCen-2013-07-26.pdf\">terms of use</a> and I agree."
-msgstr "Ich habe die <a target=\"_blank\" href=\"http://www.1000grad.de/upload/Dokumente/agb/SaaSAGBde2013-07-26.pdf\">Allgemeinen Geschäftsbedingungen</a> gelesen und akzeptiere sie."
+msgid "I have read the <a target=\"_blank\" href=\"http://www.edelpaper.com/terms_of_use/SaaS-Agreement-Edelpaper-TC-en-2013-07-26.pdf\">terms of use</a> and I agree."
+msgstr "Ich habe die <a target=\"_blank\" href=\"http://www.edelpaper.com/terms_of_use/SaaS-Agreement-Edelpaper-TC-en-2013-07-26.pdf\">Allgemeinen Geschäftsbedingungen</a> gelesen und akzeptiere sie."
 
 #: views/adminpage_epaper_channels.php:145
 #@ 1000grad-epaper
@@ -634,18 +634,18 @@ msgstr "Abbrechen"
 
 #: views/adminpage_epaper_settings.php:58
 #@ 1000grad-epaper
-msgid "<a href=\"http://www.1000grad.de/upload/Dokumente/agb/SaaSAgreement-TCen-2013-07-26.pdf\">terms of use</a>"
-msgstr "<a href=\"http://www.1000grad.de/upload/Dokumente/agb/SaaSAGBde2013-07-26.pdf\">Allgemeine Geschäftsbedingungen</a>"
+msgid "<a href=\"http://www.edelpaper.com/terms_of_use/SaaS-Agreement-Edelpaper-TC-en-2013-07-26.pdf\">terms of use</a>"
+msgstr "<a href=\"http://www.edelpaper.com/terms_of_use/SaaS-Agreement-Edelpaper-TC-en-2013-07-26.pdf\">Allgemeine Geschäftsbedingungen</a>"
 
 #: views/adminpage_epaper_channels.php:133
 #@ 1000grad-epaper
-msgid "Please read and accept our terms and conditions, before using the 1000°ePaper Wordpress-Plugin."
-msgstr "Bitte lesen und akzeptieren Sie unsere Allgemeinen Geschäftsbedingungen, bevor Sie das 1000°ePaper Wordpress-Plugin benutzen."
+msgid "Please read and accept our terms and conditions, before using the edelpaper Wordpress-Plugin."
+msgstr "Bitte lesen und akzeptieren Sie unsere Allgemeinen Geschäftsbedingungen, bevor Sie das edelpaper Wordpress-Plugin benutzen."
 
 #: 1000grad-epaper.php:143
 #@ 1000grad-epaper
-msgid "<b>The 1000°ePaper plugin requires SOAP extension for PHP (php_soap).<br/><br/>Please ask your system administrator to activate it.</b>"
-msgstr "<b>Das 1000°ePaper Plugin benötigt die SOAP Extension für PHP (php_soap).<br/><br/>Bitte fragen Sie Ihren Systemadministrator nach einer Aktivierung dieser Erweiterung.</b>"
+msgid "<b>The edelpaper plugin requires SOAP extension for PHP (php_soap).<br/><br/>Please ask your system administrator to activate it.</b>"
+msgstr "<b>Das edelpaper Plugin benötigt die SOAP Extension für PHP (php_soap).<br/><br/>Bitte fragen Sie Ihren Systemadministrator nach einer Aktivierung dieser Erweiterung.</b>"
 
 #: lib/epaperApi.php:234
 #@ 1000grad-epaper

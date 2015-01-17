@@ -2,8 +2,8 @@
 /**
  * This file contains the contents of the 1000grad-epaper settings admin page.
  *
- * @copyright Copyright (C) 2013 1000°DIGITAL GmbH. All rights reserved.
- * @author 1000°DIGITAL
+ * @copyright Copyright (C) 2013 1000grad DIGITAL GmbH. All rights reserved.
+ * @author 1000grad DIGITAL
  * @license This program is free software; you can redistribute it and/or modify
  *          it under the terms of the GNU General Public License as published by
  *          the Free Software Foundation; either version 2 of the License, or
@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
     <div class='tg_info_box_inner'>
         <div class="tg_info_box_inner_header"><?php _e("Feedback",'1000grad-epaper');?></div>
         <div class='tg_info_box_inner_content'>
-            <?php if($this->oView->feedback_sent == true) _e("<br><b>Your feedback comment was sent to the 1000°ePaper Support Team. Thank you for contacting us.</b>",'1000grad-epaper'); ?>
+            <?php if($this->oView->feedback_sent == true) _e("<br><b>Your feedback comment was sent to the edelpaper Support Team. Thank you for contacting us.</b>",'1000grad-epaper'); ?>
             <?php if($this->oView->feedback_sent == false): ?>
                 <form action='' method='post'>
                     <label for='text'>
@@ -47,15 +47,16 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
     <div class='tg_info_box_inner'>
         <div class="tg_info_box_inner_header"><?php _e('Contact','1000grad-epaper');?></div>
         <div class='tg_info_box_inner_content'>
-            <b>1000°DIGITAL GmbH</b>
-            <p>Lampestr. 2
-                <br />D-04107 Leipzig
-                <br /><a href="http://epaper-apps.1000grad.com/">http://epaper-apps.1000grad.com/</a>
-                <br /><a href="http://www.1000grad.com/epaper/">http://www.1000grad.com/epaper/</a>
+            1000grad DIGITAL GmbH
+            <br><b>edelpaper.com</b>
+            <p>Mozartstr. 3
+                <br />D-04107 Leipzig, Germany
+                <br /><br /><a target="_blank" href="http://support.edelpaper.com/hc/en-us/articles/202133892-Simple-and-fast-the-edelpaper-wordpress-plugin">Plugin Support</a>
+                <br /><a target="_blank" href="http://www.edelpaper.com">www.edelpaper.com</a>
             </p>   
 
 
-            <?php _e('<a href="http://www.1000grad.de/upload/Dokumente/agb/SaaSAgreement-TCen-2013-07-26.pdf">terms of use</a>','1000grad-epaper');?>                   
+            <?php _e('<a target="_blank" href="http://www.edelpaper.com/terms_of_use/SaaS-Agreement-Edelpaper-TC-en-2013-07-26.pdf">terms of use</a>','1000grad-epaper');?>                   
         </div>
     </div>
 </div>
@@ -74,11 +75,11 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
                       value='<?php echo $this->aEpaperOptions['apikey_as'] ; ?>' size='55' /><br />                            
 
 
-                <label for='epaper_url'>ePaper API URL: </label>
+                <label for='epaper_url'>CMS API URL: </label>
                 <input type='text' name='epaper_url' id='epaper_url' 
                        value='<?php echo $this->aEpaperOptions['url']; ?>' size='60' /><br />
 
-                <label for='epaper_apikey'>ePaper API Key: </label>
+                <label for='epaper_apikey'>CMS API Key: </label>
                 <input type='text' name='epaper_apikey' id='epaper_apikey' 
                       value='<?php echo $this->aEpaperOptions['apikey'] ; ?>' size='55' /><br />   
 
@@ -104,7 +105,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
             
             <?php
                 echo "<br />";
-                _e('1000° ePaper Plugin Version:','1000grad-epaper');
+                _e('edelpaper Plugin Version:','1000grad-epaper');
                 echo ' '.$versionplugin;
                 echo "<br />";
                 _e('Wordpress & PHP-Version:','1000grad-epaper');
@@ -123,7 +124,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 <div class='tg_info_box tg_box'>
     <div class='tg_info_box_inner'>
-        <div class="tg_info_box_inner_header"><?php _e('ePaper Account-API','1000grad-epaper');?></div>
+        <div class="tg_info_box_inner_header"><?php _e('Account-API','1000grad-epaper');?></div>
         <div class='tg_info_box_inner_content'>
             <?php
                 if ($this->is_registered()) {
@@ -140,7 +141,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 <div class='tg_info_box tg_box'>
     <div class='tg_info_box_inner'>
-        <div class="tg_info_box_inner_header"><?php _e('ePaper User-API','1000grad-epaper');?></div>
+        <div class="tg_info_box_inner_header"><?php _e('User-API','1000grad-epaper');?></div>
         <div class='tg_info_box_inner_content'>
             <?php
                 if ($this->is_registered()) {
@@ -163,7 +164,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 <div class='tg_info_box tg_box'>
     <div class='tg_info_box_inner'>
-        <div class="tg_info_box_inner_header"><?php _e('ePaper Channel-API','1000grad-epaper');?></div>
+        <div class="tg_info_box_inner_header"><?php _e('Channel-API','1000grad-epaper');?></div>
         <div class='tg_info_box_inner_content'>
             <?php
                 if ($this->is_registered()) {
@@ -184,7 +185,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 <div class='tg_info_box tg_box'>
     <div class='tg_info_box_inner'>
-        <div class="tg_info_box_inner_header"><?php _e('ePaper API License','1000grad-epaper');?></div>
+        <div class="tg_info_box_inner_header"><?php _e('edelpaper API License','1000grad-epaper');?></div>
         <div class='tg_info_box_inner_content'>
             <?php
                 if ($this->is_registered()) {
@@ -198,12 +199,12 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
                     echo '<br />email: '.$oClientInfo->email;
                     echo '<br /><b>channel count: '.$oClientInfo->channels_count.'</b>';
                     echo '<br />memory count: '.round($oClientInfo->disk_usage / 1024 / 1024 ).' MByte';
-                    echo '<br />created ePapers: '.$oClientInfo->count_created;
-                    echo '<br />published ePapers: '.$oClientInfo->count_published;
+                    echo '<br />created documents: '.$oClientInfo->count_created;
+                    echo '<br />published documents: '.$oClientInfo->count_published;
 
 
                     $oClientChannels = json_decode($this->oChannelApi->getChannelsList($this->aEpaperOptions['apikey']));
-                    echo '<br />ePapers channels: '.$oClientChannels->count;
+                    echo '<br />edelpaper channels: '.$oClientChannels->count;
                     foreach ( $oClientChannels->channels as $oChannel ) {
                         echo "<br />ID: ".$oChannel->id;
                         echo " - ".$oChannel->time_created;

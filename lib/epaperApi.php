@@ -1,7 +1,7 @@
 <?php
 /**
- * Class wraps functions for communiction with the 1000° epaper API
- * @copyright (c) 2013, 1000°DIGITAL Leipzig GmbH
+ * Class wraps functions for communiction with the edelpaper API
+ * @copyright (c) 2013, 1000grad Digital GmbH, Germany
  * @author Karsten Lemme <karsten.lemme@1000grad.de>
  */
 class EpaperApi 
@@ -41,7 +41,7 @@ class EpaperApi
      */
     public function epaperApiConnect($wsdl = NULL)
     {
-        if($this->epaperOptions['url'] == NULL) return false;
+        if(!isset($this->epaperOptions['url']) OR $this->epaperOptions['url'] == NULL) return false;
         $wsdl = ($wsdl == NULL)?$this->epaperOptions['url'] . "epaper-wsdl/":$wsdl;	
         try {
             $this->epaperApiClient = new SoapClient($wsdl , array());

@@ -1,7 +1,7 @@
 <?php
 /**
- * Class wraps functions for communiction with the 1000° Account API
- * @copyright (c) 2013, 1000°DIGITAL Leipzig GmbH
+ * Class wraps functions for communiction with the 1000grad Account API
+ * @copyright (c) 2013, 1000grad DIGITAL Leipzig GmbH
  * @author Karsten Lemme <karsten.lemme@1000grad.de>
  */
 class EpaperApikeyApi 
