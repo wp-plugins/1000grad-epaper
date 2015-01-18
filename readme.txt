@@ -4,7 +4,7 @@ Donate link:
 Tags: epaper pdf create magazine emagazine newspaper interactive flipbook ebook catalogue pageflip catalog ecatalog flyer flashflip publisher edelpaper issue digital widget
 Requires at least: 3.4
 Tested up to: 4.1
-Stable tag: 1.4.11
+Stable tag: 1.4.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
