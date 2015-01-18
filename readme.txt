@@ -4,7 +4,7 @@ Donate link:
 Tags: epaper pdf create magazine emagazine newspaper interactive flipbook ebook catalogue pageflip catalog ecatalog flyer flashflip publisher edelpaper issue digital widget
 Requires at least: 3.4
 Tested up to: 4.1
-Stable tag: 1.4.12
+Stable tag: 1.4.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,6 +90,7 @@ Usage via Widgets will be possible in a future version of that plugin.
 * new landing page edelpaper.com
 * new support page support.edelpaper.com/hc/en-us/articles/202133892
 * individual wp-content path bugfix
+* plugin Icons
 
 = 1.4.11 =
 
