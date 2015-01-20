@@ -64,7 +64,7 @@ class TG_Epaper_WP_Plugin {
     private $sEpaperOptionsChannelConfig = "channel_config";
     private $sEpaperOptionsChannelDefaultUrl = "epaper_default_url";
     
-    private $defaultFallback = "http://www.1kcloud.com/s3WQw4m/";
+    private $defaultFallback = "http://www.1kcloud.com/ep1KSpot/";
     private $sDefaultAccountApiUrl = "http://epaperplugin.1kcloud.com/api/v2/wordpress-wsdl";
     
     private $sPage = NULL;
